@@ -22,9 +22,9 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		
 		//Linhas horizontais
 		for(int i=0; i <= nLinhas; i++) {
-			ln[i]=new Line2D.Double(larg
+			ln[i]=new Line2D.Double(alt
 					, larg * (i + 1)
-					, larg * nLinhas + larg
+					, alt * nLinhas + alt
 					, larg * (i + 1));
 		}
 		
@@ -32,9 +32,9 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		for(int i = nLinhas + 1 ; i < ln.length; i++) {
 			int index = i  -  nLinhas;
 			ln[i]=new Line2D.Double(larg * index
-					, larg 
+					, alt - espLinha/2
 					, larg * index
-					, larg * nLinhas + larg);
+					, alt * nLinhas + alt + espLinha);
 		}
 		
 		addMouseListener(this);
@@ -68,29 +68,29 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		for (int i = 0; i < ln.length; i++)
 			g2d.draw(ln[i]);
 		
-		for (int i=0; i < 15; i++) 
+		for (int i = 0; i < 15; i++) 
 		{	
-			//Draw numbers
-			char[] num = {'0', '0'};
-			if ((i + 1) > 9)
-			{
-				num[0] = '1';
-				num[1] = (char)( (i - 9) + '0');	
-			}
-			else
-			{
-				num[0] = '0';
-				num[1] = (char)( (i + 1) + '0');
-			}
-			g2d.drawChars(num, 0, 2, (int)(larg/2), (int)((i + 1) * alt + alt/2));
 			
+			//Draw letters
+			char[] let = {(char)(i + 'A')};				
+			g2d.drawChars(let, 0, 1, (int)((i + 1) * larg + larg/2), (int)(alt/2));
 			
-			for(int j=0; j < 15; j++) 
+			for(int j = 0; j < 15; j++) 
 			{	
-				//Draw letters
-				char[] let = {(char)(j + 'A')};				
-				g2d.drawChars(let, 0, 1, (int)((j + 1) * larg + larg/2), (int)(alt/2));
-				
+				//Draw numbers
+				char[] num = {'0', '0'};
+				if ((j + 1) > 9)
+				{
+					num[0] = '1';
+					num[1] = (char)( (j - 9) + '0');	
+				}
+				else
+				{
+					num[0] = '0';
+					num[1] = (char)( ( j + 1) + '0');
+				}
+				g2d.drawChars(num, 0, 2, (int)(larg/2), (int)((j + 1) * alt + alt/2));
+	
 				//Draw boats
 				if(mat[i][j]!=0) 
 				{					
