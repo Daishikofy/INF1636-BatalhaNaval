@@ -6,8 +6,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class FrameJogo extends JFrame {
-	final int LARG_DEFAULT=410;
-	final int ALT_DEFAULT=450;
+	final int LARG_DEFAULT=1100;
+	final int ALT_DEFAULT=1000;
 	
 	public FrameJogo(CtrlRegras c) {
 		Toolkit tk=Toolkit.getDefaultToolkit();
