@@ -55,11 +55,8 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		int mat[][] = ctrl.getMatriz();
 		int vez = ctrl.getVez();
 		
-		if(vez == -1)
-			g2d.setColor(Color.black);
-		else
-			g2d.setColor(Color.gray);
-		
+		g2d.setColor(Color.black);
+
 		g2d.setStroke(new BasicStroke(5.0f,
                 BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER,
@@ -67,6 +64,9 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		
 		for (int i = 0; i < ln.length; i++)
 			g2d.draw(ln[i]);
+		
+		if(vez != -1)
+			g2d.setColor(Color.gray);
 		
 		for (int i = 0; i < 15; i++) 
 		{	
