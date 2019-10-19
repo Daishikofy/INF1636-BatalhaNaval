@@ -41,9 +41,9 @@ public class PanelMatriz extends JPanel implements MouseListener {
 			x = xIni;
 			for(int j=0; j < 15; j++) {
 				tab[i][j] = new Celula(x,y);
-				x += larg;
+				x += larg + espLinha;
 			}
-			y += alt;
+			y += alt + espLinha;
 		}
 	}
 	
@@ -51,7 +51,6 @@ public class PanelMatriz extends JPanel implements MouseListener {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		int mat[][] = ctrl.getMatriz();
-		int vez = ctrl.getVez();
 		
 		g2d.setColor(Color.black);
 
@@ -63,32 +62,33 @@ public class PanelMatriz extends JPanel implements MouseListener {
 		for (int i = 0; i < ln.length; i++)
 			g2d.draw(ln[i]);
 		
-		if(vez != -1)
-			g2d.setColor(Color.gray);
-		
-		for (int i = 0; i < 0; i++) 
-		{	
-			
-			//Draw letters
+		// Draw letters
+		for(int i = 0; i < nLinhas; i ++) {
 			char[] let = {(char)(i + 'A')};				
-			g2d.drawChars(let, 0, 1, (int)((i + 1) * larg + larg/2), (int)(alt/2));
-			
-			for(int j = 0; j < 15; j++) 
-			{	
-				//Draw numbers
-				char[] num = {'0', '0'};
-				if ((j + 1) > 9)
-				{
-					num[0] = '1';
-					num[1] = (char)( (j - 9) + '0');	
-				}
-				else
-				{
-					num[0] = '0';
-					num[1] = (char)( ( j + 1) + '0');
-				}
-				g2d.drawChars(num, 0, 2, (int)(larg/2), (int)((j + 1) * alt + alt/2));
-	
+			g2d.drawChars(let, 0, 1, (int)(xIni / 2), (int)(yIni + (alt + espLinha)*(i + 0.5)));
+		}
+		
+		// Draw numbers
+		for(int i = 0; i < nLinhas; i ++) {
+			char[] num = {'0', '0'};
+			if ((i + 1) > 9)
+			{
+				num[0] = '1';
+				num[1] = (char)( (i - 9) + '0');	
+			}
+			else
+			{
+				num[0] = '0';
+				num[1] = (char)( ( i + 1) + '0');
+			}
+			g2d.drawChars(num, 0, 2, (int)( xIni + (larg + espLinha)*(i + 0.25) ), (int)(yIni / 2));
+		}
+		
+		
+		for (int i = 0; i < nLinhas; i++) 
+		{	
+			for(int j = 0; j < nLinhas; j++) 
+			{		
 				//Draw boats
 				if(mat[i][j]!=0) 
 				{					
@@ -109,13 +109,15 @@ public class PanelMatriz extends JPanel implements MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		int x = e.getX(), y = e.getY();
+		double x = e.getX(), y = e.getY();
 		x -= xIni;
 		y -= yIni;
-		int xCel = (int) (x/(larg-espLinha));
-		int yCel = (int) (y/(alt-espLinha));
-		if(ctrl.onClick(xCel, yCel))
-			repaint();
+		if(x > 0 && y > 0) {
+			int xCel = (int) (x/(larg + espLinha));
+			int yCel = (int) (y/(alt + espLinha));
+			if(ctrl.onClick(xCel, yCel))
+				repaint();
+		}
 	}
 	
 	public void mouseEntered(MouseEvent e) {}
