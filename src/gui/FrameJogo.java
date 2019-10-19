@@ -6,8 +6,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class FrameJogo extends JFrame {
-	final int LARG_DEFAULT=1100;
-	final int ALT_DEFAULT=1000;
+	final int LARG_DEFAULT=1200;
+	final int ALT_DEFAULT=600;
 	
 	public FrameJogo(CtrlRegras c) {
 		Toolkit tk=Toolkit.getDefaultToolkit();
@@ -18,7 +18,14 @@ public class FrameJogo extends JFrame {
 		int y=sa/2-ALT_DEFAULT/2;
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		getContentPane().add(new PanelMatriz(c));
+		
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+		mainPanel.add(new PanelMatriz(c));
+		mainPanel.add(new PanelMatriz(c));
+		
+		getContentPane().add(mainPanel);
+		
 		setTitle("Jogo da Velha");
 	}
 	

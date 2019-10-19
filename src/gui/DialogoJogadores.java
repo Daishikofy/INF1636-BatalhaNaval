@@ -13,7 +13,7 @@ public class DialogoJogadores extends JDialog implements ActionListener {
 	JTextField textoJogador2;
 	JButton botaoComecar;
 	
-	DialogoJogadores(Frame fr) {
+	public DialogoJogadores(Frame fr) {
 		super(fr, "Jogadores");
 		
 		JPanel p = new JPanel();
