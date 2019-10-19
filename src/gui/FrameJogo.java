@@ -18,7 +18,7 @@ public class FrameJogo extends JFrame {
 		int y=sa/2-ALT_DEFAULT/2;
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		getContentPane().add(new PanelTabuleiro(c));
+		getContentPane().add(new PanelMatriz(c));
 		setTitle("Jogo da Velha");
 	}
 	

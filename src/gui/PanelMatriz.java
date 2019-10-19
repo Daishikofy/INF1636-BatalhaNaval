@@ -1,44 +1,42 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.Box.Filler;
 
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import regras.*;
  
-public class PanelTabuleiro extends JPanel implements MouseListener {
-	double xIni=50.0,yIni=50.0,larg=50.0,alt=50.0,espLinha=3.0;
-	int iClick,jClick;
+public class PanelMatriz extends JPanel implements MouseListener {
+	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;
-	Celula tab[][]=new Celula[15][15];
-	Line2D.Double ln[]=new Line2D.Double[32];
+	Celula tab[][]=new Celula[nLinhas][nLinhas];
+	Line2D.Double ln[]=new Line2D.Double[(nLinhas + 1) * 2];
 	CtrlRegras ctrl;
 	
-	public PanelTabuleiro(CtrlRegras c) {
-		double x = xIni ,y = yIni;
+	public PanelMatriz(CtrlRegras c) {
 		ctrl = c;
 		
-		//Linhas horizontais
-		for(int i=0; i <= nLinhas; i++) {
-			ln[i]=new Line2D.Double(alt
-					, larg * (i + 1)
-					, alt * nLinhas + alt
-					, larg * (i + 1));
+		// Linhas horizontais
+		for(int i=0; i <= nLinhas + 1; i++) {
+			ln[i]=new Line2D.Double(xIni
+					, yIni + (alt + espLinha) * i
+					, xIni + (larg + espLinha) * nLinhas
+					, yIni + (alt + espLinha) * i );
 		}
 		
-		//Linhas verticais
+		// Linhas verticais
 		for(int i = nLinhas + 1 ; i < ln.length; i++) {
-			int index = i  -  nLinhas;
-			ln[i]=new Line2D.Double(larg * index
-					, alt - espLinha/2
-					, larg * index
-					, alt * nLinhas + alt + espLinha);
+			int index = i  -  nLinhas - 1;
+			ln[i]=new Line2D.Double(xIni + (larg + espLinha) * index
+					, yIni
+					, xIni + (larg + espLinha) * index
+					, yIni + (alt+ espLinha) * nLinhas);
 		}
 		
 		addMouseListener(this);
 		
+		double x = xIni ,y = yIni;
 		for(int i=0; i < 15; i++) {
 			x = xIni;
 			for(int j=0; j < 15; j++) {
@@ -57,7 +55,7 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		
 		g2d.setColor(Color.black);
 
-		g2d.setStroke(new BasicStroke(5.0f,
+		g2d.setStroke(new BasicStroke((float) espLinha,
                 BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER,
                 10.0f));
@@ -68,7 +66,7 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 		if(vez != -1)
 			g2d.setColor(Color.gray);
 		
-		for (int i = 0; i < 15; i++) 
+		for (int i = 0; i < 0; i++) 
 		{	
 			
 			//Draw letters
@@ -112,10 +110,10 @@ public class PanelTabuleiro extends JPanel implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX(), y = e.getY();
-		x -= larg;
-		y -= alt;
-		int xCel = (int) (x/larg);
-		int yCel = (int) (y/alt);
+		x -= xIni;
+		y -= yIni;
+		int xCel = (int) (x/(larg-espLinha));
+		int yCel = (int) (y/(alt-espLinha));
 		if(ctrl.onClick(xCel, yCel))
 			repaint();
 	}
