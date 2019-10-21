@@ -37,14 +37,17 @@ public class PanelMatriz extends JPanel implements MouseListener {
 		addMouseListener(this);
 		
 		double x = xIni ,y = yIni;
-		for(int i=0; i < 15; i++) {
+		for(int i=0; i < nLinhas; i++) {
 			x = xIni;
-			for(int j=0; j < 15; j++) {
+			for(int j=0; j < nLinhas; j++) {
 				tab[i][j] = new Celula(x,y);
 				x += larg + espLinha;
 			}
 			y += alt + espLinha;
 		}
+		int largura = (int) (2 * xIni + nLinhas * (larg + espLinha) + espLinha);
+		int altura = (int) (2 * yIni + nLinhas * (alt + espLinha) + espLinha);
+		this.setSize(largura, altura);
 	}
 	
 	public void paintComponent(Graphics g) {

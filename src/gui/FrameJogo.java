@@ -19,12 +19,9 @@ public class FrameJogo extends JFrame {
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-		mainPanel.add(new PanelMatriz(c));
-		mainPanel.add(new PanelMatriz(c));
-		
-		getContentPane().add(mainPanel);
+		Tabuleiro tab = Tabuleiro.getTabuleiro();
+		tab.setVisible(true);
+		getContentPane().add(tab);
 		
 		setTitle("Jogo da Velha");
 	}
