@@ -1,15 +1,17 @@
 package gui;
 
-import regras.CtrlRegras;
+import regras.RegraGeral;
 import javax.swing.*;
+
+// Definir o número de linhas na classe tabuleiro
 
 public class Tabuleiro extends JPanel {
 	static private Tabuleiro instance = null;
-	private CtrlRegras regras1, regras2;
+	private RegraGeral regras1, regras2;
 	
 	private Tabuleiro() {
-		regras1 = new CtrlRegras();
-		regras2 = new CtrlRegras();
+		regras1 = new RegraGeral();
+		regras2 = new RegraGeral();
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		add(new PanelMatriz(regras1));
 		add(new PanelMatriz(regras2));

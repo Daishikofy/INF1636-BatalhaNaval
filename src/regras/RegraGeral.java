@@ -1,10 +1,11 @@
 package regras;
 
-public class CtrlRegras {
+public class RegraGeral {
+	
 	int tabuleiro [][] = new int[15][15];
 	int vez=5;
 	
-	public CtrlRegras() {
+	public RegraGeral() {
 	}
 	
 	public int[][] getMatriz() {

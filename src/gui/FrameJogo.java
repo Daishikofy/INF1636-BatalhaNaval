@@ -9,7 +9,7 @@ public class FrameJogo extends JFrame {
 	final int LARG_DEFAULT=1200;
 	final int ALT_DEFAULT=600;
 	
-	public FrameJogo(CtrlRegras c) {
+	public FrameJogo(RegraGeral c) {
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
 		int sl=screenSize.width;
@@ -27,7 +27,9 @@ public class FrameJogo extends JFrame {
 	}
 	
 	public static void main(String args[]) {
-		
-		(new FrameJogo(new CtrlRegras())).setVisible(true);
+		FrameJogo fr = new FrameJogo(new RegraGeral()); 
+		DialogoJogadores dia = new DialogoJogadores(fr);
+		dia.setVisible(true);
+		fr.setVisible(true);
 	}
 }

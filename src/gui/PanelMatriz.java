@@ -12,9 +12,9 @@ public class PanelMatriz extends JPanel implements MouseListener {
 	int nLinhas = 15;
 	Celula tab[][]=new Celula[nLinhas][nLinhas];
 	Line2D.Double ln[]=new Line2D.Double[(nLinhas + 1) * 2];
-	CtrlRegras ctrl;
+	RegraGeral ctrl;
 	
-	public PanelMatriz(CtrlRegras c) {
+	public PanelMatriz(RegraGeral c) {
 		ctrl = c;
 		
 		// Linhas horizontais
