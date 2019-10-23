@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import regras.*;
+import regras.RegraGeral.EstadoDeCelula;
  
 public class PanelMatriz extends JPanel implements MouseListener {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
@@ -53,7 +54,6 @@ public class PanelMatriz extends JPanel implements MouseListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		int mat[][] = ctrl.getMatriz();
 		
 		g2d.setColor(Color.black);
 
@@ -86,14 +86,15 @@ public class PanelMatriz extends JPanel implements MouseListener {
 			}
 			g2d.drawChars(num, 0, 2, (int)( xIni + (larg + espLinha)*(i + 0.25) ), (int)(yIni / 2));
 		}
-		
+
+		EstadoDeCelula mat[][] = ctrl.getMatriz();
 		
 		for (int i = 0; i < nLinhas; i++) 
 		{	
 			for(int j = 0; j < nLinhas; j++) 
 			{		
 				//Draw boats
-				if(mat[i][j]!=0) 
+				if(mat[i][j] != EstadoDeCelula.AGUA) 
 				{					
 					Rectangle r = new Rectangle();
 					r.height = (int)alt - 15;
@@ -101,7 +102,7 @@ public class PanelMatriz extends JPanel implements MouseListener {
 					r.x = (int)(tab[i][j].x + espLinha/2 + 7);
 					r.y = (int)(tab[i][j].y + espLinha/2 + 7);						
 					
-					if(mat[i][j] == -1)
+					if(mat[i][j] == EstadoDeCelula.OCUPADO)
 						g2d.setColor(Color.black);
 					else
 						g2d.setColor(Color.gray);
