@@ -1,6 +1,15 @@
 package regras;
 
 public class RegraGeral {
+
+	public enum EstadoDeCelula {
+		AGUA,				// Não contém arma
+		OCUPADO,			// Contém arma intacta
+		ATINGIDO,			// Contém parte de arma atingida
+		AFUNDADO,			// Toda a arma foi atingida
+		INVALIDO,			// Posicionamento de arma encosta em outra arma
+		OCULTO				// Seu conteúdo não pode ser visto atualmente
+	}
 	
 	int tabuleiro [][] = new int[15][15];
 	int vez=5;
