@@ -8,7 +8,7 @@ public class Peca {
 	public static Peca cria(String nome)
 	{
 		Peca peca = new Peca();
-		if (nome == "hidroavioes")
+		if (nome == "hidravioes")
 		{
 			peca.nome = nome;
 			char[][] aux = {{'x','h','x'},{'h','x','h'}};
@@ -27,7 +27,7 @@ public class Peca {
 			peca.componentes = aux;
 		}
 		else if (nome == "cruzadores")
-		{
+		{	
 			peca.nome = nome;
 			char[][] aux = {{'c','c','c','c'},{'x'}};
 			peca.componentes = aux;
@@ -36,12 +36,6 @@ public class Peca {
 		{
 			peca.nome = nome;
 			char[][] aux = {{'r','r','r','r','r'},{'x'}};
-			peca.componentes = aux;
-		}
-		else
-		{
-			peca.nome = "NULL";
-			char[][] aux = {{'x'},{'x'}};
 			peca.componentes = aux;
 		}
 		
