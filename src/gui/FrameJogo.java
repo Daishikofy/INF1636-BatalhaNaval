@@ -23,7 +23,7 @@ public class FrameJogo extends JFrame {
 		tab.setVisible(true);
 		getContentPane().add(tab);
 		
-		setTitle("Jogo da Velha");
+		setTitle("Batalha Naval");
 	}
 	
 	public static void main(String args[]) {
