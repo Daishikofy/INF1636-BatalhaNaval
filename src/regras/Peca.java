@@ -3,7 +3,7 @@ package regras;
 public class Peca {
 	
 	private String nome;
-	private char[][] componentes;
+	private char[] componentes;
 	
 	public static Peca cria(String nome)
 	{
@@ -11,31 +11,31 @@ public class Peca {
 		if (nome == "hidravioes")
 		{
 			peca.nome = nome;
-			char[][] aux = {{'x','h','x'},{'h','x','h'}};
+			char[] aux = {'a','h','a', 'h', 'a','h'};
 			peca.componentes = aux;
 		}
 		else if (nome == "submarinos")
 		{
 			peca.nome = nome;
-			char[][] aux = {{'s'},{'x'}};
+			char[] aux = {'s'};
 			peca.componentes = aux;
 		}
 		else if (nome == "destroyers")
 		{
 			peca.nome = nome;
-			char[][] aux = {{'d','d'},{'x'}};
+			char[] aux = {'d','d'};
 			peca.componentes = aux;
 		}
 		else if (nome == "cruzadores")
 		{	
 			peca.nome = nome;
-			char[][] aux = {{'c','c','c','c'},{'x'}};
+			char[] aux = {'c','c','c','c'};
 			peca.componentes = aux;
 		}
 		else if (nome == "couracado")
 		{
 			peca.nome = nome;
-			char[][] aux = {{'r','r','r','r','r'},{'x'}};
+			char[] aux = {'r','r','r','r','r'};
 			peca.componentes = aux;
 		}
 		
@@ -46,7 +46,7 @@ public class Peca {
 		return nome;
 	}
 
-	public char[][] getComponentes() {
+	public char[] getComponentes() {
 		return componentes;
 	}
 }
