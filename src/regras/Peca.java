@@ -13,32 +13,42 @@ public class Peca {
 		if (nome == "hidravioes")
 		{
 			peca.nome = nome;
-			char[] aux = {'a','h','a', 'h', 'a','h'};
+			char[] aux = {'0','h','0', 'h', '0','h'};
 			peca.componentes = aux;
+			peca.largura = 3;
+			peca.altura = 2;
 		}
 		else if (nome == "submarinos")
 		{
 			peca.nome = nome;
 			char[] aux = {'s'};
 			peca.componentes = aux;
+			peca.largura = 1;
+			peca.altura = 1;
 		}
 		else if (nome == "destroyers")
 		{
 			peca.nome = nome;
 			char[] aux = {'d','d'};
 			peca.componentes = aux;
+			peca.largura = 2;
+			peca.altura = 1;
 		}
 		else if (nome == "cruzadores")
 		{	
 			peca.nome = nome;
 			char[] aux = {'c','c','c','c'};
 			peca.componentes = aux;
+			peca.largura = 4;
+			peca.altura = 1;
 		}
 		else if (nome == "couracado")
 		{
 			peca.nome = nome;
 			char[] aux = {'r','r','r','r','r'};
 			peca.componentes = aux;
+			peca.largura = 5;
+			peca.altura = 1;
 		}
 		
 		return peca;

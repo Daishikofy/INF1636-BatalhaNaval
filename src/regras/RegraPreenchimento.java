@@ -1,5 +1,8 @@
 package regras;
 
+import gui.DialogoJogadores;
+import gui.FrameJogo;
+
 public class RegraPreenchimento  extends RegraGeral {
 	
 	TabuleiroData tabuleiroPrenchendo; //Contem as peças atualmente fixas no tabuleiro
@@ -9,6 +12,7 @@ public class RegraPreenchimento  extends RegraGeral {
 	public RegraPreenchimento()
 	{
 		geraPecas();
+		tabuleiroPrenchendo = new TabuleiroData(15,15);
 	}
 	
 	public void transferir(RegraEmbate r) {
@@ -84,12 +88,12 @@ public class RegraPreenchimento  extends RegraGeral {
 	public void inserePeca (Peca peca, int x, int y)
 	{
 		char[] components = peca.getComponentes();
-		int currentComp = 0;
-		for (int i = x, cX = 0; i < x + peca.largura; i++)
-			for (int j = y, cY = 0; j < y + peca.altura; j++)			
+		int currentComp = 0;		
+		for (int i = x; i < x + peca.largura; i++)
+			for (int j = y, c = 0; j < y + peca.altura; j++, c++)			
 			{
-				currentComp = x + j * peca.largura;
-				tabuleiroPrenchendo.setCell(components[currentComp], i, j);				
+				currentComp = (i - x) + c * peca.largura;
+				tabuleiroPrenchendo.setCell(components[currentComp], i, j);	
 			}
 		
 	}
@@ -107,4 +111,34 @@ public class RegraPreenchimento  extends RegraGeral {
 		for (; i < 15; i++)
 			pecas[i] = Peca.cria("hidravioes");
 	}
+
+	private void printTabuleiro ()
+	{
+		for (int i = 0; i < 15; i++)
+		{
+			for (int j = 0; j < 15; j++)
+			{
+				char cell = tabuleiroPrenchendo.getCell(j, i);
+				if (cell != '0')
+					System.out.print(cell + " ");
+				else
+					System.out.print(". ");
+			}
+			System.out.println("");
+		}
+	}
+public static void main(String args[]) {
+	RegraPreenchimento regra = new RegraPreenchimento();
+	regra.inserePeca(regra.pecas[0], 5, 5);
+	if (regra.validaInsercao(regra.pecas[0], 5, 5))
+		regra.inserePeca(regra.pecas[0], 5, 5);
+	regra.inserePeca(regra.pecas[9], 7, 3);
+	Peca peca = regra.pecas[14];
+	regra.inserePeca(peca, 8, 10);
+	peca.girar90Graus();
+	regra.inserePeca(peca, 3, 10);
+	
+	regra.printTabuleiro();
+	
+}
 }

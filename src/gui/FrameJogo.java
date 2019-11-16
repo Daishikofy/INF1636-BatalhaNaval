@@ -25,11 +25,12 @@ public class FrameJogo extends JFrame {
 		
 		setTitle("Batalha Naval");
 	}
-	
+/*	
 	public static void main(String args[]) {
 		FrameJogo fr = new FrameJogo(new RegraGeral()); 
 		DialogoJogadores dia = new DialogoJogadores(fr);
 		dia.setVisible(true);
 		fr.setVisible(true);
 	}
+	*/
 }
