@@ -2,18 +2,23 @@ package regras;
 
 public class TabuleiroData {
 	private char[][] grid;
+	private Peca[][] pecas;
 	private int xDim, yDim;
 	private char defaultChar;
 	public TabuleiroData(int x, int y)
 	{	
 		defaultChar = '0';
 		grid = new char[x][y];	
+		pecas = new Peca[x][y];
 		this.xDim = x;
 		this.yDim = y;
 		
 		for(int i = 0; i < y; i++)
 			for(int j = 0; j < x; j++)
+			{
 				grid[j][i] = defaultChar;
+				pecas[i][j] = null;
+			}
 	}
 	
 	public Boolean isEmpty(int x, int y)
@@ -40,13 +45,33 @@ public class TabuleiroData {
 		return grid[x][y];
 	}
 	
+	public Peca getPeca(int x, int y)
+	{
+		if (x < 0 || x >= xDim)
+			return null;
+		if (y < 0 || y >= yDim)
+			return null;
+		return pecas[x][y];
+	}
+	
 	public boolean setCell(char element, int x, int y)
-	{/*
+	{
 		if (x < 0 || x >= xDim)
 			return false;
 		if (y < 0 || y >= yDim)
-			return false;*/
+			return false;
 		grid[x][y] = element;
 		return true;
+	}
+	
+	public boolean setPeca(Peca peca, char element, int x, int y)
+	{
+		if (x < 0 || x >= xDim)
+			return false;
+		if (y < 0 || y >= yDim)
+			return false;
+		grid[x][y] = element;
+		pecas[x][y] = peca;
+		return true;		
 	}
 }

@@ -88,12 +88,35 @@ public class RegraPreenchimento  extends RegraGeral {
 	public void inserePeca (Peca peca, int x, int y)
 	{
 		char[] components = peca.getComponentes();
-		int currentComp = 0;		
+		int currentComp = 0;	
+		peca.x = x;
+		peca.y = y;
 		for (int i = x; i < x + peca.largura; i++)
 			for (int j = y, c = 0; j < y + peca.altura; j++, c++)			
 			{
 				currentComp = (i - x) + c * peca.largura;
-				tabuleiroPrenchendo.setCell(components[currentComp], i, j);	
+				tabuleiroPrenchendo.setPeca(peca, components[currentComp], i, j);	
+			}
+		
+	}
+	
+	public void RemovePeca (int x, int y)
+	{
+		Peca peca = tabuleiroPrenchendo.getPeca(x, y);
+		if (peca == null)
+			return;
+		int xPeca = peca.x, yPeca = peca.y;
+		//A peca selecionada tem coordenadas zeradas, nao sei se daria 
+		//para se aproveitar dessas coordenadas em vez de deixar elas zeradas.
+		//Talvez possam ser uteis na hora de fazer o desenho ou de arastar a 
+		//peca pelo tabuleiro
+		peca.x = 0;
+		peca.y = 0;
+
+		for (int i = xPeca; i < xPeca + peca.largura; i++)
+			for (int j = yPeca; j < yPeca + peca.altura; j++)			
+			{
+				tabuleiroPrenchendo.setCell('0', i, j);	
 			}
 		
 	}
@@ -132,6 +155,7 @@ public static void main(String args[]) {
 	regra.inserePeca(regra.pecas[0], 5, 5);
 	if (regra.validaInsercao(regra.pecas[0], 5, 5))
 		regra.inserePeca(regra.pecas[0], 5, 5);
+	//regra.RemovePeca(6, 5);
 	regra.inserePeca(regra.pecas[9], 7, 3);
 	Peca peca = regra.pecas[14];
 	regra.inserePeca(peca, 8, 10);
