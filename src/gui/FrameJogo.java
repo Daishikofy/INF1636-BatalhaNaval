@@ -9,7 +9,7 @@ public class FrameJogo extends JFrame {
 	final int LARG_DEFAULT=1200;
 	final int ALT_DEFAULT=600;
 	
-	public FrameJogo(RegraGeral c) {
+	public FrameJogo(/*RegraGeral c*/) {
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
 		int sl=screenSize.width;
@@ -25,12 +25,12 @@ public class FrameJogo extends JFrame {
 		
 		setTitle("Batalha Naval");
 	}
-/*	
+
 	public static void main(String args[]) {
-		FrameJogo fr = new FrameJogo(new RegraGeral()); 
+		FrameJogo fr = new FrameJogo(/*new RegraPreenchimento()*/); 
 		DialogoJogadores dia = new DialogoJogadores(fr);
 		dia.setVisible(true);
 		fr.setVisible(true);
 	}
-	*/
+	
 }

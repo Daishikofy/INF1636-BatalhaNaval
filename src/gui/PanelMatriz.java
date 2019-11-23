@@ -13,11 +13,8 @@ public class PanelMatriz extends JPanel implements MouseListener {
 	int nLinhas = 15;
 	Celula tab[][]=new Celula[nLinhas][nLinhas];
 	Line2D.Double ln[]=new Line2D.Double[(nLinhas + 1) * 2];
-	RegraGeral ctrl;
 	
-	public PanelMatriz(RegraGeral c) {
-		ctrl = c;
-		
+	public PanelMatriz() {		
 		// Linhas horizontais
 		for(int i=0; i <= nLinhas + 1; i++) {
 			ln[i]=new Line2D.Double(xIni
@@ -86,8 +83,8 @@ public class PanelMatriz extends JPanel implements MouseListener {
 			}
 			g2d.drawChars(num, 0, 2, (int)( xIni + (larg + espLinha)*(i + 0.25) ), (int)(yIni / 2));
 		}
-
-		EstadoDeCelula mat[][] = ctrl.getMatriz();
+//TODO: Usar os parametros de observador para passar a matriz
+		EstadoDeCelula mat[][] = ManagerDeEventos.getManager().getRegra().getMatriz();
 		
 		for (int i = 0; i < nLinhas; i++) 
 		{	
@@ -116,12 +113,15 @@ public class PanelMatriz extends JPanel implements MouseListener {
 		double x = e.getX(), y = e.getY();
 		x -= xIni;
 		y -= yIni;
-		if(x > 0 && y > 0) {
+		if(x > 0 && y > 0) 
+		{
 			int xCel = (int) (x/(larg + espLinha));
 			int yCel = (int) (y/(alt + espLinha));
-			if(ctrl.onClick(xCel, yCel))
-				repaint();
+			
+			ManagerDeEventos.getManager().onClick(xCel, yCel);		
 		}
+		//DEBUG : Usar o notify, nao deixar o repaint aqui	
+		repaint();
 	}
 	
 	public void mouseEntered(MouseEvent e) {}

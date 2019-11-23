@@ -9,10 +9,25 @@ public class RegraPreenchimento  extends RegraGeral {
 	TabuleiroData tabuleiroDesenhado; //Contem o tabuleiro como ele deve ser desenhado
 	Peca[] pecas = new Peca[15]; //Possui as peças a serem posicionadas
 	
+	Peca pecaSelecionada = null;
+	
 	public RegraPreenchimento()
 	{
+		System.out.println("Regra preenchimento");
 		geraPecas();
 		tabuleiroPrenchendo = new TabuleiroData(15,15);
+		
+		inserePeca(pecas[0], 5, 5);
+		
+		inserePeca(pecas[9], 7, 3);
+		
+		inserePeca(pecas[14], 8, 10);
+		Peca peca = pecas[13];
+		peca.girar90Graus();
+		inserePeca(peca, 3, 10);
+		
+		//TODO: Remover essa linha, ela so serve para testar o desenho
+		tabuleiro = tabuleiroPrenchendo;
 	}
 	
 	public void transferir(RegraEmbate r) {
@@ -26,6 +41,9 @@ public class RegraPreenchimento  extends RegraGeral {
 		xFim = x + peca.largura + 1;
 		yIni = y - 1;
 		yFim = y + peca.altura + 1;
+		if (peca.largura + x > 15 || peca.altura + y > 15)
+			return false;
+		
 		if (peca.getNome() != "submarinos")
 		{			
 			for (int i = xIni; i <= xFim; i++)
@@ -134,6 +152,28 @@ public class RegraPreenchimento  extends RegraGeral {
 		for (; i < 15; i++)
 			pecas[i] = Peca.cria("hidravioes");
 	}
+	
+	public void onClick(int x, int y)
+	{
+		printTabuleiro();
+		System.out.println("Peca selecionada: " + tabuleiroPrenchendo.getCell(x, y));
+		if ( pecaSelecionada == null )
+		{			
+			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);	
+			System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
+			System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
+		}
+		else
+		{
+			if (validaInsercao(pecaSelecionada, x, y))
+			{
+				inserePeca(pecaSelecionada, x, y);
+				pecaSelecionada = null;
+				//Tabuleiro sendo o da regra geral
+				tabuleiro = tabuleiroPrenchendo;
+			}
+		}
+	}
 
 	private void printTabuleiro ()
 	{
@@ -150,6 +190,7 @@ public class RegraPreenchimento  extends RegraGeral {
 			System.out.println("");
 		}
 	}
+	/*
 public static void main(String args[]) {
 	RegraPreenchimento regra = new RegraPreenchimento();
 	regra.inserePeca(regra.pecas[0], 5, 5);
@@ -164,5 +205,5 @@ public static void main(String args[]) {
 	
 	regra.printTabuleiro();
 	
-}
+}*/
 }
