@@ -159,7 +159,9 @@ public class RegraPreenchimento  extends RegraGeral {
 		System.out.println("Peca selecionada: " + tabuleiroPrenchendo.getCell(x, y));
 		if ( pecaSelecionada == null )
 		{			
-			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);	
+			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);
+			if (pecaSelecionada != null)
+				RemovePeca(x, y);
 			System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
 			System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 		}
