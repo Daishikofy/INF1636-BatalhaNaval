@@ -1,13 +1,8 @@
 package regras;
 import interfaces.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import gui.DialogoJogadores;
-import gui.FrameJogo;
-
 public class RegraPreenchimento  extends RegraGeral implements IObservado{
+
 
 	TabuleiroData tabuleiroPrenchendo; //Contem as peças atualmente fixas no tabuleiro
 	TabuleiroData tabuleiroDesenhado; //Contem o tabuleiro como ele deve ser desenhado
@@ -15,30 +10,41 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 	
 	Peca pecaSelecionada = null;
 	
-	public RegraPreenchimento()
-	{
-		System.out.println("Regra preenchimento");
-		geraPecas();
-		tabuleiroPrenchendo = new TabuleiroData(15,15);
-		
-		//TODO: Remover essas linhas, elas so servem para testar o desenho
-		//{
-		inserePeca(pecas[0], 5, 5);
-		
-		inserePeca(pecas[9], 7, 3);
-		
-		inserePeca(pecas[14], 8, 10);
-		Peca peca = pecas[13];
-		peca.girar90Graus();
-		inserePeca(peca, 3, 10);
-		
-		
-		tabuleiro = tabuleiroPrenchendo;
-		//}
+	public RegraPreenchimento() {
+		this(false);
 	}
 	
-	public void transferir(RegraEmbate r) {
+	public RegraPreenchimento(boolean visible)
+	{
+		System.out.println("Regra preenchimento");
+		tabuleiroPrenchendo = new TabuleiroData(15, 15);
 		
+		if (visible) {
+			geraPecas();
+			
+			inserePeca(pecas[0], 0, 13);
+			inserePeca(pecas[1], 0, 10);
+			inserePeca(pecas[2], 5, 10);
+			inserePeca(pecas[3], 0, 7);
+			inserePeca(pecas[4], 4, 7);
+			inserePeca(pecas[5], 8, 7);
+			inserePeca(pecas[6], 0, 4);
+			inserePeca(pecas[7], 2, 4);
+			inserePeca(pecas[8], 4, 4);
+			inserePeca(pecas[9], 6, 4);
+			inserePeca(pecas[10], 0, 0);
+			inserePeca(pecas[11], 4, 0);
+			inserePeca(pecas[12], 8, 0);
+			inserePeca(pecas[13], 12, 0);
+			inserePeca(pecas[14], 12, 3);
+		}
+		
+		tabuleiro = tabuleiroPrenchendo;
+	}
+	
+	public void transferir(RegraPreenchimento r) {
+		this.pecaSelecionada = r.pecaSelecionada;
+		r.pecaSelecionada = null;
 	}
 	
 	public boolean validaInsercao(Peca peca, int x, int y)
@@ -170,9 +176,11 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 		{			
 			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);
 			if (pecaSelecionada != null)
+			{
 				RemovePeca(x, y);
-			//System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
-			//System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
+				System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
+				System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
+			}
 		}
 		else
 		{
@@ -207,20 +215,4 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 			System.out.println("");
 		}
 	}
-	/*
-public static void main(String args[]) {
-	RegraPreenchimento regra = new RegraPreenchimento();
-	regra.inserePeca(regra.pecas[0], 5, 5);
-	if (regra.validaInsercao(regra.pecas[0], 5, 5))
-		regra.inserePeca(regra.pecas[0], 5, 5);
-	//regra.RemovePeca(6, 5);
-	regra.inserePeca(regra.pecas[9], 7, 3);
-	Peca peca = regra.pecas[14];
-	regra.inserePeca(peca, 8, 10);
-	peca.girar90Graus();
-	regra.inserePeca(peca, 3, 10);
-	
-	regra.printTabuleiro();
-	
-}*/	
 }

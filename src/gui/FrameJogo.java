@@ -19,7 +19,8 @@ public class FrameJogo extends JFrame {
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		Tabuleiro tab = Tabuleiro.getTabuleiro();
+		//Tabuleiro tab = Tabuleiro.getTabuleiro();
+		Insercao tab = new Insercao();
 		tab.setVisible(true);
 		getContentPane().add(tab);
 		
