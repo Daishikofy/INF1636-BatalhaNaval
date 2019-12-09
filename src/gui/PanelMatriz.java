@@ -7,8 +7,10 @@ import java.awt.geom.*;
 import java.awt.event.*;
 import regras.*;
 import regras.RegraGeral.EstadoDeCelula;
+
+import interfaces.*;
  
-public class PanelMatriz extends JPanel implements MouseListener {
+public class PanelMatriz extends JPanel implements MouseListener, IObservador {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;
 	Celula tab[][]=new Celula[nLinhas][nLinhas];
@@ -16,7 +18,8 @@ public class PanelMatriz extends JPanel implements MouseListener {
 	
 	public PanelMatriz() {		
 		// Linhas horizontais
-		for(int i=0; i <= nLinhas + 1; i++) {
+		for(int i=0; i <= nLinhas + 1; i++) 
+		{
 			ln[i]=new Line2D.Double(xIni
 					, yIni + (alt + espLinha) * i
 					, xIni + (larg + espLinha) * nLinhas
@@ -24,7 +27,8 @@ public class PanelMatriz extends JPanel implements MouseListener {
 		}
 		
 		// Linhas verticais
-		for(int i = nLinhas + 1 ; i < ln.length; i++) {
+		for(int i = nLinhas + 1 ; i < ln.length; i++) 
+		{
 			int index = i  -  nLinhas - 1;
 			ln[i]=new Line2D.Double(xIni + (larg + espLinha) * index
 					, yIni
@@ -33,6 +37,7 @@ public class PanelMatriz extends JPanel implements MouseListener {
 		}
 		
 		addMouseListener(this);
+		ManagerDeEventos.getManager().getRegra().cadastrar((IObservador)this);
 		
 		double x = xIni ,y = yIni;
 		for(int i=0; i < nLinhas; i++) {
@@ -110,22 +115,35 @@ public class PanelMatriz extends JPanel implements MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		double x = e.getX(), y = e.getY();
-		x -= xIni;
-		y -= yIni;
-		if(x > 0 && y > 0) 
+		if (e.getButton() == e.BUTTON1)//Left click
 		{
-			int xCel = (int) (x/(larg + espLinha));
-			int yCel = (int) (y/(alt + espLinha));
-			
-			ManagerDeEventos.getManager().onClick(xCel, yCel);		
+			double x = e.getX(), y = e.getY();
+			x -= xIni;
+			y -= yIni;
+			if(x > 0 && y > 0) 
+			{
+				int xCel = (int) (x/(larg + espLinha));
+				int yCel = (int) (y/(alt + espLinha));
+				
+				ManagerDeEventos.getManager().onLeftClick(xCel, yCel);		
+			}
 		}
+		else if (e.getButton() == e.BUTTON3)//Right click
+		{
+			ManagerDeEventos.getManager().onRightClick();	
+		}
+		
 		//DEBUG : Usar o notify, nao deixar o repaint aqui	
-		repaint();
+		//repaint();
 	}
 	
 	public void mouseEntered(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void update() {
+		repaint();	
+	}
 }

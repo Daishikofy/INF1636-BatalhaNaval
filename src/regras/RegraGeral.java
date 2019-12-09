@@ -1,6 +1,10 @@
 package regras;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RegraGeral {
+import interfaces.*;
+
+public class RegraGeral implements IObservado{
 
 	public enum EstadoDeCelula {
 		AGUA,				// Não contém arma '0'
@@ -10,6 +14,7 @@ public class RegraGeral {
 		INVALIDO,			// Posicionamento de arma encosta em outra arma 'i'
 		OCULTO				// Seu conteúdo não pode ser visto atualmente <upper case - {'X'}>
 	}
+	private List<IObservador> observadores = new ArrayList<>();
 	
 	//char tabuleiro [][] = new char[15][15];
 	TabuleiroData tabuleiro = new TabuleiroData(15,15);
@@ -57,7 +62,8 @@ public class RegraGeral {
 	}	
 //TODO	
 	
-	public void onClick(int x, int y) {}
+	public void onLeftClick(int x, int y) {}
+	public void onRightClick() {}
 	/*
 	public boolean onClick(int x, int y)
 	{
@@ -73,4 +79,19 @@ public class RegraGeral {
 			vez = -1;
 		return true;		
 	}*/
+
+	@Override
+	public void cadastrar(IObservador novoObservador) {
+		observadores.add(novoObservador);		
+	}
+
+	@Override
+	public void remover(IObservador observadorRetirado) {
+		observadores.remove(observadorRetirado);		
+	}
+
+	@Override
+	public void notificar(IObservado fonte) {
+		observadores.forEach(observador -> observador.update());	
+	}
 }

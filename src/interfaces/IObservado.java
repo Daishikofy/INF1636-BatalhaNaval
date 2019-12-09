@@ -6,5 +6,5 @@ public interface IObservado {
 	
 	public void remover(IObservador observadorRetirado);
 	
-	public Object get(int index);
+	public void notificar(IObservado fonte);
 }
