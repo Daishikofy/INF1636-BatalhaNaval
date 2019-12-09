@@ -21,8 +21,13 @@ public class ManagerDeEventos {
 		return regras;
 	}
 	
-	public void onClick(int x, int y)
+	public void onLeftClick(int x, int y)
 	{
-		regras.onClick(x,y);
+		regras.onLeftClick(x,y);
+	}
+	
+	public void onRightClick()
+	{
+		regras.onRightClick();
 	}
 }

@@ -1,10 +1,14 @@
 package regras;
+import interfaces.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import gui.DialogoJogadores;
 import gui.FrameJogo;
 
-public class RegraPreenchimento  extends RegraGeral {
-	
+public class RegraPreenchimento  extends RegraGeral implements IObservado{
+
 	TabuleiroData tabuleiroPrenchendo; //Contem as peças atualmente fixas no tabuleiro
 	TabuleiroData tabuleiroDesenhado; //Contem o tabuleiro como ele deve ser desenhado
 	Peca[] pecas = new Peca[15]; //Possui as peças a serem posicionadas
@@ -17,6 +21,8 @@ public class RegraPreenchimento  extends RegraGeral {
 		geraPecas();
 		tabuleiroPrenchendo = new TabuleiroData(15,15);
 		
+		//TODO: Remover essas linhas, elas so servem para testar o desenho
+		//{
 		inserePeca(pecas[0], 5, 5);
 		
 		inserePeca(pecas[9], 7, 3);
@@ -26,8 +32,9 @@ public class RegraPreenchimento  extends RegraGeral {
 		peca.girar90Graus();
 		inserePeca(peca, 3, 10);
 		
-		//TODO: Remover essa linha, ela so serve para testar o desenho
+		
 		tabuleiro = tabuleiroPrenchendo;
+		//}
 	}
 	
 	public void transferir(RegraEmbate r) {
@@ -116,6 +123,7 @@ public class RegraPreenchimento  extends RegraGeral {
 				tabuleiroPrenchendo.setPeca(peca, components[currentComp], i, j);	
 			}
 		
+		notificar(this);
 	}
 	
 	public void RemovePeca (int x, int y)
@@ -137,6 +145,7 @@ public class RegraPreenchimento  extends RegraGeral {
 				tabuleiroPrenchendo.setCell('0', i, j);	
 			}
 		
+		notificar(this);
 	}
 	
 	private void geraPecas()
@@ -153,17 +162,17 @@ public class RegraPreenchimento  extends RegraGeral {
 			pecas[i] = Peca.cria("hidravioes");
 	}
 	
-	public void onClick(int x, int y)
+	public void onLeftClick(int x, int y)
 	{
 		printTabuleiro();
-		System.out.println("Peca selecionada: " + tabuleiroPrenchendo.getCell(x, y));
+		//System.out.println("Peca selecionada: " + tabuleiroPrenchendo.getCell(x, y));
 		if ( pecaSelecionada == null )
 		{			
 			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);
 			if (pecaSelecionada != null)
 				RemovePeca(x, y);
-			System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
-			System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
+			//System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
+			//System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 		}
 		else
 		{
@@ -177,6 +186,12 @@ public class RegraPreenchimento  extends RegraGeral {
 		}
 	}
 
+	public void onRightClick() 
+	{
+		if (pecaSelecionada != null)
+			pecaSelecionada.girar90Graus();			
+	}
+	
 	private void printTabuleiro ()
 	{
 		for (int i = 0; i < 15; i++)
@@ -207,5 +222,5 @@ public static void main(String args[]) {
 	
 	regra.printTabuleiro();
 	
-}*/
+}*/	
 }
