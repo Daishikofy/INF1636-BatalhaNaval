@@ -10,13 +10,13 @@ import regras.RegraGeral.EstadoDeCelula;
 
 import interfaces.*;
  
-public class PanelMatriz extends JPanel implements MouseListener, IObservador {
+public class GridTabuleiro extends JPanel implements MouseListener, IObservador {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;
 	Celula tab[][]=new Celula[nLinhas][nLinhas];
 	Line2D.Double ln[]=new Line2D.Double[(nLinhas + 1) * 2];
 	
-	public PanelMatriz() {		
+	public GridTabuleiro() {		
 		// Linhas horizontais
 		for(int i=0; i <= nLinhas + 1; i++) 
 		{

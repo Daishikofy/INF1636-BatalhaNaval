@@ -20,7 +20,7 @@ public class FrameJogo extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//Tabuleiro tab = Tabuleiro.getTabuleiro();
-		Insercao tab = new Insercao();
+		PanelPreenchimento tab = new PanelPreenchimento();
 		tab.setVisible(true);
 		getContentPane().add(tab);
 		
@@ -28,10 +28,10 @@ public class FrameJogo extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		FrameJogo fr = new FrameJogo(/*new RegraPreenchimento()*/); 
-		DialogoJogadores dia = new DialogoJogadores(fr);
-		dia.setVisible(true);
-		fr.setVisible(true);
+		FrameJogo frameJogo = new FrameJogo(/*new RegraPreenchimento()*/); 
+		DialogoJogadores dialogo = new DialogoJogadores(frameJogo);
+		dialogo.setVisible(true);
+		frameJogo.setVisible(true);
 	}
 	
 }

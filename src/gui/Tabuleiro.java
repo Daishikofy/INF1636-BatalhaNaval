@@ -15,8 +15,8 @@ public class Tabuleiro extends JPanel {
 		//regras1 = new RegraPreenchimento();
 		//regras2 = new RegraPreenchimento();
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		add(new PanelMatriz());
-		add(new PanelMatriz());
+		add(new GridTabuleiro());
+		add(new GridTabuleiro());
 	}
 	
 	static Tabuleiro getTabuleiro() {

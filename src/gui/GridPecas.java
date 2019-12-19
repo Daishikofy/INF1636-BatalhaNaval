@@ -13,14 +13,14 @@ import java.awt.Rectangle;
 import java.awt.event.*;
 
 @SuppressWarnings("serial")
-public class GridDeEscolha extends JPanel implements MouseListener, IObservador {
+public class GridPecas extends JPanel implements MouseListener, IObservador {
 
 		double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 		int nLinhas = 15;
 		Celula tab[][]=new Celula[nLinhas][nLinhas];
 		RegraPreenchimento regra = new RegraPreenchimento(true);
 		
-		public GridDeEscolha() {	
+		public GridPecas() {	
 			
 			addMouseListener(this);
 			regra.cadastrar((IObservador)this);
