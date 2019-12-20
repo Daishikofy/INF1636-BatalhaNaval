@@ -22,7 +22,7 @@ public class RegraGeral implements IObservado{
 	protected TabuleiroData tabuleiro = new TabuleiroData(15,15);
 	protected TabuleiroData pecas = new TabuleiroData (15,15);
 	private int vez=5;
-	private Boolean finalizar = false;
+	protected Boolean finalizar = false;
 	
 	public RegraGeral() {
 		tabuleiroAlterado = new Evento();

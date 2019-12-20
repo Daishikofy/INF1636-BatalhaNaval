@@ -22,6 +22,7 @@ public class PanelPreenchimento extends JPanel implements IObservador{
 		add(jogadorCorrente);
 		
 		GerenciadorDePreenchimento.getManager().getRegra().updateUI.cadastrar((IObservador)this);
+		update();
 	}
 
 	private void podeFinalizar (Boolean value)
@@ -36,6 +37,7 @@ public class PanelPreenchimento extends JPanel implements IObservador{
 
 	@Override
 	public void update() {
+		System.out.println("Update");
 		var regra = GerenciadorDePreenchimento.getManager().getRegra();
 		int vez = regra.getVez();
 		//TODO : Implementar o nome para a vez

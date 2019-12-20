@@ -10,9 +10,11 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 	Peca[] allPecas = new Peca[15]; //Possui as peças a serem posicionadas
 	
 	Peca pecaSelecionada = null;
+	int pecasPosicionadas = 0;
 	
 	public RegraPreenchimento() {
 		System.out.println("Regra preenchimento");
+		
 		tabuleiroPrenchendo = new TabuleiroData(15, 15);
 		pecasPreenchidas = new TabuleiroData(15, 15);
 		
@@ -34,9 +36,7 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 		pecasPreenchidas.inserePeca(allPecas[13], 12, 0);
 		pecasPreenchidas.inserePeca(allPecas[14], 12, 3);
 		tabuleiro = tabuleiroPrenchendo;
-		pecas = pecasPreenchidas;
-		
-		updateUI.notificar(this);
+		pecas = pecasPreenchidas;		
 	}
 	
 
@@ -139,6 +139,7 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 			if (pecaSelecionada != null)
 			{
 				tabuleiroPrenchendo.removePeca(x, y);
+				pecasPosicionadas -= 1;
 				System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
 				System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 			}
@@ -149,11 +150,23 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 			{
 				tabuleiroPrenchendo.inserePeca(pecaSelecionada, x, y);
 				pecaSelecionada = null;
-				//Tabuleiro sendo o da regra geral
+				pecasPosicionadas += 1;
+				//Tabuleiro sendo o da regra geral				
 			}
 		}
 		tabuleiro = tabuleiroPrenchendo;
 		tabuleiroAlterado.notificar(this);
+		if (finalizar && pecasPosicionadas < 3)
+		{
+			finalizar = false;
+			updateUI.notificar(this);
+		}
+		if(!finalizar && pecasPosicionadas == 3)
+		{
+			finalizar = true;
+			updateUI.notificar(this);
+		}
+			
 	}
 
 	public void onLeftClickPecas(int x, int y)
@@ -168,18 +181,9 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 				System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
 				System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 			}
-		}
-		else
-		{
-			if (validaInsercao(pecaSelecionada, x, y))
-			{
-				pecasPreenchidas.inserePeca(pecaSelecionada, x, y);
-				pecaSelecionada = null;
-				//pecas sendo as da regra geral		
-			}
-		}
-		pecas = pecasPreenchidas;
-		tabuleiroAlterado.notificar(this);
+			pecas = pecasPreenchidas;
+			tabuleiroAlterado.notificar(this);
+		}	
 	}
 	
 	public void onRightClick() 
