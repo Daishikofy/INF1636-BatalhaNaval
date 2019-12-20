@@ -37,7 +37,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 		}
 		
 		addMouseListener(this);
-		ManagerDeEventos.getManager().getRegra().cadastrar((IObservador)this);
+		GerenciadorDePreenchimento.getManager().getRegra().cadastrar((IObservador)this);
 		
 		double x = xIni ,y = yIni;
 		for(int i=0; i < nLinhas; i++) {
@@ -89,7 +89,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 			g2d.drawChars(num, 0, 2, (int)( xIni + (larg + espLinha)*(i + 0.25) ), (int)(yIni / 2));
 		}
 //TODO: Usar os parametros de observador para passar a matriz
-		EstadoDeCelula mat[][] = ManagerDeEventos.getManager().getRegra().getMatriz();
+		EstadoDeCelula mat[][] = GerenciadorDePreenchimento.getManager().getRegra().getTabuleiro();
 		
 		for (int i = 0; i < nLinhas; i++) 
 		{	
@@ -125,12 +125,12 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 				int xCel = (int) (x/(larg + espLinha));
 				int yCel = (int) (y/(alt + espLinha));
 				
-				ManagerDeEventos.getManager().onLeftClick(xCel, yCel);		
+				GerenciadorDePreenchimento.getManager().onLeftClickTabuleiro(xCel, yCel);		
 			}
 		}
 		else if (e.getButton() == e.BUTTON3)//Right click
 		{
-			ManagerDeEventos.getManager().onRightClick();	
+			GerenciadorDePreenchimento.getManager().onRightClick();	
 		}
 		
 		//DEBUG : Usar o notify, nao deixar o repaint aqui	

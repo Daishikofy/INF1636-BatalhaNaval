@@ -18,6 +18,7 @@ public class RegraGeral implements IObservado{
 	
 	//char tabuleiro [][] = new char[15][15];
 	TabuleiroData tabuleiro = new TabuleiroData(15,15);
+	TabuleiroData pecas = new TabuleiroData (15,15);
 	int vez=5;
 	
 	public RegraGeral() {
@@ -29,12 +30,22 @@ public class RegraGeral implements IObservado{
 		}
 	}
 	
-	public EstadoDeCelula[][] getMatriz() {
+	public EstadoDeCelula[][] getTabuleiro()
+	{		
+		return getMatriz(tabuleiro);
+	}
+	
+	public EstadoDeCelula[][] getPecas()
+	{		
+		return getMatriz(pecas);
+	}
+		
+	private EstadoDeCelula[][] getMatriz(TabuleiroData matriz) {
 		EstadoDeCelula[][] matrizDeCelulas = new EstadoDeCelula[15][15];
 		for(int i = 0; i < 15; i++) {
 			for(int j = 0; j < 15; j++) {
 				EstadoDeCelula estado = EstadoDeCelula.OCUPADO;
-				char conteudo = tabuleiro.getCell(j, i);
+				char conteudo = matriz.getCell(j, i);
 				if(conteudo == 'X') {
 					estado = EstadoDeCelula.AFUNDADO;
 				} 
@@ -62,23 +73,8 @@ public class RegraGeral implements IObservado{
 	}	
 //TODO	
 	
-	public void onLeftClick(int x, int y) {}
+	public void onLeftClickTabuleiro(int x, int y) {}
 	public void onRightClick() {}
-	/*
-	public boolean onClick(int x, int y)
-	{
-		if (x < 0 || x > 14 || y < 0 || y > 14)
-			return false;
-		if (tabuleiro.getCell(x, y) == '0')
-			return false;
-		
-		tabuleiro[y][x] = 'o';
-		if(vez == -1)
-			vez = 5;
-		else
-			vez = -1;
-		return true;		
-	}*/
 
 	@Override
 	public void cadastrar(IObservador novoObservador) {

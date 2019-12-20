@@ -2,6 +2,7 @@ package gui;
 import javax.swing.*;
 
 import interfaces.IObservador;
+import regras.GerenciadorDePreenchimento;
 import regras.RegraGeral.EstadoDeCelula;
 import regras.RegraPreenchimento;
 
@@ -18,7 +19,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 		double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 		int nLinhas = 15;
 		Celula tab[][]=new Celula[nLinhas][nLinhas];
-		RegraPreenchimento regra = new RegraPreenchimento(true);
+		RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
 		
 		public GridPecas() {	
 			
@@ -51,7 +52,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 	                10.0f));
 			
 			//TODO: Usar os parametros de observador para passar a matriz
-			EstadoDeCelula mat[][] = regra.getMatriz();
+			EstadoDeCelula mat[][] = regra.getPecas();
 			
 			for (int i = 0; i < nLinhas; i++) 
 			{	
@@ -87,7 +88,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 					int xCel = (int) (x/(larg + espLinha));
 					int yCel = (int) (y/(alt + espLinha));
 					
-					regra.onLeftClick(xCel, yCel);		
+					regra.onLeftClickPecas(xCel, yCel);		
 				}
 			}
 			else if (e.getButton() == e.BUTTON3)//Right click
