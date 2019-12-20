@@ -37,7 +37,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 		}
 		
 		addMouseListener(this);
-		GerenciadorDePreenchimento.getManager().getRegra().cadastrar((IObservador)this);
+		GerenciadorDePreenchimento.getManager().getRegra().tabuleiroAlterado.cadastrar((IObservador)this);
 		
 		double x = xIni ,y = yIni;
 		for(int i=0; i < nLinhas; i++) {

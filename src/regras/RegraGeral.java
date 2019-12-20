@@ -14,14 +14,19 @@ public class RegraGeral implements IObservado{
 		INVALIDO,			// Posicionamento de arma encosta em outra arma 'i'
 		OCULTO				// Seu conteúdo não pode ser visto atualmente <upper case - {'X'}>
 	}
-	private List<IObservador> observadores = new ArrayList<>();
 	
-	//char tabuleiro [][] = new char[15][15];
-	TabuleiroData tabuleiro = new TabuleiroData(15,15);
-	TabuleiroData pecas = new TabuleiroData (15,15);
-	int vez=5;
+	public Evento tabuleiroAlterado;
+	public Evento updateUI;
+	
+	private List<IObservador> observadores = new ArrayList<>();
+	protected TabuleiroData tabuleiro = new TabuleiroData(15,15);
+	protected TabuleiroData pecas = new TabuleiroData (15,15);
+	private int vez=5;
+	private Boolean finalizar = false;
 	
 	public RegraGeral() {
+		tabuleiroAlterado = new Evento();
+		updateUI = new Evento();
 		System.out.println("Regra geral");
 		for(int i = 0; i < 15; i++) {
 			for(int j = 0; j < 15; j++) {
@@ -71,6 +76,11 @@ public class RegraGeral implements IObservado{
 	public int getVez() {
 		return vez;
 	}	
+	
+	public Boolean podeFinalizar()
+	{		
+		return finalizar;
+	}
 //TODO	
 	
 	public void onLeftClickTabuleiro(int x, int y) {}

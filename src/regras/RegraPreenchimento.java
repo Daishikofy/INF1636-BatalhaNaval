@@ -35,37 +35,11 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 		pecasPreenchidas.inserePeca(allPecas[14], 12, 3);
 		tabuleiro = tabuleiroPrenchendo;
 		pecas = pecasPreenchidas;
+		
+		updateUI.notificar(this);
 	}
 	
-	public RegraPreenchimento(boolean visible)
-	{
-//		System.out.println("Regra preenchimento");
-//		tabuleiroPrenchendo = new TabuleiroData(15, 15);
-//		pecasPreenchidas = new TabuleiroData(15, 15);
-//		if (visible) {
-//			geraPecas();
-//			
-//			pecasPreenchidas.inserePeca(allPecas[0], 0, 13);
-//			pecasPreenchidas.inserePeca(allPecas[1], 0, 10);
-//			pecasPreenchidas.inserePeca(allPecas[2], 5, 10);
-//			pecasPreenchidas.inserePeca(allPecas[3], 0, 7);
-//			pecasPreenchidas.inserePeca(allPecas[4], 4, 7);
-//			pecasPreenchidas.inserePeca(allPecas[5], 8, 7);
-//			pecasPreenchidas.inserePeca(allPecas[6], 0, 4);
-//			pecasPreenchidas.inserePeca(allPecas[7], 2, 4);
-//			pecasPreenchidas.inserePeca(allPecas[8], 4, 4);
-//			pecasPreenchidas.inserePeca(allPecas[9], 6, 4);
-//			pecasPreenchidas.inserePeca(allPecas[10], 0, 0);
-//			pecasPreenchidas.inserePeca(allPecas[11], 4, 0);
-//			pecasPreenchidas.inserePeca(allPecas[12], 8, 0);
-//			pecasPreenchidas.inserePeca(allPecas[13], 12, 0);
-//			pecasPreenchidas.inserePeca(allPecas[14], 12, 3);
-//		}
-//		
-//		tabuleiro = tabuleiroPrenchendo;
-//		pecas = pecasPreenchidas;
-	}
-	
+
 	public void transferir(RegraPreenchimento r) {
 		this.pecaSelecionada = r.pecaSelecionada;
 		r.pecaSelecionada = null;
@@ -139,42 +113,6 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 			return true;
 		}
 	}
-	/*
-	public void inserePeca (Peca peca, int x, int y)
-	{
-		char[] components = peca.getComponentes();
-		int currentComp = 0;	
-		peca.x = x;
-		peca.y = y;
-		for (int i = x; i < x + peca.largura; i++)
-			for (int j = y, c = 0; j < y + peca.altura; j++, c++)			
-			{
-				currentComp = (i - x) + c * peca.largura;
-				tabuleiroPrenchendo.setPeca(peca, components[currentComp], i, j);	
-			}
-		
-		notificar(this);
-	}*/
-	
-	/*public void removePeca (int x, int y)
-	{
-		Peca peca = tabuleiroPrenchendo.getPeca(x, y);
-		if (peca == null)
-			return;
-		int xPeca = peca.x, yPeca = peca.y;
-		//A peca selecionada tem coordenadas zeradas, nao sei se daria 
-		//para se aproveitar dessas coordenadas em vez de deixar elas zeradas.
-		//Talvez possam ser uteis na hora de fazer o desenho ou de arastar a 
-		//peca pelo tabuleiro
-		peca.x = 0;
-		peca.y = 0;
-
-		for (int i = xPeca; i < xPeca + peca.largura; i++)
-			for (int j = yPeca; j < yPeca + peca.altura; j++)			
-			{
-				tabuleiroPrenchendo.setCell('0', i, j);	
-			}	
-	}*/
 	
 	private void geraPecas()
 	{
@@ -215,7 +153,7 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 			}
 		}
 		tabuleiro = tabuleiroPrenchendo;
-		notificar(this);
+		tabuleiroAlterado.notificar(this);
 	}
 
 	public void onLeftClickPecas(int x, int y)
@@ -241,7 +179,7 @@ public class RegraPreenchimento  extends RegraGeral implements IObservado{
 			}
 		}
 		pecas = pecasPreenchidas;
-		notificar(this);
+		tabuleiroAlterado.notificar(this);
 	}
 	
 	public void onRightClick() 

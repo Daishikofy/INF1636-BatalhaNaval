@@ -24,7 +24,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 		public GridPecas() {	
 			
 			addMouseListener(this);
-			regra.cadastrar((IObservador)this);
+			regra.tabuleiroAlterado.cadastrar((IObservador)this);
 			
 			double x = xIni ,y = yIni;
 			for(int i=0; i < nLinhas; i++) {
