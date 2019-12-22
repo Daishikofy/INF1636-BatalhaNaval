@@ -3,6 +3,14 @@ package regras;
 import utils.Evento;
 
 public class RegraJogo {
+	public enum EstadoDeCelula {
+		AGUA,				// Não contém arma '0'
+		OCUPADO,			// Contém arma intacta 'o' (ou uma letra pra cada arma)
+		ATINGIDO,			// Contém parte de arma atingida 'x'
+		AFUNDADO,			// Toda a arma foi atingida 'X'
+		INVALIDO,			// Posicionamento de arma encosta em outra arma 'i'
+		OCULTO				// Seu conteúdo não pode ser visto atualmente <upper case - {'X'}>
+	}
 	public enum EstadoDoJogo {
 		TELAINICIAL,
 		ESCOLHAJOGADORES,
@@ -21,7 +29,7 @@ public class RegraJogo {
 	TabuleiroData[] tabuleiros;
 	
 	
-	RegraEmbate regrasEmbate[];
+	RegraEmbate regraEmbate;
 	
 	public static RegraJogo Instance()
 	{
@@ -103,6 +111,11 @@ public class RegraJogo {
 	public void setJogadores(String[] jogadores)
 	{
 		nomesJogadores = jogadores;
+	}
+	
+	public RegraEmbate getRegra()
+	{
+		return regraEmbate;
 	}
 	
 	// Iniciar um novo jogo

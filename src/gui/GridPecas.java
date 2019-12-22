@@ -3,7 +3,7 @@ import javax.swing.*;
 
 import interfaces.IObservador;
 import regras.GerenciadorDePreenchimento;
-import regras.RegraGeral.EstadoDeCelula;
+import regras.RegraJogo.EstadoDeCelula;
 import regras.RegraPreenchimento;
 
 import java.awt.BasicStroke;

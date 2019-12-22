@@ -26,8 +26,8 @@ public class PanelPreenchimento extends JPanel implements ActionListener,IObserv
 		add(new GridTabuleiro());
 		add(botaoContinuar);
 		add(jogadorCorrente);
-		
 		GerenciadorDePreenchimento.getManager().getRegra().updateUI.cadastrar((IObservador)this);
+		
 		update();
 	}
 

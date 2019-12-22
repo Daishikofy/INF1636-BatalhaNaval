@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import regras.*;
-import regras.RegraGeral.EstadoDeCelula;
+import regras.RegraJogo.EstadoDeCelula;
 
 import interfaces.*;
  
@@ -15,6 +15,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 	int nLinhas = 15;
 	Celula tab[][]=new Celula[nLinhas][nLinhas];
 	Line2D.Double ln[]=new Line2D.Double[(nLinhas + 1) * 2];
+	RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
 	
 	public GridTabuleiro() {		
 		// Linhas horizontais
@@ -37,7 +38,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 		}
 		
 		addMouseListener(this);
-		GerenciadorDePreenchimento.getManager().getRegra().tabuleiroAlterado.cadastrar((IObservador)this);
+		regra.tabuleiroAlterado.cadastrar((IObservador)this);
 		
 		double x = xIni ,y = yIni;
 		for(int i=0; i < nLinhas; i++) {
@@ -89,7 +90,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 			g2d.drawChars(num, 0, 2, (int)( xIni + (larg + espLinha)*(i + 0.25) ), (int)(yIni / 2));
 		}
 //TODO: Usar os parametros de observador para passar a matriz
-		EstadoDeCelula mat[][] = GerenciadorDePreenchimento.getManager().getRegra().getTabuleiro();
+		EstadoDeCelula mat[][] = regra.getTabuleiro();
 		
 		for (int i = 0; i < nLinhas; i++) 
 		{	

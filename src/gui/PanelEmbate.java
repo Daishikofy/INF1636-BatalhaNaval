@@ -1,28 +1,39 @@
 package gui;
 
 import regras.RegraGeral;
+import regras.RegraJogo;
 import regras.RegraPreenchimento;
 
 import javax.swing.*;
 
+import interfaces.IObservador;
+
 // Definir o número de linhas na classe tabuleiro
 
-public class Tabuleiro extends JPanel {
-	static private Tabuleiro instance = null;
-	//private RegraGeral regras1, regras2;
+public class PanelEmbate extends JPanel implements IObservador{
+
+	JLabel jogadorCorrente;
 	
-	private Tabuleiro() {
-		//regras1 = new RegraPreenchimento();
-		//regras2 = new RegraPreenchimento();
+	private PanelEmbate() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		jogadorCorrente = new JLabel("Jogador 1");
 		add(new GridTabuleiro());
 		add(new GridTabuleiro());
+		add(jogadorCorrente);
+		
+		update();
+	}
+
+	private void atualizaJogadorCorrente (String nome)
+	{
+		jogadorCorrente.setText(nome);
+	}
+	@Override
+	public void update() {
+		var regra = RegraJogo.Instance().getRegra();
+		System.out.println("Update" + regra.getVez());
+		String jogador = regra.getVez();
+		atualizaJogadorCorrente(jogador);
 	}
 	
-	static Tabuleiro getTabuleiro() {
-		if(instance == null) {
-			instance = new Tabuleiro();
-		}
-		return instance;
-	}
 }

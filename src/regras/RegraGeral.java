@@ -1,21 +1,11 @@
 package regras;
-import java.util.ArrayList;
-import java.util.List;
 
-import interfaces.*;
+import interfaces.Regra;
+import regras.RegraJogo.EstadoDeCelula;
 import utils.Evento;
+import utils.TransformacaoTabuleiro;
 
-public class RegraGeral{
-
-	public enum EstadoDeCelula {
-		AGUA,				// Não contém arma '0'
-		OCUPADO,			// Contém arma intacta 'o' (ou uma letra pra cada arma)
-		ATINGIDO,			// Contém parte de arma atingida 'x'
-		AFUNDADO,			// Toda a arma foi atingida 'X'
-		INVALIDO,			// Posicionamento de arma encosta em outra arma 'i'
-		OCULTO				// Seu conteúdo não pode ser visto atualmente <upper case - {'X'}>
-	}
-	
+public class RegraGeral implements Regra{	
 	public Evento tabuleiroAlterado;
 	public Evento updateUI;
 	
@@ -35,42 +25,14 @@ public class RegraGeral{
 		}
 	}
 	
-	public EstadoDeCelula[][] getTabuleiro()
-	{		
-		return getMatriz(tabuleiro);
+	@Override
+	public EstadoDeCelula[][] getTabuleiro() {
+		return TransformacaoTabuleiro.getMatriz(tabuleiro);
 	}
-	
-	public EstadoDeCelula[][] getPecas()
-	{		
-		return getMatriz(pecas);
-	}
-		
-	private EstadoDeCelula[][] getMatriz(TabuleiroData matriz) {
-		EstadoDeCelula[][] matrizDeCelulas = new EstadoDeCelula[15][15];
-		for(int i = 0; i < 15; i++) {
-			for(int j = 0; j < 15; j++) {
-				EstadoDeCelula estado = EstadoDeCelula.OCUPADO;
-				char conteudo = matriz.getCell(j, i);
-				if(conteudo == 'X') {
-					estado = EstadoDeCelula.AFUNDADO;
-				} 
-				else if(Character.isUpperCase(conteudo)) {
-					estado = EstadoDeCelula.OCULTO;
-				}
-				else if(conteudo == 'i') {
-					estado = EstadoDeCelula.INVALIDO;
-				}
-				else if(conteudo == '0') {
-					estado = EstadoDeCelula.AGUA;
-				}
-				else if(conteudo == 'x') {
-					estado = EstadoDeCelula.ATINGIDO;
-				}
-				
-				matrizDeCelulas[i][j] = estado;
-			}
-		}
-		return matrizDeCelulas;
+
+	@Override
+	public EstadoDeCelula[][] getPecas() {
+		return TransformacaoTabuleiro.getMatriz(pecas);
 	}
 	
 	public String getVez() {
@@ -82,7 +44,7 @@ public class RegraGeral{
 		return finalizar;
 	}
 	
-//TODO		
+		
 	public void onLeftClickTabuleiro(int x, int y) {}
 	public void onRightClick() {}
 }
