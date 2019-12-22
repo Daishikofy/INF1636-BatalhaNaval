@@ -20,6 +20,8 @@ public class GerenciadorDePreenchimento {
 	//TODO: remover este getRegra quando observador for implementado
 	public RegraPreenchimento getRegra()
 	{
+		//TODO : Ver se este gerenciador é necessario ainda
+		regra = RegraJogo.Instance().regraPreenchimento; 
 		return regra;
 	}
 	

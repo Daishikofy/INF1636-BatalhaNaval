@@ -54,17 +54,30 @@ public class RegraJogo {
 	{
 		estadoAtual = EstadoDoJogo.POSICIONAMENTO;
 		regraPreenchimento = new RegraPreenchimento(nomesJogadores[jogadorAtual]);
+		tabuleiros = new TabuleiroData[nomesJogadores.length];
 		trocaPanel.notificar(this);
 	}
 	
-	private void trocarJogadorPreenchimento()
+	public void trocarJogadorPreenchimento()
 	{
-		
+		tabuleiros[jogadorAtual] = regraPreenchimento.finalizaPosicionamento();
+		System.out.println("oi");
+		jogadorAtual ++;
+		if (jogadorAtual < nomesJogadores.length)
+		{
+			regraPreenchimento = new RegraPreenchimento(nomesJogadores[jogadorAtual]);
+			trocaPanel.notificar(this);	
+		}
+		else
+		{
+			iniciarEmbate();
+		}
 	}
 	
 	private void iniciarEmbate()
 	{
 		estadoAtual = EstadoDoJogo.EMBATE;
+		trocaPanel.notificar(this);	
 	}
 	
 	private void trocarJogadorEmbate()

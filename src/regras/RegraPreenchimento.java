@@ -13,7 +13,7 @@ public class RegraPreenchimento  extends RegraGeral {
 	int pecasPosicionadas = 0;
 	
 	public RegraPreenchimento(String jogador) {
-		System.out.println("Regra preenchimento");
+		System.out.println("Regra preenchimento " + jogador);
 		vez = jogador;
 		tabuleiroPrenchendo = new TabuleiroData(15, 15);
 		pecasPreenchidas = new TabuleiroData(15, 15);
@@ -40,9 +40,8 @@ public class RegraPreenchimento  extends RegraGeral {
 	}
 	
 
-	public void transferir(RegraPreenchimento r) {
-		this.pecaSelecionada = r.pecaSelecionada;
-		r.pecaSelecionada = null;
+	public TabuleiroData finalizaPosicionamento() {
+		return tabuleiro;
 	}
 	
 	public boolean validaInsercao(Peca peca, int x, int y)

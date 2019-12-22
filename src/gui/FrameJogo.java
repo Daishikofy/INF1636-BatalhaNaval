@@ -54,7 +54,8 @@ public class FrameJogo extends JFrame implements IObservador{
 					
 			break;
 		case POSICIONAMENTO:
-			newPanel = new PanelPreenchimento();			
+			newPanel = new PanelPreenchimento();
+			System.out.println("panel de preenchimento");
 			
 			break;
 		case ESCOLHAJOGADORES:
@@ -66,6 +67,8 @@ public class FrameJogo extends JFrame implements IObservador{
 		
 		if (newPanel != null)
 		{
+			System.out.println("HEYO");
+			currentPanel.removeAll();
 			currentPanel.setVisible(false);
 			currentPanel = newPanel;
 			currentPanel.setVisible(true);
