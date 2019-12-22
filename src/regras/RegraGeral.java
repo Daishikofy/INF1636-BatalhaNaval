@@ -81,8 +81,8 @@ public class RegraGeral{
 	{		
 		return finalizar;
 	}
-//TODO	
 	
+//TODO		
 	public void onLeftClickTabuleiro(int x, int y) {}
 	public void onRightClick() {}
 }

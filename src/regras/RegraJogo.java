@@ -10,6 +10,10 @@ public class RegraJogo {
 		
 	}
 	
+	private void inciciarNovoJogo()
+	{
+		//criar regra de preenchimento com a vez do jogador
+	}
 	// Iniciar um novo jogo
 	// Continuar um jogo
 	

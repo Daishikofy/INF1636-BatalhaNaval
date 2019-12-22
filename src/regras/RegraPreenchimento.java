@@ -1,7 +1,7 @@
 package regras;
 import interfaces.*;
 
-public class RegraPreenchimento  extends RegraGeral implements IObservado{
+public class RegraPreenchimento  extends RegraGeral {
 
 
 	TabuleiroData tabuleiroPrenchendo; //Contem as peças atualmente fixas no tabuleiro
