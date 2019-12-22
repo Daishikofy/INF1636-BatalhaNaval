@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.*;
+import utils.Evento;
 
-public class RegraGeral implements IObservado{
+public class RegraGeral{
 
 	public enum EstadoDeCelula {
 		AGUA,				// Não contém arma '0'
@@ -18,7 +19,6 @@ public class RegraGeral implements IObservado{
 	public Evento tabuleiroAlterado;
 	public Evento updateUI;
 	
-	private List<IObservador> observadores = new ArrayList<>();
 	protected TabuleiroData tabuleiro = new TabuleiroData(15,15);
 	protected TabuleiroData pecas = new TabuleiroData (15,15);
 	private int vez=5;
@@ -85,19 +85,4 @@ public class RegraGeral implements IObservado{
 	
 	public void onLeftClickTabuleiro(int x, int y) {}
 	public void onRightClick() {}
-
-	@Override
-	public void cadastrar(IObservador novoObservador) {
-		observadores.add(novoObservador);		
-	}
-
-	@Override
-	public void remover(IObservador observadorRetirado) {
-		observadores.remove(observadorRetirado);		
-	}
-
-	@Override
-	public void notificar(IObservado fonte) {
-		observadores.forEach(observador -> observador.update());	
-	}
 }
