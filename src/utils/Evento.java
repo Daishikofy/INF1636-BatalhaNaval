@@ -26,7 +26,7 @@ public class Evento implements IObservado{
 	}
 
 	@Override
-	public void notificar(IObservado fonte) {
+	public void notificar(Object fonte) {
 		observadores.forEach(observador -> observador.update());	
 	}
 

@@ -2,12 +2,11 @@ package regras;
 
 public class GerenciadorDePreenchimento {
 	static GerenciadorDePreenchimento gerenciador = null;
-	RegraPreenchimento regras ;
+	RegraPreenchimento regra ;
 	
 	private GerenciadorDePreenchimento()
 	{
-		System.out.println("oi");
-		regras = new RegraPreenchimento();
+		regra = RegraJogo.Instance().regraPreenchimento;
 	}
 	
 	public static GerenciadorDePreenchimento getManager()
@@ -21,21 +20,21 @@ public class GerenciadorDePreenchimento {
 	//TODO: remover este getRegra quando observador for implementado
 	public RegraPreenchimento getRegra()
 	{
-		return regras;
+		return regra;
 	}
 	
 	public void onLeftClickTabuleiro(int x, int y)
 	{
-		regras.onLeftClickTabuleiro(x,y);
+		regra.onLeftClickTabuleiro(x,y);
 	}
 	
 	public void onLeftClickPecas(int x, int y)
 	{
-		regras.onLeftClickPecas(x,y);
+		regra.onLeftClickPecas(x,y);
 	}
 	
 	public void onRightClick()
 	{
-		regras.onRightClick();
+		regra.onRightClick();
 	}
 }

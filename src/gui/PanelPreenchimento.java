@@ -10,6 +10,7 @@ public class PanelPreenchimento extends JPanel implements IObservador{
 	JLabel jogadorCorrente;
 	
 	public PanelPreenchimento() {
+		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		botaoContinuar = new JButton();
@@ -39,14 +40,8 @@ public class PanelPreenchimento extends JPanel implements IObservador{
 	public void update() {
 		System.out.println("Update");
 		var regra = GerenciadorDePreenchimento.getManager().getRegra();
-		int vez = regra.getVez();
-		//TODO : Implementar o nome para a vez
-		//DEBUG : Abaixo so pra teste
-		if (vez == 1)
-			atualizaJogadorCorrente("Julieta");
-		else
-			atualizaJogadorCorrente("Marcela");
-		
+		String jogador = regra.getVez();
+		atualizaJogadorCorrente(jogador);		
 		podeFinalizar(regra.podeFinalizar());
 	}
 	

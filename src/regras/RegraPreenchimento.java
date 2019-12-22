@@ -12,9 +12,9 @@ public class RegraPreenchimento  extends RegraGeral {
 	Peca pecaSelecionada = null;
 	int pecasPosicionadas = 0;
 	
-	public RegraPreenchimento() {
+	public RegraPreenchimento(String jogador) {
 		System.out.println("Regra preenchimento");
-		
+		vez = jogador;
 		tabuleiroPrenchendo = new TabuleiroData(15, 15);
 		pecasPreenchidas = new TabuleiroData(15, 15);
 		
@@ -156,6 +156,7 @@ public class RegraPreenchimento  extends RegraGeral {
 		}
 		tabuleiro = tabuleiroPrenchendo;
 		tabuleiroAlterado.notificar(this);
+		//TODO : Botar 15 em vez de 3
 		if (finalizar && pecasPosicionadas < 3)
 		{
 			finalizar = false;

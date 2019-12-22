@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import regras.RegraJogo;
+
 public class DialogoJogadores extends JDialog implements ActionListener {
 	
 	final int LARG_DEFAULT=200;
@@ -17,8 +19,11 @@ public class DialogoJogadores extends JDialog implements ActionListener {
 	JTextField textoJogador2;
 	JButton botaoComecar;
 	
+	Frame frame;
+	
 	public DialogoJogadores(Frame fr) {
 		super(fr, "Jogadores");
+		frame = fr;
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
 		int sl = screenSize.width;
@@ -65,10 +70,16 @@ public class DialogoJogadores extends JDialog implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		String s = e.getActionCommand();
-        if (s.equals("Começar")) {
-        	this.dispose();
-        	// Notificar quem ouve evento de mudança do nome dos jogadores
+		String action = e.getActionCommand();
+        if (action.equals("Começar")) {
+        	
+        	String[] jogadores = {textoJogador1.getText(), textoJogador2.getText()};
+        	
+        	RegraJogo.Instance().setJogadores(jogadores);
+        	System.out.println(jogadores[0] + " - " + jogadores[1]);
+
+    		RegraJogo.Instance().inciciarNovoJogo();
+    		this.dispose();
         }
 	}
 }

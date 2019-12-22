@@ -1,15 +1,22 @@
 package gui;
 
 import regras.*;
+import regras.RegraJogo.EstadoDoJogo;
 
 import java.awt.*;
 import javax.swing.*;
 
-public class FrameJogo extends JFrame {
+import interfaces.IObservador;
+
+public class FrameJogo extends JFrame implements IObservador{
 	final int LARG_DEFAULT=1200;
 	final int ALT_DEFAULT=600;
 	
-	public FrameJogo(/*RegraGeral c*/) {
+	FrameJogo instance;
+	JPanel currentPanel;
+	
+	public FrameJogo() {
+		instance = this;
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
 		int sl=screenSize.width;
@@ -18,19 +25,52 @@ public class FrameJogo extends JFrame {
 		int y=sa/2-ALT_DEFAULT/2;
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		PanelPreenchimento tab = new PanelPreenchimento();
-		tab.setVisible(true);
-		getContentPane().add(tab);
-		
+	
 		setTitle("Batalha Naval");
+		TelaInicial telaIncial = new TelaInicial();
+		currentPanel = telaIncial;
+		this.getContentPane().add(telaIncial);
 	}
 
 	public static void main(String args[]) {
-		FrameJogo frameJogo = new FrameJogo(/*new RegraPreenchimento()*/); 
-		DialogoJogadores dialogo = new DialogoJogadores(frameJogo);
-		dialogo.setVisible(true);
+		RegraJogo regraJogo = RegraJogo.Instance();		
+		FrameJogo frameJogo = new FrameJogo(); 
+		regraJogo.trocaPanel.cadastrar(frameJogo);
 		frameJogo.setVisible(true);
+	}
+
+	@Override
+	public void update() {
+		System.out.println("Trocar panel");
+		JPanel newPanel = null;
+		EstadoDoJogo panel = RegraJogo.Instance().getEstado();	
+		switch (panel) {
+		
+		case EMBATE:
+			
+			break;
+		case TELAINICIAL:
+			newPanel = new TelaInicial();
+					
+			break;
+		case POSICIONAMENTO:
+			newPanel = new PanelPreenchimento();			
+			
+			break;
+		case ESCOLHAJOGADORES:
+			DialogoJogadores dialogo = new DialogoJogadores(instance);
+			dialogo.setVisible(true);
+			
+			break;
+		}
+		
+		if (newPanel != null)
+		{
+			currentPanel.setVisible(false);
+			currentPanel = newPanel;
+			currentPanel.setVisible(true);
+			instance.add(newPanel);
+		}
 	}
 	
 }
