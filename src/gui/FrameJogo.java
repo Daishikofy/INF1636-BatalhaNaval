@@ -47,6 +47,7 @@ public class FrameJogo extends JFrame implements IObservador{
 		switch (panel) {
 		
 		case EMBATE:
+			newPanel = PanelEmbate.getPanel();
 			
 			break;
 		case TELAINICIAL:

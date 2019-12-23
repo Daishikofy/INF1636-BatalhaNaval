@@ -12,5 +12,6 @@ public interface Regra {
 	public Boolean podeFinalizar();
 			
 	public void onLeftClickTabuleiro(int x, int y);
+	
 	public void onRightClick();
 }

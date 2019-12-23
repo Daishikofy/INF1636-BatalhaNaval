@@ -1,5 +1,4 @@
 package regras;
-import interfaces.*;
 
 public class RegraPreenchimento  extends RegraGeral {
 

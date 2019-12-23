@@ -85,12 +85,15 @@ public class RegraJogo {
 	private void iniciarEmbate()
 	{
 		estadoAtual = EstadoDoJogo.EMBATE;
+		jogadorAtual = 0;
+		
+		regraEmbate = new RegraEmbate(tabuleiros);
 		trocaPanel.notificar(this);	
 	}
 	
 	private void trocarJogadorEmbate()
 	{
-		
+		jogadorAtual = (jogadorAtual + 1) % 2;
 	}
 	
 	private void finalizarPreenchimento()

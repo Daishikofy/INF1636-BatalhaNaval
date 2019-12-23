@@ -1,9 +1,7 @@
 package gui;
 
-import regras.RegraGeral;
+import regras.RegraEmbate;
 import regras.RegraJogo;
-import regras.RegraPreenchimento;
-
 import javax.swing.*;
 
 import interfaces.IObservador;
@@ -11,6 +9,7 @@ import interfaces.IObservador;
 // Definir o número de linhas na classe tabuleiro
 
 public class PanelEmbate extends JPanel implements IObservador{
+	static PanelEmbate instance = null;
 
 	JLabel jogadorCorrente;
 	
@@ -30,10 +29,16 @@ public class PanelEmbate extends JPanel implements IObservador{
 	}
 	@Override
 	public void update() {
-		var regra = RegraJogo.Instance().getRegra();
-		System.out.println("Update" + regra.getVez());
+		RegraEmbate regra = RegraJogo.Instance().getRegra();
+		System.out.println("Update " + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);
 	}
 	
+	static PanelEmbate getPanel() {
+		if (instance == null) {
+			instance = new PanelEmbate();
+		}
+		return instance;
+	}
 }

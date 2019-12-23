@@ -7,6 +7,7 @@ import javax.swing.*;
 import interfaces.IObservador;
 import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo;
+import regras.RegraPreenchimento;
 
 public class PanelPreenchimento extends JPanel implements ActionListener,IObservador{
 	
@@ -44,7 +45,7 @@ public class PanelPreenchimento extends JPanel implements ActionListener,IObserv
 	@Override
 	public void update() {
 		
-		var regra = GerenciadorDePreenchimento.getManager().getRegra();
+		RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
 		System.out.println("Update" + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);		
