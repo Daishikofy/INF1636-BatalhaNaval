@@ -5,12 +5,14 @@ import regras.RegraJogo;
 import javax.swing.*;
 
 import interfaces.IObservador;
+import interfaces.Regra;
 
 // Definir o número de linhas na classe tabuleiro
 
 public class PanelEmbate extends JPanel implements IObservador{
+	
 	static PanelEmbate instance = null;
-
+	Regra regra;
 	JLabel jogadorCorrente;
 	
 	private PanelEmbate() {
@@ -20,6 +22,7 @@ public class PanelEmbate extends JPanel implements IObservador{
 		add(new GridTabuleiro());
 		add(jogadorCorrente);
 		
+		regra = RegraJogo.Instance().getRegra();
 		update();
 	}
 
@@ -29,7 +32,6 @@ public class PanelEmbate extends JPanel implements IObservador{
 	}
 	@Override
 	public void update() {
-		RegraEmbate regra = RegraJogo.Instance().getRegra();
 		System.out.println("Update " + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);

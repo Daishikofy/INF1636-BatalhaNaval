@@ -128,7 +128,7 @@ public class RegraPreenchimento  extends RegraGeral {
 	
 	public void onLeftClickTabuleiro(int x, int y)
 	{
-		System.out.println("ClickTabuleiro");
+		System.out.println("ClickTabuleiro preenchimento");
 		printTabuleiro();
 		//System.out.println("Peca selecionada: " + tabuleiroPrenchendo.getCell(x, y));
 		if ( pecaSelecionada == null )

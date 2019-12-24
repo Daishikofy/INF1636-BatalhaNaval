@@ -47,9 +47,9 @@ public class FrameJogo extends JFrame implements IObservador{
 		switch (panel) {
 		
 		case EMBATE:
-			newPanel = PanelEmbate.getPanel();
-			
+			newPanel = PanelEmbate.getPanel();			
 			break;
+			
 		case TELAINICIAL:
 			newPanel = new TelaInicial();
 					
@@ -67,12 +67,13 @@ public class FrameJogo extends JFrame implements IObservador{
 		}
 		
 		if (newPanel != null)
-		{
-			System.out.println("HEYO");
+		{			
 			currentPanel.removeAll();
 			currentPanel.setVisible(false);
 			currentPanel = newPanel;
+			System.out.println("HEYO");
 			currentPanel.setVisible(true);
+			System.out.println("HEYO");
 			instance.add(newPanel);
 		}
 	}

@@ -1,5 +1,6 @@
 package regras;
 
+import interfaces.IObservador;
 import interfaces.Regra;
 import regras.RegraJogo.EstadoDeCelula;
 import utils.Evento;
@@ -47,4 +48,10 @@ public class RegraGeral implements Regra{
 		
 	public void onLeftClickTabuleiro(int x, int y) {}
 	public void onRightClick() {}
+
+	@Override
+	public void ouvirAlteracoes(IObservador observador) {
+		tabuleiroAlterado.cadastrar(observador);
+		
+	}
 }

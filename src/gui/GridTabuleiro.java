@@ -13,9 +13,9 @@ import interfaces.*;
 public class GridTabuleiro extends JPanel implements MouseListener, IObservador {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;
-	Celula tab[][]=new Celula[nLinhas][nLinhas];
-	Line2D.Double ln[]=new Line2D.Double[(nLinhas + 1) * 2];
-	RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
+	Celula tab[][] = new Celula[nLinhas][nLinhas];
+	Line2D.Double ln[] = new Line2D.Double[(nLinhas + 1) * 2];
+	Regra regra = RegraJogo.Instance().getRegra();
 	
 	public GridTabuleiro() {		
 		// Linhas horizontais
@@ -38,7 +38,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 		}
 		
 		addMouseListener(this);
-		regra.tabuleiroAlterado.cadastrar((IObservador)this);
+		regra.ouvirAlteracoes((IObservador)this);
 		
 		double x = xIni ,y = yIni;
 		for(int i=0; i < nLinhas; i++) {

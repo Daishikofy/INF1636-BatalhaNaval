@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import interfaces.IObservador;
+import interfaces.Regra;
 import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo;
 import regras.RegraPreenchimento;
@@ -13,6 +14,7 @@ public class PanelPreenchimento extends JPanel implements ActionListener,IObserv
 	
 	JButton botaoContinuar;
 	JLabel jogadorCorrente;
+	Regra regra;
 	
 	public PanelPreenchimento() {
 		
@@ -27,8 +29,10 @@ public class PanelPreenchimento extends JPanel implements ActionListener,IObserv
 		add(new GridTabuleiro());
 		add(botaoContinuar);
 		add(jogadorCorrente);
-		GerenciadorDePreenchimento.getManager().getRegra().updateUI.cadastrar((IObservador)this);
 		
+		
+		regra = RegraJogo.Instance().getRegra();
+		((RegraPreenchimento)regra).updateUI.cadastrar((IObservador)this);
 		update();
 	}
 
@@ -43,9 +47,7 @@ public class PanelPreenchimento extends JPanel implements ActionListener,IObserv
 	}
 
 	@Override
-	public void update() {
-		
-		RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
+	public void update() {		
 		System.out.println("Update" + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);		

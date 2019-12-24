@@ -1,8 +1,12 @@
 package regras;
 
 import utils.Evento;
+import utils.TransformacaoTabuleiro;
+import interfaces.IObservador;
+import interfaces.Regra;
+import regras.RegraJogo.EstadoDeCelula;
 
-public class RegraEmbate extends RegraGeral {
+public class RegraEmbate implements Regra {
 	
 	public Evento tabuleiroAlterado;
 	TabuleiroData[] tabuleiros;
@@ -15,11 +19,19 @@ public class RegraEmbate extends RegraGeral {
 	
 	/*
 	 * Marca a casa atingida
-	 */
-	public void onClick(int x, int y)
-	{
-		
+	 */	
+	@Override
+	public void onLeftClickTabuleiro(int x, int y) {
+		// TODO Auto-generated method stub
+		System.out.println("Click embate");
 	}
+
+	@Override
+	public void onRightClick() {
+		// TODO Auto-generated method stub
+		System.out.println("Click embate");
+	}
+	
 	/*
 	 * Mostra o tabuleiro do jogador corrente
 	 */
@@ -34,5 +46,34 @@ public class RegraEmbate extends RegraGeral {
 	public void verificarJogo()
 	{
 		
+	}
+
+	@Override
+	public EstadoDeCelula[][] getTabuleiro() {
+		// TODO Auto-generated method stub
+		return TransformacaoTabuleiro.getMatriz(tabuleiros[0]);
+	}
+
+	@Override
+	public EstadoDeCelula[][] getPecas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getVez() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean podeFinalizar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void ouvirAlteracoes(IObservador observador) {
+		tabuleiroAlterado.cadastrar(observador);		
 	}
 }

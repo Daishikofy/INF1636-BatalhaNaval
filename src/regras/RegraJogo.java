@@ -1,6 +1,7 @@
 package regras;
 
 import utils.Evento;
+import interfaces.Regra;
 
 public class RegraJogo {
 	public enum EstadoDeCelula {
@@ -69,7 +70,6 @@ public class RegraJogo {
 	public void trocarJogadorPreenchimento()
 	{
 		tabuleiros[jogadorAtual] = regraPreenchimento.finalizaPosicionamento();
-		System.out.println("oi");
 		jogadorAtual ++;
 		if (jogadorAtual < nomesJogadores.length)
 		{
@@ -78,6 +78,7 @@ public class RegraJogo {
 		}
 		else
 		{
+			System.out.println("Começa embate");
 			iniciarEmbate();
 		}
 	}
@@ -116,18 +117,21 @@ public class RegraJogo {
 		nomesJogadores = jogadores;
 	}
 	
-	public RegraEmbate getRegra()
+	public Regra getRegra()
 	{
-		return regraEmbate;
+		if (estadoAtual == EstadoDoJogo.EMBATE)
+		{
+			System.out.println("Regra embate");
+			return regraEmbate;
+		}
+		else if (estadoAtual == EstadoDoJogo.POSICIONAMENTO)
+		{
+			System.out.println("Regra posicionamento");
+			return regraPreenchimento;
+		}		
+		System.out.println("Erro: Foi pedido uma regra fora de uma fase de jogo");
+		return null;
 	}
 	
-	// Iniciar um novo jogo
-	// Continuar um jogo
-	
-	// identificar turno do jogador atual
-	// preechimento ou embate ou fim
-	// observador do embate para saber se acabou (passar informação adiante)
-	
-	// 
 	
 }
