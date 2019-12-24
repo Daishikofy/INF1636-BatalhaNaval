@@ -16,7 +16,7 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class GridPecas extends JPanel implements MouseListener, IObservador {
 
-		double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
+		double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0;
 		int nLinhas = 15;
 		Celula tab[][]=new Celula[nLinhas][nLinhas];
 		RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
@@ -31,12 +31,12 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 				x = xIni;
 				for(int j=0; j < nLinhas; j++) {
 					tab[i][j] = new Celula(x,y);
-					x += larg + espLinha;
+					x += larg;
 				}
-				y += alt + espLinha;
+				y += alt;
 			}
-			int largura = (int) (2 * xIni + nLinhas * (larg + espLinha) + espLinha);
-			int altura = (int) (2 * yIni + nLinhas * (alt + espLinha) + espLinha);
+			int largura = (int) (2 * xIni + nLinhas * larg);
+			int altura = (int) (2 * yIni + nLinhas * alt);
 			this.setSize(largura, altura);
 		}
 		
@@ -45,8 +45,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 			Graphics2D g2d = (Graphics2D) g;
 			
 			g2d.setColor(Color.black);
-
-			g2d.setStroke(new BasicStroke((float) espLinha,
+			g2d.setStroke(new BasicStroke((float) 0.0,
 	                BasicStroke.CAP_BUTT,
 	                BasicStroke.JOIN_MITER,
 	                10.0f));
@@ -57,24 +56,40 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 			for (int i = 0; i < nLinhas; i++) 
 			{	
 				for(int j = 0; j < nLinhas; j++) 
-				{		
-					//Draw boats
-					if(mat[i][j] != EstadoDeCelula.AGUA) 
-					{					
-						Rectangle r = new Rectangle();
-						r.height = (int)alt - 15;
-						r.width = (int)larg - 15;
-						r.x = (int)(tab[i][j].x + espLinha/2 + 7);
-						r.y = (int)(tab[i][j].y + espLinha/2 + 7);						
+				{	
+					if(mat[i][j] != EstadoDeCelula.AGUA)
+					{
+						if(mat[i][j] == EstadoDeCelula.HIDROAVIAO) {
+							g2d.setColor(Color.green.darker().darker());
+						}
+						else if(mat[i][j] == EstadoDeCelula.SUBMARINO) {
+							g2d.setColor(Color.green.darker());
+						}
+						else if(mat[i][j] == EstadoDeCelula.CRUZADOR) {
+							g2d.setColor(Color.yellow.darker());
+						}
+						else if(mat[i][j] == EstadoDeCelula.COURACADO) {
+							g2d.setColor(Color.yellow.darker().darker());
+						}
+						else if(mat[i][j] == EstadoDeCelula.DESTROYER) {
+							g2d.setColor(Color.yellow);
+						}
+						else if(mat[i][j] == EstadoDeCelula.INVALIDO) {
+							g2d.setColor(Color.red);
+						}
 						
-						if(mat[i][j] == EstadoDeCelula.OCUPADO)
-							g2d.setColor(Color.black);
-						else
-							g2d.setColor(Color.gray);
+						Rectangle r = new Rectangle();
+						
+						r.height = (int)alt;
+						r.width = (int)larg;
+						r.x = (int)(tab[i][j].x);
+						r.y = (int)(tab[i][j].y);						
+
 						g2d.fill(r);
 					}
 				}
 			}
+			g2d.setColor(Color.gray);
 		}
 		
 		public void mouseClicked(MouseEvent e) {
@@ -85,8 +100,8 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 				y -= yIni;
 				if(x > 0 && y > 0) 
 				{
-					int xCel = (int) (x/(larg + espLinha));
-					int yCel = (int) (y/(alt + espLinha));
+					int xCel = (int) (x/(larg));
+					int yCel = (int) (y/(alt));
 					
 					regra.onLeftClickPecas(xCel, yCel);		
 				}

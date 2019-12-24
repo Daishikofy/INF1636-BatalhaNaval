@@ -6,7 +6,11 @@ import interfaces.Regra;
 public class RegraJogo {
 	public enum EstadoDeCelula {
 		AGUA,				// Não contém arma '0'
-		OCUPADO,			// Contém arma intacta 'o' (ou uma letra pra cada arma)
+		HIDROAVIAO,			// Contêm arma intacta
+		SUBMARINO,
+		DESTROYER,
+		CRUZADOR,
+		COURACADO,
 		ATINGIDO,			// Contém parte de arma atingida 'x'
 		AFUNDADO,			// Toda a arma foi atingida 'X'
 		INVALIDO,			// Posicionamento de arma encosta em outra arma 'i'

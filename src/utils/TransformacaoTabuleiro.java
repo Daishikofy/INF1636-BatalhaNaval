@@ -9,8 +9,10 @@ public class TransformacaoTabuleiro {
 		EstadoDeCelula[][] matrizDeCelulas = new EstadoDeCelula[15][15];
 		for(int i = 0; i < 15; i++) {
 			for(int j = 0; j < 15; j++) {
-				EstadoDeCelula estado = EstadoDeCelula.OCUPADO;
+				EstadoDeCelula estado;
+				
 				char conteudo = matriz.getCell(j, i);
+				
 				if(conteudo == 'X') {
 					estado = EstadoDeCelula.AFUNDADO;
 				} 
@@ -23,7 +25,22 @@ public class TransformacaoTabuleiro {
 				else if(conteudo == '0') {
 					estado = EstadoDeCelula.AGUA;
 				}
-				else if(conteudo == 'x') {
+				else if(conteudo == 'h') {
+					estado = EstadoDeCelula.HIDROAVIAO;
+				}
+				else if(conteudo == 's') {
+					estado = EstadoDeCelula.SUBMARINO;
+				}
+				else if(conteudo == 'd') {
+					estado = EstadoDeCelula.DESTROYER;
+				}
+				else if(conteudo == 'r') {
+					estado = EstadoDeCelula.COURACADO;
+				}
+				else if(conteudo == 'c') {
+					estado = EstadoDeCelula.CRUZADOR;
+				}
+				else {
 					estado = EstadoDeCelula.ATINGIDO;
 				}
 				
