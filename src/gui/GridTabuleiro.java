@@ -10,6 +10,7 @@ import regras.RegraJogo.EstadoDeCelula;
 
 import interfaces.*;
  
+@SuppressWarnings("serial")
 public class GridTabuleiro extends JPanel implements MouseListener, IObservador {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;

@@ -13,7 +13,7 @@ public class Peca {
 		if (nome == "hidravioes")
 		{
 			peca.nome = nome;
-			char[] aux = {'0','h','0', 'h', '0','h'};
+			char[] aux = {'a','h','a', 'h', 'a','h'};
 			peca.componentes = aux;
 			peca.largura = 3;
 			peca.altura = 2;

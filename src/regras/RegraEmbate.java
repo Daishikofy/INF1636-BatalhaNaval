@@ -14,6 +14,9 @@ public class RegraEmbate implements Regra {
 	public RegraEmbate (TabuleiroData[] tabuleiros)
 	{
 		tabuleiroAlterado = new Evento();
+		for(TabuleiroData tab: tabuleiros) {
+			tab.ocultar();
+		}
 		this.tabuleiros = tabuleiros;
 	}
 	

@@ -7,7 +7,7 @@ public class TabuleiroData {
 	private char defaultChar;
 	public TabuleiroData(int x, int y)
 	{	
-		defaultChar = '0';
+		defaultChar = 'a';
 		grid = new char[x][y];	
 		pecas = new Peca[x][y];
 		this.xDim = x;
@@ -39,9 +39,9 @@ public class TabuleiroData {
 	public char getCell(int x, int y)
 	{
 		if (x < 0 || x >= xDim)
-			return '0';
+			return 'a';
 		if (y < 0 || y >= yDim)
-			return '0';
+			return 'a';
 		return grid[x][y];
 	}
 	
@@ -105,7 +105,29 @@ public class TabuleiroData {
 		for (int i = xPeca; i < xPeca + peca.largura; i++)
 			for (int j = yPeca; j < yPeca + peca.altura; j++)			
 			{
-				setCell('0', i, j);	
+				setCell('a', i, j);	
 			}	
+	}
+	
+	public void ocultar() {
+		for(int i=0;i< xDim;i++) {
+			for(int j = 0; j < yDim; j++) {
+				char a = grid[i][j];
+				if(a != 'x' && a != 'X') {
+					grid[i][j] = Character.toUpperCase(a);
+				}
+			}
+		}
+	}
+	
+	public void mostrar() {
+		for(int i=0;i< xDim;i++) {
+			for(int j = 0; j < yDim; j++) {
+				char a = grid[i][j];
+				if(a != 'x' && a != 'X') {
+					grid[i][j] = Character.toLowerCase(a);
+				}
+			}
+		}
 	}
 }
