@@ -5,7 +5,9 @@ import regras.TabuleiroData;
 
 public interface Regra {
 	//Botar em utils
+	
 	public EstadoDeCelula[][] getTabuleiro();	
+	public EstadoDeCelula[][] getTabuleiro(int idx);
 	public EstadoDeCelula[][] getPecas();			
 	
 	public String getVez();	

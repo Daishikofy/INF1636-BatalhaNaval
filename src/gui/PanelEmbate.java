@@ -18,8 +18,8 @@ public class PanelEmbate extends JPanel implements IObservador{
 	private PanelEmbate() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		jogadorCorrente = new JLabel("Jogador 1");
-		add(new GridTabuleiro());
-		add(new GridTabuleiro());
+		add(new GridTabuleiro(0));
+		add(new GridTabuleiro(1));
 		add(jogadorCorrente);
 		
 		regra = RegraJogo.Instance().getRegra();

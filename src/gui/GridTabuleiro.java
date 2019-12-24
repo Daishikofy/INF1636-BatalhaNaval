@@ -18,6 +18,13 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 	Line2D.Double ln[] = new Line2D.Double[(nLinhas + 1) * 2];
 	Regra regra = RegraJogo.Instance().getRegra();
 	
+	int idx = -1;
+	
+	public GridTabuleiro(int idx) {
+		this();
+		this.idx = idx;
+	}
+	
 	public GridTabuleiro() {		
 		// Linhas horizontais
 		for(int i=0; i <= nLinhas + 1; i++) 
@@ -65,7 +72,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
                 10.0f));
 		
 		//TODO: Usar os parametros de observador para passar a matriz
-				EstadoDeCelula mat[][] = regra.getTabuleiro();
+				EstadoDeCelula mat[][] = regra.getTabuleiro(idx);
 				
 				for (int i = 0; i < nLinhas; i++) 
 				{	

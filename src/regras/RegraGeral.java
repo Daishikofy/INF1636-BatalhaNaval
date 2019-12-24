@@ -54,4 +54,12 @@ public class RegraGeral implements Regra{
 		tabuleiroAlterado.cadastrar(observador);
 		
 	}
+
+	@Override
+	public EstadoDeCelula[][] getTabuleiro(int idx) {
+		if (idx != -1) {
+			return null;
+		}	
+		return getTabuleiro();
+	}
 }

@@ -52,9 +52,9 @@ public class RegraEmbate implements Regra {
 	}
 
 	@Override
-	public EstadoDeCelula[][] getTabuleiro() {
+	public EstadoDeCelula[][] getTabuleiro(int idx) {
 		// TODO Auto-generated method stub
-		return TransformacaoTabuleiro.getMatriz(tabuleiros[0]);
+		return TransformacaoTabuleiro.getMatriz(tabuleiros[idx]);
 	}
 
 	@Override
@@ -78,5 +78,11 @@ public class RegraEmbate implements Regra {
 	@Override
 	public void ouvirAlteracoes(IObservador observador) {
 		tabuleiroAlterado.cadastrar(observador);		
+	}
+
+	@Override
+	public EstadoDeCelula[][] getTabuleiro() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
