@@ -62,4 +62,11 @@ public class RegraGeral implements Regra{
 		}	
 		return getTabuleiro();
 	}
+
+	@Override
+	public void onLeftClickTabuleiro(int idx, int x, int y) {
+		if(idx == -1) {
+			onLeftClickTabuleiro(x, y);
+		}
+	}
 }

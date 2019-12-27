@@ -10,6 +10,7 @@ public class RegraEmbate implements Regra {
 	
 	public Evento tabuleiroAlterado;
 	TabuleiroData[] tabuleiros;
+	int vez = 0;
 	
 	public RegraEmbate (TabuleiroData[] tabuleiros)
 	{
@@ -20,13 +21,30 @@ public class RegraEmbate implements Regra {
 		this.tabuleiros = tabuleiros;
 	}
 	
-	/*
-	 * Marca a casa atingida
-	 */	
+	public void comecar() {
+		tabuleiros[vez].mostrar();
+		tabuleiroAlterado.notificar(this);
+	}
+	
+	
+	
 	@Override
-	public void onLeftClickTabuleiro(int x, int y) {
-		// TODO Auto-generated method stub
-		System.out.println("Click embate");
+	public void onLeftClickTabuleiro(int idx, int x, int y) {
+		if(idx != vez) { // Jogador clicou num 
+			System.out.println("Click embate");
+			char a = tabuleiros[1 - vez].getCell(x, y);
+			if (a == '0' || a == 'x' || a == 'X') {
+				return; // A celula ja foi clicada nesses casos
+			} else if(a == 'A') {
+				tabuleiros[1 - vez].setCell('0', x, y);
+			} else {
+				tabuleiros[1 - vez].setCell('x', x, y);
+				// Testar aqui se toda a peca foi marcada para poder afundá-la
+			}
+			tabuleiros[vez].ocultar();
+			vez = 1 - vez;
+			tabuleiroAlterado.notificar(this);
+		}
 	}
 
 	@Override
@@ -84,5 +102,11 @@ public class RegraEmbate implements Regra {
 	public EstadoDeCelula[][] getTabuleiro() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onLeftClickTabuleiro(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }

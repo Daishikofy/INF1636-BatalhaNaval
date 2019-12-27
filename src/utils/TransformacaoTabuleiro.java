@@ -22,7 +22,7 @@ public class TransformacaoTabuleiro {
 				else if(conteudo == 'i') {
 					estado = EstadoDeCelula.INVALIDO;
 				}
-				else if(conteudo == 'a') {
+				else if(conteudo == 'a' || conteudo == '0') {
 					estado = EstadoDeCelula.AGUA;
 				}
 				else if(conteudo == 'h') {

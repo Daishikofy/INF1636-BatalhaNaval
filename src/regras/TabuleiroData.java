@@ -113,7 +113,7 @@ public class TabuleiroData {
 		for(int i=0;i< xDim;i++) {
 			for(int j = 0; j < yDim; j++) {
 				char a = grid[i][j];
-				if(a != 'x' && a != 'X') {
+				if(a != 'x' && a != 'X' && a != '0') {
 					grid[i][j] = Character.toUpperCase(a);
 				}
 			}
@@ -124,7 +124,7 @@ public class TabuleiroData {
 		for(int i=0;i< xDim;i++) {
 			for(int j = 0; j < yDim; j++) {
 				char a = grid[i][j];
-				if(a != 'x' && a != 'X') {
+				if(a != 'x' && a != 'X' && a != '0') {
 					grid[i][j] = Character.toLowerCase(a);
 				}
 			}

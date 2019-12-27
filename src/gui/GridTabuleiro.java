@@ -162,12 +162,12 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 				int xCel = (int) (x/(larg + espLinha));
 				int yCel = (int) (y/(alt + espLinha));
 				
-				GerenciadorDePreenchimento.getManager().onLeftClickTabuleiro(xCel, yCel);		
+				regra.onLeftClickTabuleiro(idx, xCel, yCel);		
 			}
 		}
 		else if (e.getButton() == e.BUTTON3)//Right click
 		{
-			GerenciadorDePreenchimento.getManager().onRightClick();	
+			regra.onRightClick();	
 		}
 		
 		//DEBUG : Usar o notify, nao deixar o repaint aqui	

@@ -2,6 +2,10 @@ package gui;
 
 import regras.RegraEmbate;
 import regras.RegraJogo;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 import interfaces.IObservador;
@@ -9,20 +13,30 @@ import interfaces.Regra;
 
 // Definir o número de linhas na classe tabuleiro
 
-public class PanelEmbate extends JPanel implements IObservador{
+@SuppressWarnings("serial")
+public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	
 	static PanelEmbate instance = null;
-	Regra regra;
+	RegraEmbate regra;
 	JLabel jogadorCorrente;
+	JButton comeco;
 	
 	private PanelEmbate() {
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		JPanel tabs = new JPanel();
+		tabs.setLayout(new BoxLayout(tabs, BoxLayout.X_AXIS));
 		jogadorCorrente = new JLabel("Jogador 1");
-		add(new GridTabuleiro(0));
-		add(new GridTabuleiro(1));
+		tabs.add(new GridTabuleiro(0));
+		tabs.add(new GridTabuleiro(1));
+		add(tabs);
 		add(jogadorCorrente);
 		
-		regra = RegraJogo.Instance().getRegra();
+		comeco = new JButton("Começar Jogo!");
+		comeco.addActionListener(this);
+		add(comeco);
+		regra = (RegraEmbate) RegraJogo.Instance().getRegra();
 		update();
 	}
 
@@ -42,5 +56,14 @@ public class PanelEmbate extends JPanel implements IObservador{
 			instance = new PanelEmbate();
 		}
 		return instance;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("DEVIA ");
+		if(e.getActionCommand() == comeco.getActionCommand()) {
+			System.out.println("Comecou? ");
+			regra.comecar();
+		}
 	}
 }

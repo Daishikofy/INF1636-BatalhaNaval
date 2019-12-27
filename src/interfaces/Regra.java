@@ -18,4 +18,6 @@ public interface Regra {
 	public void onRightClick();
 	
 	public void ouvirAlteracoes(IObservador observador);
+	
+	void onLeftClickTabuleiro(int idx, int x, int y);
 }
