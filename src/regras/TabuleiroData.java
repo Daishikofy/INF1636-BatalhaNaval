@@ -1,12 +1,15 @@
 package regras;
 
 public class TabuleiroData {
+	int armasDisponiveis;
 	private char[][] grid;
 	private Peca[][] pecas;
 	private int xDim, yDim;
 	private char defaultChar;
+	
 	public TabuleiroData(int x, int y)
 	{	
+		armasDisponiveis = 0;
 		defaultChar = 'a';
 		grid = new char[x][y];	
 		pecas = new Peca[x][y];
@@ -87,6 +90,7 @@ public class TabuleiroData {
 				currentComp = (i - x) + c * peca.largura;
 				setPeca(peca, components[currentComp], i, j);	
 			}		
+		armasDisponiveis ++;
 	}
 	
 	public void removePeca (int x, int y)
@@ -106,7 +110,47 @@ public class TabuleiroData {
 			for (int j = yPeca; j < yPeca + peca.altura; j++)			
 			{
 				setCell('a', i, j);	
-			}	
+			}
+		armasDisponiveis --;
+	}
+	
+	public boolean estaAfundada(int x, int y) {
+		Peca peca = getPeca(x, y);
+		
+		boolean todasX = true;
+		
+		for(int i = 0; i < peca.largura; i++) {
+			for(int j = 0; j < peca.altura; j++) {
+				x = peca.x + i;
+				y = peca.y + j;
+				char a = grid[i][j];
+				System.out.println(x);
+				System.out.println(y);
+				System.out.println(a);
+				if( a != '0' && a != 'x' && a!= 'X' && a != 'A' && a != 'a' ) {
+					todasX = false;
+					break;
+				}
+			}
+		}
+		
+		return todasX;
+	}
+	
+	public void marcarComoAfundada(int x, int y) {
+		Peca peca = getPeca(x, y);
+		
+		for(int i = 0; i < peca.largura; i++) {
+			for(int j = 0; j < peca.altura; j++) {
+				x = peca.x + i;
+				y = peca.y + j;
+				char a = grid[i][j];
+				if( a == 'x' ) {
+					grid[i][j] = 'X';
+				}
+			}
+		}
+		armasDisponiveis --;
 	}
 	
 	public void ocultar() {
@@ -129,5 +173,11 @@ public class TabuleiroData {
 				}
 			}
 		}
+	}
+	
+	public boolean temArmasDisponiveis() {
+		System.out.print("Armas disponiveis: ");
+		System.out.println( armasDisponiveis);
+		return armasDisponiveis > 0;
 	}
 }

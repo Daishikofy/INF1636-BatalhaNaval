@@ -39,7 +39,16 @@ public class RegraEmbate implements Regra {
 				tabuleiros[1 - vez].setCell('0', x, y);
 			} else {
 				tabuleiros[1 - vez].setCell('x', x, y);
-				// Testar aqui se toda a peca foi marcada para poder afundá-la
+				// Notificar qual arma foi atingida
+				if(tabuleiros[1 - vez].estaAfundada(x, y)) {
+					System.out.println("AFUNDOU");
+					tabuleiros[1 - vez].marcarComoAfundada(x, y);
+					// Notificar que afundou
+					if(!tabuleiros[1-vez].temArmasDisponiveis()) {
+						// Notificar que acabou
+						System.out.println("ACABOU");
+					}
+				}
 			}
 			tabuleiros[vez].ocultar();
 			vez = 1 - vez;
