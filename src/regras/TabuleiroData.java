@@ -138,6 +138,7 @@ public class TabuleiroData {
 	public void marcarComoAfundada(int x, int y) {
 		Peca peca = getPeca(x, y);
 		System.out.println("Coordenadas a afundar: " + peca.x + ", " + peca.y);
+		/*
 		for(int i = 0; i < peca.largura; i++) {
 			for(int j = 0; j < peca.altura; j++) {
 				x = peca.x + i;
@@ -148,6 +149,16 @@ public class TabuleiroData {
 				}
 			}
 		}
+		armasDisponiveis --;*/
+				
+		for (int i = peca.x; i < peca.x + peca.largura; i++)
+			for (int j = peca.y; j < peca.y + peca.altura; j++)			
+			{
+				char a = grid[i][j];
+				if( a == 'x' ) {
+					setCell('X', i, j);
+				}			
+			}
 		armasDisponiveis --;
 	}
 	
