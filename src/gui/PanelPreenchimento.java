@@ -29,10 +29,9 @@ public class PanelPreenchimento extends JPanel implements ActionListener,IObserv
 		add(new GridTabuleiro());
 		add(botaoContinuar);
 		add(jogadorCorrente);
-		
-		
+	
 		regra = RegraJogo.Instance().getRegra();
-		((RegraPreenchimento)regra).updateUI.cadastrar((IObservador)this);
+		regra.ouvirAlteracoesUI((IObservador)this);
 		update();
 	}
 

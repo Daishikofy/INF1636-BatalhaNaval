@@ -9,24 +9,31 @@ import regras.RegraJogo.EstadoDeCelula;
 public class RegraEmbate implements Regra {
 	
 	public Evento tabuleiroAlterado;
+	public Evento updateUI;
+	
 	TabuleiroData[] tabuleiros;
-	int vez = 0;
+	
 	int jogadasSobrando = 3;
 	
-	public RegraEmbate (TabuleiroData[] tabuleiros)
+	int vez = 0;
+	String[] jogadores;
+	
+	public RegraEmbate (TabuleiroData[] tabuleiros, String[] jogadores)
 	{
 		tabuleiroAlterado = new Evento();
+		updateUI = new Evento();
+		
 		for(TabuleiroData tab: tabuleiros) {
 			tab.ocultar();
 		}
 		this.tabuleiros = tabuleiros;
+		this.jogadores = jogadores;
 	}
 			
 	@Override
 	public void onLeftClickTabuleiro(int idx, int x, int y) {
 		if (idx == vez) return;
 		// Jogador clicou num 
-		System.out.println("Click embate");
 		
 		char a = tabuleiros[1 - vez].getCell(x, y);
 		
@@ -59,15 +66,18 @@ public class RegraEmbate implements Regra {
 			}
 		}		
 			tabuleiroAlterado.notificar(this);	
+			jogadasSobrando --;
 			if (jogadasSobrando <= 0)
 				finalizarTurno();
 	}
 	
 	private void finalizarTurno()
 	{
+		System.out.println("--- Fim do turno ---");
 		tabuleiros[vez].ocultar();
 		vez = 1 - vez;
 		jogadasSobrando = 3;
+		updateUI.notificar(this);
 	}
 
 	@Override
@@ -84,14 +94,6 @@ public class RegraEmbate implements Regra {
 		tabuleiros[vez].mostrar();
 		tabuleiroAlterado.notificar(this);	
 	}
-	
-	/*
-	 * A cada jogada, verifica se o adversario perdeu
-	 */
-	public void verificarJogo()
-	{
-		
-	}
 
 	@Override
 	public EstadoDeCelula[][] getTabuleiro(int idx) {
@@ -107,8 +109,8 @@ public class RegraEmbate implements Regra {
 
 	@Override
 	public String getVez() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("E a vez de " + jogadores[vez]);
+		return jogadores[vez];
 	}
 
 	@Override
@@ -120,6 +122,10 @@ public class RegraEmbate implements Regra {
 	@Override
 	public void ouvirAlteracoes(IObservador observador) {
 		tabuleiroAlterado.cadastrar(observador);		
+	}
+	@Override
+	public void ouvirAlteracoesUI(IObservador observador) {
+		updateUI.cadastrar(observador);	
 	}
 
 	@Override

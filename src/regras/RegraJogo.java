@@ -92,7 +92,7 @@ public class RegraJogo {
 		estadoAtual = EstadoDoJogo.EMBATE;
 		jogadorAtual = 0;
 		
-		regraEmbate = new RegraEmbate(tabuleiros);
+		regraEmbate = new RegraEmbate(tabuleiros, nomesJogadores);
 		trocaPanel.notificar(this);	
 	}
 	

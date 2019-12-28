@@ -51,8 +51,10 @@ public class RegraGeral implements Regra{
 
 	@Override
 	public void ouvirAlteracoes(IObservador observador) {
-		tabuleiroAlterado.cadastrar(observador);
-		
+		tabuleiroAlterado.cadastrar(observador);	
+	}
+	public void ouvirAlteracoesUI(IObservador observador) {
+		updateUI.cadastrar(observador);	
 	}
 
 	@Override

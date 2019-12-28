@@ -4,16 +4,20 @@ import regras.RegraJogo.EstadoDeCelula;
 import regras.TabuleiroData;
 
 public interface Regra {
-	//Botar em utils
-	
+
+	//TODO: Remover a primeira instancia
 	public EstadoDeCelula[][] getTabuleiro();	
 	public EstadoDeCelula[][] getTabuleiro(int idx);
+	
+	//TODO: Passar a usar o idx e remover
 	public EstadoDeCelula[][] getPecas();			
 	
 	public String getVez();	
 	public Boolean podeFinalizar();
-			
+		
+	//TODO: Remover a primeira instancia
 	public void onLeftClickTabuleiro(int x, int y);
+	public void onLeftClickTabuleiro(int idx, int x, int y);
 	
 	public void onRightClick();
 	
@@ -22,6 +26,5 @@ public interface Regra {
 	 * nas pecas
 	 */
 	public void ouvirAlteracoes(IObservador observador);
-	
-	void onLeftClickTabuleiro(int idx, int x, int y);
+	public void ouvirAlteracoesUI(IObservador observador);
 }

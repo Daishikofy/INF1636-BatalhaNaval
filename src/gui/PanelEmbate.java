@@ -17,7 +17,7 @@ import interfaces.Regra;
 public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	
 	static PanelEmbate instance = null;
-	RegraEmbate regra;
+	Regra regra;
 	JLabel jogadorCorrente;
 	JButton comeco;
 	
@@ -27,7 +27,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		
 		JPanel tabs = new JPanel();
 		tabs.setLayout(new BoxLayout(tabs, BoxLayout.X_AXIS));
-		jogadorCorrente = new JLabel("Jogador 1");
+		jogadorCorrente = new JLabel("Nome do jogador");
 		tabs.add(new GridTabuleiro(0));
 		tabs.add(new GridTabuleiro(1));
 		add(tabs);
@@ -36,7 +36,9 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		comeco = new JButton("Ver tabuleiro");
 		comeco.addActionListener(this);
 		add(comeco);
-		regra = (RegraEmbate) RegraJogo.Instance().getRegra();
+		
+		regra = RegraJogo.Instance().getRegra();
+		regra.ouvirAlteracoesUI(this);
 		update();
 	}
 
@@ -62,7 +64,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == comeco.getActionCommand()) {
 			System.out.println("MostrarTabuleiro");
-			regra.mostrarTabuleiro();
+			((RegraEmbate)regra).mostrarTabuleiro();
 		}
 	}
 }
