@@ -2,8 +2,10 @@ package gui;
 import javax.swing.*;
 
 import interfaces.IObservador;
+import interfaces.Regra;
 import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo.EstadoDeCelula;
+import regras.RegraJogo;
 import regras.RegraPreenchimento;
 
 import java.awt.BasicStroke;
@@ -19,12 +21,12 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 		double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0;
 		int nLinhas = 15;
 		Celula tab[][]=new Celula[nLinhas][nLinhas];
-		RegraPreenchimento regra = GerenciadorDePreenchimento.getManager().getRegra();
+		Regra regra = RegraJogo.Instance().getRegra();
 		
 		public GridPecas() {	
 			
 			addMouseListener(this);
-			regra.tabuleiroAlterado.cadastrar((IObservador)this);
+			regra.ouvirAlteracoes((IObservador)this);
 			
 			double x = xIni ,y = yIni;
 			for(int i=0; i < nLinhas; i++) {
@@ -103,7 +105,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 					int xCel = (int) (x/(larg));
 					int yCel = (int) (y/(alt));
 					
-					regra.onLeftClickPecas(xCel, yCel);		
+					((RegraPreenchimento)regra).onLeftClickPecas(xCel, yCel);		
 				}
 			}
 			else if (e.getButton() == e.BUTTON3)//Right click

@@ -17,6 +17,10 @@ public interface Regra {
 	
 	public void onRightClick();
 	
+	/* Cadastra uma grid de tabuleiro para 
+	 * ser redesenhado quando houver modificaçao 
+	 * nas pecas
+	 */
 	public void ouvirAlteracoes(IObservador observador);
 	
 	void onLeftClickTabuleiro(int idx, int x, int y);
