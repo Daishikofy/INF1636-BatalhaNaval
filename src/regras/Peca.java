@@ -6,6 +6,8 @@ public class Peca {
 	private char[] componentes;
 	int x = -1, y = -1;
 	int altura, largura;
+	private int componentesIntactos;
+	private Boolean afundou;
 	
 	public static Peca cria(String nome)
 	{
@@ -17,6 +19,7 @@ public class Peca {
 			peca.componentes = aux;
 			peca.largura = 3;
 			peca.altura = 2;
+			peca.componentesIntactos = 3;
 		}
 		else if (nome == "submarinos")
 		{
@@ -25,6 +28,7 @@ public class Peca {
 			peca.componentes = aux;
 			peca.largura = 1;
 			peca.altura = 1;
+			peca.componentesIntactos = 1;
 		}
 		else if (nome == "destroyers")
 		{
@@ -33,6 +37,7 @@ public class Peca {
 			peca.componentes = aux;
 			peca.largura = 2;
 			peca.altura = 1;
+			peca.componentesIntactos = 2;
 		}
 		else if (nome == "cruzadores")
 		{	
@@ -41,6 +46,7 @@ public class Peca {
 			peca.componentes = aux;
 			peca.largura = 4;
 			peca.altura = 1;
+			peca.componentesIntactos = 4;
 		}
 		else if (nome == "couracado")
 		{
@@ -49,7 +55,9 @@ public class Peca {
 			peca.componentes = aux;
 			peca.largura = 5;
 			peca.altura = 1;
+			peca.componentesIntactos = 5;
 		}
+		peca.afundou = false;
 		
 		return peca;
 	}
@@ -65,6 +73,18 @@ public class Peca {
 
 	public char[] getComponentes() {
 		return componentes;
+	}
+	
+	public void atingida()
+	{	
+		componentesIntactos --;
+		if (componentesIntactos <= 0)
+			afundou = true;
+	}
+	
+	public Boolean estaAfundada()
+	{
+		return afundou;
 	}
 	
 	public void girar90Graus() {
@@ -87,45 +107,5 @@ public class Peca {
 				componentes[5] = aux;
 			}
 		}
-	}
-	
-	public boolean colide(Peca outraPeca) {
-		if(x < 0 || y < 0) {
-			return false;
-		}
-		if( Peca.intersecta(this.x, this.largura, outraPeca.x, outraPeca.largura) && 
-				Peca.intersecta(this.y, this.altura, outraPeca.y, outraPeca.altura)) {
-			return true;
-		}
-		for(int idx = 0; idx < this.componentes.length; idx++) {
-			if(this.componentes[idx] != 'a') {
-				int xRef = idx/largura + this.x;
-				int yRef = idx%largura + this.y;
-				for(int i = xRef - 1; i <= xRef + 1; i ++ ) {
-					for(int j = yRef - 1; j <= yRef + 1; j++) {
-						if(outraPeca.estaOcupado(i, j)) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
-	static private boolean intersecta(int c1, int l1, int c2, int l2) {
-		return Integer.min(c1, c2) + l1 + l2 > 
-				Integer.max(c1 + l1, c2 + l2);
-	}
-	
-	private boolean estaOcupado (int x, int y) {
-		int idxX = x - this.x;
-		int idxY = y - this.y;
-		
-		int idx = idxX * largura + idxY;
-		if(idx > 0 && idx < componentes.length) {
-			return componentes[idx] != 'a';
-		}
-		return false;
 	}
 }
