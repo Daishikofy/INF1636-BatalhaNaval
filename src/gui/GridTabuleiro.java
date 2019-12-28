@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.ArrayList;
 import java.awt.event.*;
 import regras.*;
 import regras.RegraJogo.EstadoDeCelula;
@@ -11,7 +12,7 @@ import regras.RegraJogo.EstadoDeCelula;
 import interfaces.*;
  
 @SuppressWarnings("serial")
-public class GridTabuleiro extends JPanel implements MouseListener, IObservador {
+public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionListener, IObservador {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;
 	Celula tab[][] = new Celula[nLinhas][nLinhas];
@@ -46,6 +47,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 		}
 		
 		addMouseListener(this);
+		addMouseMotionListener(this);
 		regra.ouvirAlteracoes((IObservador)this);
 		
 		double x = xIni ,y = yIni;
@@ -154,15 +156,12 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 	public void mouseClicked(MouseEvent e) {
 		if (e.getButton() == e.BUTTON1)//Left click
 		{
-			double x = e.getX(), y = e.getY();
-			x -= xIni;
-			y -= yIni;
+			ArrayList<Integer> xy = coordenadas(e);
+			int x = xy.get(0);
+			int y = xy.get(1);
 			if(x > 0 && y > 0) 
 			{
-				int xCel = (int) (x/(larg + espLinha));
-				int yCel = (int) (y/(alt + espLinha));
-				
-				regra.onLeftClickTabuleiro(idx, xCel, yCel);		
+				regra.onLeftClickTabuleiro(idx, x, y);		
 			}
 		}
 		else if (e.getButton() == e.BUTTON3)//Right click
@@ -179,8 +178,45 @@ public class GridTabuleiro extends JPanel implements MouseListener, IObservador 
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 
+	private ArrayList<Integer> coordenadas(MouseEvent e){
+		ArrayList<Integer> xy = new ArrayList<Integer>();
+		double x = e.getX(), y = e.getY();
+		x -= xIni;
+		y -= yIni;
+		if(x > 0 && y > 0) 
+		{
+			int xCel = (int) (x/(larg + espLinha));
+			int yCel = (int) (y/(alt + espLinha));
+			xy.add(xCel);
+			xy.add(yCel);
+		}
+		else 
+		{
+			xy.add(-1);
+			xy.add(-1);
+		}
+		return xy;
+	}
+	
 	@Override
 	public void update() {
 		repaint();	
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		ArrayList<Integer> xy = coordenadas(e);
+		int x = xy.get(0);
+		int y = xy.get(1);
+		if(x > 0 && y > 0) 
+		{
+			regra.mouseMovimento(x, y);		
+		}
 	}
 }

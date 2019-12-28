@@ -1,7 +1,6 @@
 package interfaces;
 
 import regras.RegraJogo.EstadoDeCelula;
-import regras.TabuleiroData;
 
 public interface Regra {
 
@@ -26,5 +25,8 @@ public interface Regra {
 	 * nas pecas
 	 */
 	public void ouvirAlteracoes(IObservador observador);
+
 	public void ouvirAlteracoesUI(IObservador observador);
+	
+	void mouseMovimento(int x, int y);
 }

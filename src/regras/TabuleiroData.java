@@ -188,4 +188,12 @@ public class TabuleiroData {
 		System.out.print("Armas disponiveis: " + armasDisponiveis);
 		return armasDisponiveis > 0;
 	}
+	
+	public void copiar(TabuleiroData fonte) {
+		for(int x = 0; x < xDim; x++) {
+			for(int y = 0; y < yDim; y++) {
+				grid[x][y] = fonte.grid[x][y];
+			}
+		}
+	}
 }

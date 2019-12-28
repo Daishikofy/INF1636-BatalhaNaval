@@ -10,7 +10,8 @@ import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo;
 import regras.RegraPreenchimento;
 
-public class PanelPreenchimento extends JPanel implements ActionListener,IObservador{
+@SuppressWarnings("serial")
+public class PanelPreenchimento extends JPanel implements ActionListener, IObservador {
 	
 	JButton botaoContinuar;
 	JLabel jogadorCorrente;

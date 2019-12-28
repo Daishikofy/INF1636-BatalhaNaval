@@ -15,6 +15,7 @@ public class RegraPreenchimento  extends RegraGeral {
 		System.out.println("Regra preenchimento " + jogador);
 		vez = jogador;
 		tabuleiroPrenchendo = new TabuleiroData(15, 15);
+		tabuleiroDesenhado = new TabuleiroData(15, 15);
 		pecasPreenchidas = new TabuleiroData(15, 15);
 		
 		geraPecas();		
@@ -187,8 +188,32 @@ public class RegraPreenchimento  extends RegraGeral {
 	
 	public void onRightClick() 
 	{
-		if (pecaSelecionada != null)
-			pecaSelecionada.girar90Graus();			
+		if (pecaSelecionada != null) {
+			pecaSelecionada.girar90Graus();
+			atualizarDesenho();
+		}
+	}
+	
+	@Override
+	public void mouseMovimento(int x, int y) {
+		if(pecaSelecionada != null) {
+			pecaSelecionada.x = x;
+			pecaSelecionada.y = y;
+			atualizarDesenho();
+		}
+	}
+	
+	public void atualizarDesenho() {
+		tabuleiroDesenhado.copiar(tabuleiroPrenchendo);
+		if(validaInsercao(pecaSelecionada, pecaSelecionada.x, pecaSelecionada.y)) {
+			tabuleiroDesenhado.inserePeca(pecaSelecionada, pecaSelecionada.x, pecaSelecionada.y);
+		} else {
+			// Tratar casos inválidos
+			
+		}
+		tabuleiro = tabuleiroDesenhado;
+		tabuleiroAlterado.notificar(this);
+		updateUI.notificar(this);
 	}
 	
 	private void printTabuleiro ()

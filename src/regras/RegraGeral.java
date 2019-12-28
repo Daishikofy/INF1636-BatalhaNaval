@@ -71,4 +71,10 @@ public class RegraGeral implements Regra{
 			onLeftClickTabuleiro(x, y);
 		}
 	}
+
+	@Override
+	public void mouseMovimento(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 }

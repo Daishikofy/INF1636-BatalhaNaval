@@ -139,4 +139,10 @@ public class RegraEmbate implements Regra {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mouseMovimento(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 }
