@@ -11,6 +11,7 @@ public class RegraEmbate implements Regra {
 	public Evento tabuleiroAlterado;
 	TabuleiroData[] tabuleiros;
 	int vez = 0;
+	int jogadasSobrando = 3;
 	
 	public RegraEmbate (TabuleiroData[] tabuleiros)
 	{
@@ -20,14 +21,7 @@ public class RegraEmbate implements Regra {
 		}
 		this.tabuleiros = tabuleiros;
 	}
-	
-	public void comecar() {
-		tabuleiros[vez].mostrar();
-		tabuleiroAlterado.notificar(this);
-	}
-	
-	
-	
+			
 	@Override
 	public void onLeftClickTabuleiro(int idx, int x, int y) {
 		if (idx == vez) return;
@@ -63,11 +57,17 @@ public class RegraEmbate implements Regra {
 					System.out.println("\nJogador" + (vez+1) + " GANHOU\n");
 				}
 			}
-		}
-			tabuleiros[vez].ocultar();
-			vez = 1 - vez;
-			tabuleiroAlterado.notificar(this);
-		
+		}		
+			tabuleiroAlterado.notificar(this);	
+			if (jogadasSobrando <= 0)
+				finalizarTurno();
+	}
+	
+	private void finalizarTurno()
+	{
+		tabuleiros[vez].ocultar();
+		vez = 1 - vez;
+		jogadasSobrando = 3;
 	}
 
 	@Override
@@ -81,7 +81,8 @@ public class RegraEmbate implements Regra {
 	 */
 	public void mostrarTabuleiro()
 	{
-		
+		tabuleiros[vez].mostrar();
+		tabuleiroAlterado.notificar(this);	
 	}
 	
 	/*

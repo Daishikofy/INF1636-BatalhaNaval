@@ -33,7 +33,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		add(tabs);
 		add(jogadorCorrente);
 		
-		comeco = new JButton("Começar Jogo!");
+		comeco = new JButton("Ver tabuleiro");
 		comeco.addActionListener(this);
 		add(comeco);
 		regra = (RegraEmbate) RegraJogo.Instance().getRegra();
@@ -60,10 +60,9 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("DEVIA ");
 		if(e.getActionCommand() == comeco.getActionCommand()) {
-			System.out.println("Comecou? ");
-			regra.comecar();
+			System.out.println("MostrarTabuleiro");
+			regra.mostrarTabuleiro();
 		}
 	}
 }
