@@ -41,23 +41,26 @@ public class RegraEmbate implements Regra {
 			return; // A celula ja foi clicada nesses casos
 		} 
 		
-		if(a == 'A') 
+		if(a == 'A') // Agua sem arma
 		{
 			tabuleiros[1 - vez].setCell('0', x, y);
 		} 
-		else 
+		else // Arma
 		{
+			Peca pecaAtingida = tabuleiros[1 - vez].getPeca(x, y);
+			pecaAtingida.atingida();
 			tabuleiros[1 - vez].setCell('x', x, y);
+			
 			// Notificar qual arma foi atingida
-			if(tabuleiros[1 - vez].estaAfundada(x, y)) 
+			if(pecaAtingida.estaAfundada()) 
 			{
-				System.out.println("Peca (" + x + "," + y + ") afundou");
+				System.out.println(pecaAtingida.getNome() + " (" + x + "," + y + ") afundou");
 				tabuleiros[1 - vez].marcarComoAfundada(x, y);
 				// Notificar que afundou
 				if(!tabuleiros[1-vez].temArmasDisponiveis()) 
 				{
 					// Notificar que acabou
-					System.out.println("ACABOU");
+					System.out.println("\nJogador" + (vez+1) + " GANHOU\n");
 				}
 			}
 		}
