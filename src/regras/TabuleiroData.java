@@ -116,7 +116,7 @@ public class TabuleiroData {
 	
 	public boolean estaAfundada(int x, int y) {
 		Peca peca = getPeca(x, y);
-		
+		System.out.println("Coordenadas da peca: " + peca.x + ", " + peca.y);
 		boolean todasX = true;
 		
 		for(int i = 0; i < peca.largura; i++) {
@@ -124,9 +124,7 @@ public class TabuleiroData {
 				x = peca.x + i;
 				y = peca.y + j;
 				char a = grid[i][j];
-				System.out.println(x);
-				System.out.println(y);
-				System.out.println(a);
+				System.out.println("X: " + x + " - Y: " + y + " - char: " + a);
 				if( a != '0' && a != 'x' && a!= 'X' && a != 'A' && a != 'a' ) {
 					todasX = false;
 					break;
@@ -139,7 +137,7 @@ public class TabuleiroData {
 	
 	public void marcarComoAfundada(int x, int y) {
 		Peca peca = getPeca(x, y);
-		
+		System.out.println("Coordenadas a afundar: " + peca.x + ", " + peca.y);
 		for(int i = 0; i < peca.largura; i++) {
 			for(int j = 0; j < peca.altura; j++) {
 				x = peca.x + i;
@@ -176,8 +174,7 @@ public class TabuleiroData {
 	}
 	
 	public boolean temArmasDisponiveis() {
-		System.out.print("Armas disponiveis: ");
-		System.out.println( armasDisponiveis);
+		System.out.print("Armas disponiveis: " + armasDisponiveis);
 		return armasDisponiveis > 0;
 	}
 }

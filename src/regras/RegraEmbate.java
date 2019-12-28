@@ -30,30 +30,41 @@ public class RegraEmbate implements Regra {
 	
 	@Override
 	public void onLeftClickTabuleiro(int idx, int x, int y) {
-		if(idx != vez) { // Jogador clicou num 
-			System.out.println("Click embate");
-			char a = tabuleiros[1 - vez].getCell(x, y);
-			if (a == '0' || a == 'x' || a == 'X') {
-				return; // A celula ja foi clicada nesses casos
-			} else if(a == 'A') {
-				tabuleiros[1 - vez].setCell('0', x, y);
-			} else {
-				tabuleiros[1 - vez].setCell('x', x, y);
-				// Notificar qual arma foi atingida
-				if(tabuleiros[1 - vez].estaAfundada(x, y)) {
-					System.out.println("AFUNDOU");
-					tabuleiros[1 - vez].marcarComoAfundada(x, y);
-					// Notificar que afundou
-					if(!tabuleiros[1-vez].temArmasDisponiveis()) {
-						// Notificar que acabou
-						System.out.println("ACABOU");
-					}
+		if (idx == vez) return;
+		// Jogador clicou num 
+		System.out.println("Click embate");
+		
+		char a = tabuleiros[1 - vez].getCell(x, y);
+		
+		if (a == '0' || a == 'x' || a == 'X') 
+		{
+			return; // A celula ja foi clicada nesses casos
+		} 
+		
+		if(a == 'A') 
+		{
+			tabuleiros[1 - vez].setCell('0', x, y);
+		} 
+		else 
+		{
+			tabuleiros[1 - vez].setCell('x', x, y);
+			// Notificar qual arma foi atingida
+			if(tabuleiros[1 - vez].estaAfundada(x, y)) 
+			{
+				System.out.println("Peca (" + x + "," + y + ") afundou");
+				tabuleiros[1 - vez].marcarComoAfundada(x, y);
+				// Notificar que afundou
+				if(!tabuleiros[1-vez].temArmasDisponiveis()) 
+				{
+					// Notificar que acabou
+					System.out.println("ACABOU");
 				}
 			}
+		}
 			tabuleiros[vez].ocultar();
 			vez = 1 - vez;
 			tabuleiroAlterado.notificar(this);
-		}
+		
 	}
 
 	@Override
