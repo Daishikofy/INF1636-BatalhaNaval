@@ -1,9 +1,10 @@
 package regras;
 
 import utils.Evento;
+import interfaces.IObservador;
 import interfaces.Regra;
 
-public class RegraJogo {
+public class RegraJogo implements IObservador {
 	public enum EstadoDeCelula {
 		AGUA,				// Não contém arma '0'
 		HIDROAVIAO,			// Contêm arma intacta
@@ -16,12 +17,15 @@ public class RegraJogo {
 		INVALIDO,			// Posicionamento de arma encosta em outra arma 'i'
 		OCULTO				// Seu conteúdo não pode ser visto atualmente <upper case - {'X'}>
 	}
+	
 	public enum EstadoDoJogo {
 		TELAINICIAL,
 		ESCOLHAJOGADORES,
 		POSICIONAMENTO,	
-		EMBATE	
+		EMBATE,
+		FINALIZADO
 	}
+	
 	static RegraJogo instance = null;
 	
 	public Evento trocaPanel;
@@ -43,6 +47,11 @@ public class RegraJogo {
 			instance = new RegraJogo();
 		}
 		return instance;
+	}
+	
+	public void jogoFinalizado() {
+		estadoAtual = EstadoDoJogo.TELAINICIAL;
+		trocaPanel.notificar(this);
 	}
 	
 	private RegraJogo()
@@ -93,25 +102,16 @@ public class RegraJogo {
 		jogadorAtual = 0;
 		
 		regraEmbate = new RegraEmbate(tabuleiros, nomesJogadores);
+		regraEmbate.jogoFinalizado.cadastrar(this);
 		trocaPanel.notificar(this);	
 	}
 	
-	private void trocarJogadorEmbate()
-	{
-		jogadorAtual = (jogadorAtual + 1) % 2;
-	}
-	
-	private void finalizarPreenchimento()
+	public void salvarJogo()
 	{
 		
 	}
 	
-	private void salvarJogo()
-	{
-		
-	}
-	
-	private void carregarJogo()
+	public void carregarJogo()
 	{
 		estadoAtual = EstadoDoJogo.EMBATE;
 	}
@@ -135,6 +135,18 @@ public class RegraJogo {
 		}		
 		System.out.println("Erro: Foi pedido uma regra fora de uma fase de jogo");
 		return null;
+	}
+
+	public String getVencedor() {
+		return regraEmbate.getVencedor();
+	}
+
+	@Override
+	public void update() {
+		if(regraEmbate.jogoAcabou()) {
+			estadoAtual = EstadoDoJogo.FINALIZADO;
+			trocaPanel.notificar(this);
+		}
 	}
 	
 	

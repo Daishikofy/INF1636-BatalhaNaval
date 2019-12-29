@@ -64,6 +64,13 @@ public class FrameJogo extends JFrame implements IObservador{
 			dialogo.setVisible(true);
 			
 			break;
+			
+		case FINALIZADO:
+			DialogoFimDeJogo fim = new DialogoFimDeJogo(instance);
+			fim.setVisible(true);
+			
+			break;
+			
 		}
 		
 		if (newPanel != null)

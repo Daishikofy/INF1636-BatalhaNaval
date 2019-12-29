@@ -13,6 +13,7 @@ public interface Regra {
 	
 	public String getVez();	
 	public Boolean podeFinalizar();
+	public boolean jogoAcabou();
 		
 	//TODO: Remover a primeira instancia
 	public void onLeftClickTabuleiro(int x, int y);

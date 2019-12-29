@@ -74,7 +74,11 @@ public class RegraGeral implements Regra{
 
 	@Override
 	public void mouseMovimento(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		// Empty.
+	}
+
+	@Override
+	public boolean jogoAcabou() {
+		return false;
 	}
 }

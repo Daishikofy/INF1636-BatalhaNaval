@@ -6,9 +6,7 @@ import javax.swing.*;
 
 import interfaces.IObservador;
 import interfaces.Regra;
-import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo;
-import regras.RegraPreenchimento;
 
 @SuppressWarnings("serial")
 public class PanelPreenchimento extends JPanel implements ActionListener, IObservador {
@@ -32,13 +30,9 @@ public class PanelPreenchimento extends JPanel implements ActionListener, IObser
 		add(jogadorCorrente);
 	
 		regra = RegraJogo.Instance().getRegra();
-		regra.ouvirAlteracoesUI((IObservador)this);
+		regra.ouvirAlteracoesUI(this);
+		
 		update();
-	}
-
-	private void podeFinalizar (Boolean value)
-	{		
-		botaoContinuar.setEnabled(value);
 	}
 	
 	private void atualizaJogadorCorrente (String nome)
@@ -47,11 +41,11 @@ public class PanelPreenchimento extends JPanel implements ActionListener, IObser
 	}
 
 	@Override
-	public void update() {		
+	public void update() {				
 		System.out.println("Update" + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);		
-		podeFinalizar(regra.podeFinalizar());
+		botaoContinuar.setEnabled(regra.podeFinalizar());			
 	}
 
 	@Override

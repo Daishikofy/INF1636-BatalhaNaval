@@ -35,6 +35,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		
 		comeco = new JButton("Ver tabuleiro");
 		comeco.addActionListener(this);
+		comeco.setEnabled(true);
 		add(comeco);
 		
 		regra = RegraJogo.Instance().getRegra();
@@ -51,6 +52,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		System.out.println("Update " + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);
+		comeco.setEnabled(regra.podeFinalizar());
 	}
 	
 	static PanelEmbate getPanel() {
@@ -65,6 +67,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		if(e.getActionCommand() == comeco.getActionCommand()) {
 			System.out.println("MostrarTabuleiro");
 			((RegraEmbate)regra).mostrarTabuleiro();
+			comeco.setEnabled(false);
 		}
 	}
 }
