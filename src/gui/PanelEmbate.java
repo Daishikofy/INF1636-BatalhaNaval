@@ -16,12 +16,11 @@ import interfaces.Regra;
 @SuppressWarnings("serial")
 public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	
-	static PanelEmbate instance = null;
 	Regra regra;
 	JLabel jogadorCorrente;
 	JButton comeco;
 	
-	private PanelEmbate() {
+	public PanelEmbate() {
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -53,13 +52,6 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);
 		comeco.setEnabled(regra.podeFinalizar());
-	}
-	
-	static PanelEmbate getPanel() {
-		if (instance == null) {
-			instance = new PanelEmbate();
-		}
-		return instance;
 	}
 
 	@Override
