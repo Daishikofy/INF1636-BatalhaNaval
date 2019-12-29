@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.awt.event.*;
 import regras.*;
 import regras.RegraJogo.EstadoDeCelula;
+import utils.*;
 
 import interfaces.*;
  
@@ -80,37 +81,8 @@ public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionL
 				{	
 					for(int j = 0; j < nLinhas; j++) 
 					{	
-						//Draw boats
-						if(mat[i][j] == EstadoDeCelula.OCULTO) {
-							g2d.setColor(Color.cyan);
-						}	
-						else if(mat[i][j] == EstadoDeCelula.AGUA) {
-							g2d.setColor(Color.white);
-						}
-						else if(mat[i][j] == EstadoDeCelula.HIDROAVIAO) {
-							g2d.setColor(Color.green.darker().darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.SUBMARINO) {
-							g2d.setColor(Color.green.darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.CRUZADOR) {
-							g2d.setColor(Color.yellow.darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.COURACADO) {
-							g2d.setColor(Color.yellow.darker().darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.DESTROYER) {
-							g2d.setColor(Color.yellow);
-						}
-						else if(mat[i][j] == EstadoDeCelula.ATINGIDO) {
-							g2d.setColor(Color.gray);
-						}
-						else if(mat[i][j] == EstadoDeCelula.AFUNDADO) {
-							g2d.setColor(Color.black);
-						}
-						else if(mat[i][j] == EstadoDeCelula.INVALIDO) {
-							g2d.setColor(Color.red);
-						}
+						Color color = CoresJogo.selectColor(mat[i][j]);
+						g2d.setColor(color);						
 						
 						Rectangle r = new Rectangle();
 						

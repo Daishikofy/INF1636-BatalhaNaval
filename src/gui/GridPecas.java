@@ -5,6 +5,7 @@ import interfaces.IObservador;
 import interfaces.Regra;
 import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo.EstadoDeCelula;
+import utils.CoresJogo;
 import regras.RegraJogo;
 import regras.RegraPreenchimento;
 
@@ -61,24 +62,8 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 				{	
 					if(mat[i][j] != EstadoDeCelula.AGUA)
 					{
-						if(mat[i][j] == EstadoDeCelula.HIDROAVIAO) {
-							g2d.setColor(Color.green.darker().darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.SUBMARINO) {
-							g2d.setColor(Color.green.darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.CRUZADOR) {
-							g2d.setColor(Color.yellow.darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.COURACADO) {
-							g2d.setColor(Color.yellow.darker().darker());
-						}
-						else if(mat[i][j] == EstadoDeCelula.DESTROYER) {
-							g2d.setColor(Color.yellow);
-						}
-						else if(mat[i][j] == EstadoDeCelula.INVALIDO) {
-							g2d.setColor(Color.red);
-						}
+						Color color = CoresJogo.selectColor(mat[i][j]);
+						g2d.setColor(color);
 						
 						Rectangle r = new Rectangle();
 						
