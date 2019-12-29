@@ -4,6 +4,7 @@ import utils.Evento;
 import utils.TransformacaoTabuleiro;
 
 import java.io.*;
+import java.util.Scanner;
 
 import interfaces.IObservador;
 import interfaces.Regra;
@@ -35,6 +36,46 @@ public class RegraEmbate implements Regra {
 		}
 		this.tabuleiros = tabuleiros;
 		this.jogadores = jogadores;
+	}
+	
+	public RegraEmbate(FileReader fonte) {
+		tabuleiroAlterado = new Evento();
+		updateUI = new Evento();
+		jogoFinalizado = new Evento();
+		
+		Scanner sc = new Scanner(fonte);
+		
+		vez = sc.nextInt();
+		jogadasSobrando = sc.nextInt();
+		sc.skip("\n");
+		
+		int numJogadores = 2;
+		jogadores = new String[numJogadores];
+		for(int i = 0; i < numJogadores; i++) {
+			jogadores[i] = sc.nextLine();	
+		}
+		
+		tabuleiros = new TabuleiroData[numJogadores];
+		for(int i = 0; i < numJogadores; i++) {
+			tabuleiros[i] = new TabuleiroData(sc);
+			sc.skip("\n");
+		}
+		sc.close();
+	}
+	
+	public void escrever(FileWriter arquivo) {
+		// TODO Auto-generated method stub
+		try {
+			arquivo.write(Integer.toString(vez)+" "+Integer.toString(jogadasSobrando)+"\n");
+			for(String jogador:jogadores) {
+				arquivo.write(jogador + "\n");
+			}
+			for(TabuleiroData tab: tabuleiros) {
+				tab.escrever(arquivo);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 			
 	@Override
@@ -162,20 +203,5 @@ public class RegraEmbate implements Regra {
 	@Override
 	public boolean jogoAcabou() {
 		return vencedor != -1;
-	}
-
-	public void escrever(FileWriter arquivo) {
-		// TODO Auto-generated method stub
-		try {
-			arquivo.write(Integer.toString(vez)+"-"+Integer.toString(jogadasSobrando)+"\n");
-			for(String jogador:jogadores) {
-				arquivo.write(jogador + "\n");
-			}
-			for(TabuleiroData tab: tabuleiros) {
-				tab.escrever(arquivo);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
 	}
 }

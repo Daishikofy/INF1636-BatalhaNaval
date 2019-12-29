@@ -1,8 +1,7 @@
 package regras;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Hashtable;
+import java.io.*;
+import java.util.*;
 
 public class TabuleiroData {
 	int armasDisponiveis;
@@ -26,6 +25,79 @@ public class TabuleiroData {
 				grid[j][i] = defaultChar;
 				pecas[i][j] = null;
 			}
+	}
+	
+	public TabuleiroData(Scanner sc) {
+		sc.skip("TABULEIRODATA");
+		xDim = sc.nextInt();
+		yDim = sc.nextInt();
+		sc.skip("\n");
+		grid = new char[xDim][yDim];
+		pecas = new Peca[xDim][yDim];
+		Hashtable<Integer, Peca> pecasUnicas = new Hashtable<Integer, Peca>();
+		armasDisponiveis = 0;
+		while(sc.hasNext("PECA:")) {
+			sc.skip("PECA:");
+			int hash = sc.nextInt();
+			sc.skip("\n");
+			Peca p = new Peca(sc);
+			pecasUnicas.put(hash, p);
+			armasDisponiveis++;
+			sc.skip("\n");
+		}
+		for(int i = 0; i < xDim; i++) {
+			for(int j = 0; j < yDim; j++) {
+				int hash = sc.nextInt();
+				System.out.println("["+i+"] ["+j+"] "+hash);
+				if(hash != 0) {
+					pecas[i][j] = pecasUnicas.get(hash);	
+				}
+			}
+		}
+		for(int i = 0; i < xDim; i++) {
+			String linha = sc.next();
+			for(int j = 0; j < yDim; j++) {
+				grid[i][j] = linha.charAt(j);
+			}
+		}
+	}
+	
+	public void escrever(FileWriter arquivo) {
+		try {
+			arquivo.write("TABULEIRODATA "+ xDim + " " + yDim + "\n");
+			Hashtable<Integer, Peca> pecasUnicas = new Hashtable<Integer, Peca>();
+			for(int i = 0; i < xDim; i ++) {
+				for (int j = 0; j < yDim; j++) {
+					Peca peca =  pecas[i][j];
+					if(peca!=null) {
+						pecasUnicas.put(peca.hashCode(), peca);	
+					}
+				}
+			}
+			for(Peca pecaUnica: pecasUnicas.values()) {
+				arquivo.write("PECA: "+ pecaUnica.hashCode()+ "\n");
+				pecaUnica.escrever(arquivo);
+			}
+			for(int i = 0; i < xDim; i ++) {
+				for (int j = 0; j < yDim; j++) {
+					Peca peca =  pecas[i][j];
+					if(peca != null) {
+						arquivo.write(peca.hashCode()+" ");
+					} else {
+						arquivo.write(0 + " ");
+					}
+				}
+				arquivo.write("\n");
+			}
+			for(int i = 0; i < xDim; i ++) {
+				for (int j = 0; j < yDim; j++) {
+					arquivo.write(grid[i][j]);
+				}
+				arquivo.write("\n");
+			}		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Boolean isEmpty(int x, int y)
@@ -219,44 +291,4 @@ public class TabuleiroData {
 		}
 	}
 	
-	public void escrever(FileWriter arquivo) {
-		
-		try {
-			arquivo.write("TABULEIRODATA "+ xDim + " " + yDim + "\n");
-			Hashtable<Integer, Peca> pecasUnicas = new Hashtable<Integer, Peca>();
-			for(int i = 0; i < xDim; i ++) {
-				for (int j = 0; j < yDim; j++) {
-					Peca peca =  pecas[i][j];
-					if(peca!=null) {
-						pecasUnicas.put(peca.hashCode(), peca);	
-					}
-				}
-			}
-			for(Peca pecaUnica: pecasUnicas.values()) {
-				arquivo.write("PECA: "+ pecaUnica.hashCode()+ "\n");
-				pecaUnica.escrever(arquivo);
-			}
-			for(int i = 0; i < xDim; i ++) {
-				for (int j = 0; j < yDim; j++) {
-					Peca peca =  pecas[i][j];
-					if(peca != null) {
-						arquivo.write(peca.hashCode()+" ");
-					} else {
-						arquivo.write(0 + " ");
-					}
-				}
-				arquivo.write("\n");
-			}
-			for(int i = 0; i < xDim; i ++) {
-				for (int j = 0; j < yDim; j++) {
-					arquivo.write(grid[i][j]);
-				}
-				arquivo.write("\n");
-			}
-				
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
 }

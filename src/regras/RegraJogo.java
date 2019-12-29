@@ -2,9 +2,7 @@ package regras;
 
 import utils.Evento;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import interfaces.IObservador;
 import interfaces.Regra;
@@ -123,9 +121,20 @@ public class RegraJogo implements IObservador {
 		}
 	}
 	
-	public void carregarJogo()
+	public void carregarJogo(File f)
 	{
-		estadoAtual = EstadoDoJogo.EMBATE;
+		try {
+			FileReader fr;
+			fr = new FileReader(f);
+			regraEmbate = new RegraEmbate(fr);
+			fr.close();
+			regraEmbate.jogoFinalizado.cadastrar(this);
+			estadoAtual = EstadoDoJogo.EMBATE;
+			trocaPanel.notificar(this);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setJogadores(String[] jogadores)

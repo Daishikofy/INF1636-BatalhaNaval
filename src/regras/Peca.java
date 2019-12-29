@@ -1,7 +1,7 @@
 package regras;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class Peca {
 	
@@ -65,6 +65,26 @@ public class Peca {
 		return peca;
 	}
 	
+	private Peca() {
+		// Empty.
+	}
+	
+	Peca(Scanner sc) {
+		sc.skip("PECA\n");
+		this.nome = sc.next();
+		String componentesString = sc.next();
+		componentes = new char[componentesString.length()];
+		for(int i = 0; i < componentesString.length(); i++) {
+			componentes[i] = componentesString.charAt(i);
+		}
+		x = sc.nextInt();
+		y = sc.nextInt();
+		largura = sc.nextInt();
+		altura = sc.nextInt();
+		componentesIntactos = sc.nextInt();
+		afundou = sc.nextBoolean();
+	}
+	
 	public void setPosicao(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -119,7 +139,7 @@ public class Peca {
 			for(char c : componentes) {
 				arquivo.write(c);
 			}
-			arquivo.write(" "+ x +" "+ y + " " + largura + "" + altura + " ");
+			arquivo.write(" "+ x +" "+ y + " " + largura + " " + altura + " ");
 			arquivo.write(componentesIntactos + " " + afundou + "\n");
 			
 		} catch (IOException e) {
