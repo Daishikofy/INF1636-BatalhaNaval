@@ -1,5 +1,9 @@
 package regras;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Hashtable;
+
 public class TabuleiroData {
 	int armasDisponiveis;
 	private char[][] grid;
@@ -138,18 +142,6 @@ public class TabuleiroData {
 	public void marcarComoAfundada(int x, int y) {
 		Peca peca = getPeca(x, y);
 		System.out.println("Coordenadas a afundar: " + peca.x + ", " + peca.y);
-		/*
-		for(int i = 0; i < peca.largura; i++) {
-			for(int j = 0; j < peca.altura; j++) {
-				x = peca.x + i;
-				y = peca.y + j;
-				char a = grid[i][j];
-				if( a == 'x' ) {
-					grid[i][j] = 'X';
-				}
-			}
-		}
-		armasDisponiveis --;*/
 				
 		for (int i = peca.x; i < peca.x + peca.largura; i++)
 			for (int j = peca.y; j < peca.y + peca.altura; j++)			
@@ -225,5 +217,46 @@ public class TabuleiroData {
 				}
 			}
 		}
+	}
+	
+	public void escrever(FileWriter arquivo) {
+		
+		try {
+			arquivo.write("TABULEIRODATA "+ xDim + " " + yDim + "\n");
+			Hashtable<Integer, Peca> pecasUnicas = new Hashtable<Integer, Peca>();
+			for(int i = 0; i < xDim; i ++) {
+				for (int j = 0; j < yDim; j++) {
+					Peca peca =  pecas[i][j];
+					if(peca!=null) {
+						pecasUnicas.put(peca.hashCode(), peca);	
+					}
+				}
+			}
+			for(Peca pecaUnica: pecasUnicas.values()) {
+				arquivo.write("PECA: "+ pecaUnica.hashCode()+ "\n");
+				pecaUnica.escrever(arquivo);
+			}
+			for(int i = 0; i < xDim; i ++) {
+				for (int j = 0; j < yDim; j++) {
+					Peca peca =  pecas[i][j];
+					if(peca != null) {
+						arquivo.write(peca.hashCode()+" ");
+					} else {
+						arquivo.write(0 + " ");
+					}
+				}
+				arquivo.write("\n");
+			}
+			for(int i = 0; i < xDim; i ++) {
+				for (int j = 0; j < yDim; j++) {
+					arquivo.write(grid[i][j]);
+				}
+				arquivo.write("\n");
+			}
+				
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

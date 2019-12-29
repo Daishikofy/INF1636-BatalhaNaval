@@ -1,6 +1,11 @@
 package regras;
 
 import utils.Evento;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import interfaces.IObservador;
 import interfaces.Regra;
 
@@ -106,9 +111,16 @@ public class RegraJogo implements IObservador {
 		trocaPanel.notificar(this);	
 	}
 	
-	public void salvarJogo()
-	{
-		
+	public void salvarJogo(File arquivo) {
+		assert estadoAtual == EstadoDoJogo.EMBATE;
+		try {
+			FileWriter escrita;
+			escrita = new FileWriter(arquivo);
+			regraEmbate.escrever(escrita);
+			escrita.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void carregarJogo()
@@ -141,6 +153,8 @@ public class RegraJogo implements IObservador {
 		return regraEmbate.getVencedor();
 	}
 
+	
+	
 	@Override
 	public void update() {
 		if(regraEmbate.jogoAcabou()) {

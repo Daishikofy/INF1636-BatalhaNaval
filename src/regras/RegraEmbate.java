@@ -2,6 +2,9 @@ package regras;
 
 import utils.Evento;
 import utils.TransformacaoTabuleiro;
+
+import java.io.*;
+
 import interfaces.IObservador;
 import interfaces.Regra;
 import regras.RegraJogo.EstadoDeCelula;
@@ -159,5 +162,20 @@ public class RegraEmbate implements Regra {
 	@Override
 	public boolean jogoAcabou() {
 		return vencedor != -1;
+	}
+
+	public void escrever(FileWriter arquivo) {
+		// TODO Auto-generated method stub
+		try {
+			arquivo.write(Integer.toString(vez)+"-"+Integer.toString(jogadasSobrando)+"\n");
+			for(String jogador:jogadores) {
+				arquivo.write(jogador + "\n");
+			}
+			for(TabuleiroData tab: tabuleiros) {
+				tab.escrever(arquivo);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 }

@@ -1,5 +1,8 @@
 package regras;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Peca {
 	
 	private String nome;
@@ -106,6 +109,22 @@ public class Peca {
 				componentes[4] = componentes[5];
 				componentes[5] = aux;
 			}
+		}
+	}
+
+	public void escrever(FileWriter arquivo) {
+		try {
+			arquivo.write("PECA\n");
+			arquivo.write(nome+" ");
+			for(char c : componentes) {
+				arquivo.write(c);
+			}
+			arquivo.write(" "+ x +" "+ y + " " + largura + "" + altura + " ");
+			arquivo.write(componentesIntactos + " " + afundou + "\n");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

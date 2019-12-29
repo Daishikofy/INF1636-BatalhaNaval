@@ -15,7 +15,7 @@ import interfaces.Regra;
 
 @SuppressWarnings("serial")
 public class PanelEmbate extends JPanel implements IObservador, ActionListener {
-	
+
 	Regra regra;
 	JLabel jogadorCorrente;
 	JButton comeco;
@@ -53,7 +53,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		atualizaJogadorCorrente(jogador);
 		comeco.setEnabled(regra.podeFinalizar());
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == comeco.getActionCommand()) {
