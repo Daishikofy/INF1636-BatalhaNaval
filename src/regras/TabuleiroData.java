@@ -196,4 +196,23 @@ public class TabuleiroData {
 			}
 		}
 	}
+	
+	public void insereInvalida(Peca peca) {
+		System.out.println("Peça: ");
+		char[] a = peca.getComponentes();
+		for(char l: a) {
+			System.out.print(l+ " ");
+		}
+		for(int i = 0; i < peca.altura; i++) {
+			for(int j = 0; j < peca.largura; j++) {
+				System.out.println("IDX: "+(i*peca.largura+j));
+				if(peca.getComponentes()[i*peca.largura+j] != 'a') {
+					int x, y;
+					x = peca.x + j;
+					y = peca.y + i;
+					setCell('i', x, y);
+				}
+			}
+		}
+	}
 }

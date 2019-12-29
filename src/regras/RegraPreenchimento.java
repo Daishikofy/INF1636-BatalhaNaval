@@ -209,7 +209,7 @@ public class RegraPreenchimento  extends RegraGeral {
 			tabuleiroDesenhado.inserePeca(pecaSelecionada, pecaSelecionada.x, pecaSelecionada.y);
 		} else {
 			// Tratar casos inválidos
-			
+			tabuleiroDesenhado.insereInvalida(pecaSelecionada);
 		}
 		tabuleiro = tabuleiroDesenhado;
 		tabuleiroAlterado.notificar(this);
