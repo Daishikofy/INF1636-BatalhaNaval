@@ -46,71 +46,21 @@ public class RegraPreenchimento  extends RegraGeral {
 	
 	public boolean validaInsercao(Peca peca, int x, int y)
 	{
-		int xIni, xFim, yIni, yFim;
-		xIni = x - 1;
-		xFim = x + peca.largura + 1;
-		yIni = y - 1;
-		yFim = y + peca.altura + 1;
-		if (peca.largura + x > 15 || peca.altura + y > 15)
+		if (peca.largura + x > 15 || peca.altura + y > 15) {
 			return false;
+		}
+		char[] conteudo = peca.getComponentes();
 		
-		if (peca.getNome() != "submarinos")
-		{			
-			for (int i = xIni; i <= xFim; i++)
-			{
-				for (int j = yIni; j <= yFim; j++)
-				{
-					if(!tabuleiroPrenchendo.isEmpty(i, j))
+		for(int i = 0; i < peca.altura; i++) {
+			for(int j = 0; j < peca.largura; j++) {
+				if(conteudo[i*peca.largura+j] != 'a') {
+					if(tabuleiroPrenchendo.temVizinhos(x+j, y+i)) {
 						return false;
+					}
 				}
 			}
-			return true;
 		}
-		else
-		{		
-			int xIgnore = -1, yIgnore = -1;
-			
-			if(peca.largura > peca.altura)
-			{
-				if (peca.getComponentes()[0] == '0')	// 0 X 0
-					yIgnore = yIni;						// X 0 X
-				else
-					yIgnore = yFim;     				// X 0 X
-			}											// 0 X 0
-			else
-			{
-				if (peca.getComponentes()[0] == '0')	// 0 X 
-					xIgnore = xIni;						// X 0
-														// 0 X
-				else	
-					xIgnore = xFim;    					// X 0 
-														// 0 X 
-			}											// X 0
-			
-			if (xIgnore > 0)
-				for (int i = xIni; i <= xFim; i++)
-				{
-					for (int j = yIni; j <= yFim; j++)
-					{
-						if (i != xIgnore || (j != yFim && j != yIni))
-							if(!tabuleiroPrenchendo.isEmpty(i, j))
-								return false;
-					}
-				}
-			
-			else if (yIgnore > 0)
-				for (int i = xIni; i <= xFim; i++)
-				{
-					for (int j = yIni; j <= yFim; j++)
-					{
-						if (j != yIgnore || (i != xFim && i != xIni))
-						if(!tabuleiroPrenchendo.isEmpty(i, j))
-							return false;
-					}
-				}
-				
-			return true;
-		}
+		return true;
 	}
 	
 	private void geraPecas()

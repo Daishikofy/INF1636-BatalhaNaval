@@ -197,6 +197,17 @@ public class TabuleiroData {
 		}
 	}
 	
+	public boolean temVizinhos(int x, int y) {
+		for(int dx =-1; dx <=1; dx++ ) {
+			for(int dy = -1; dy<=1; dy++) {
+				if(!isEmpty(x+dx, y+dy)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public void insereInvalida(Peca peca) {
 		System.out.println("Peça: ");
 		char[] a = peca.getComponentes();
