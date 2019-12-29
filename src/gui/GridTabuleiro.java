@@ -159,7 +159,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionL
 			ArrayList<Integer> xy = coordenadas(e);
 			int x = xy.get(0);
 			int y = xy.get(1);
-			if(x > 0 && y > 0) 
+			if(x >= 0 && y >= 0) 
 			{
 				regra.onLeftClickTabuleiro(idx, x, y);		
 			}
@@ -214,7 +214,7 @@ public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionL
 		ArrayList<Integer> xy = coordenadas(e);
 		int x = xy.get(0);
 		int y = xy.get(1);
-		if(x > 0 && y > 0) 
+		if(x >= 0 && y >= 0) 
 		{
 			regra.mouseMovimento(x, y);		
 		}
