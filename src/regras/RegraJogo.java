@@ -151,7 +151,6 @@ public class RegraJogo implements IObservador {
 		}
 		else if (estadoAtual == EstadoDoJogo.POSICIONAMENTO)
 		{
-			System.out.println("Regra posicionamento");
 			return regraPreenchimento;
 		}		
 		System.out.println("Erro: Foi pedido uma regra fora de uma fase de jogo");
@@ -162,8 +161,6 @@ public class RegraJogo implements IObservador {
 		return regraEmbate.getVencedor();
 	}
 
-	
-	
 	@Override
 	public void update() {
 		if(regraEmbate.jogoAcabou()) {

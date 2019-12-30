@@ -63,7 +63,6 @@ public class FrameJogo extends JFrame implements IObservador, ActionListener {
 
 	@Override
 	public void update() {
-		System.out.println("Trocar panel");
 		menuSalvar.setEnabled(false);
 		JPanel newPanel = null;
 		EstadoDoJogo panel = RegraJogo.Instance().getEstado();	
@@ -80,7 +79,6 @@ public class FrameJogo extends JFrame implements IObservador, ActionListener {
 			break;
 		case POSICIONAMENTO:
 			newPanel = new PanelPreenchimento();
-			System.out.println("panel de preenchimento");
 			
 			break;
 		case ESCOLHAJOGADORES:
@@ -102,9 +100,7 @@ public class FrameJogo extends JFrame implements IObservador, ActionListener {
 			currentPanel.removeAll();
 			currentPanel.setVisible(false);
 			currentPanel = newPanel;
-			System.out.println("HEYO");
 			currentPanel.setVisible(true);
-			System.out.println("HEYO");
 			instance.add(newPanel);
 		}
 	}

@@ -28,7 +28,8 @@ public class GridTabuleiro extends JPanel implements KeyListener, MouseListener,
 		this.idx = idx;
 	}
 	
-	public GridTabuleiro() {		
+	public GridTabuleiro() {	
+		
 		// Linhas horizontais
 		for(int i=0; i <= nLinhas + 1; i++) 
 		{
@@ -66,7 +67,11 @@ public class GridTabuleiro extends JPanel implements KeyListener, MouseListener,
 		this.setSize(largura, altura);
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {		
+		
+		if (! this.isFocusOwner())
+			this.requestFocusInWindow();
+		
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 
