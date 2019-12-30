@@ -270,4 +270,8 @@ public class RegraPreenchimento implements Regra {
 		tabuleiro.copiar(tabuleiroPrenchendo);
 		tabuleiroAlterado.notificar(this);
 	}
+	
+	public boolean jogoAcabou() {
+		return false;
+	}
 }

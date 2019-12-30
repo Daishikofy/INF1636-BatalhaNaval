@@ -15,9 +15,6 @@ public class TelaInicial extends JPanel implements ActionListener{
 	
 	public TelaInicial() {
 		
-		Toolkit tk=Toolkit.getDefaultToolkit();
-		Dimension screenSize = tk.getScreenSize();
-		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		novoJogo = new JButton("Novo Jogo");
@@ -40,6 +37,11 @@ public class TelaInicial extends JPanel implements ActionListener{
 		else if (action == "Carregar ultimo jogo")
 		{
 			System.out.println("Carregar ultimo jogo");
+			JFileChooser fc = new JFileChooser(); 
+			int rv = fc.showOpenDialog(this);
+			if(rv == JFileChooser.APPROVE_OPTION) {
+				RegraJogo.Instance().carregarJogo(fc.getSelectedFile());	
+			}
 		}
 	}
 }

@@ -15,13 +15,12 @@ import interfaces.Regra;
 
 @SuppressWarnings("serial")
 public class PanelEmbate extends JPanel implements IObservador, ActionListener {
-	
-	static PanelEmbate instance = null;
+
 	Regra regra;
 	JLabel jogadorCorrente;
 	JButton comeco;
 	
-	private PanelEmbate() {
+	public PanelEmbate() {
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -35,6 +34,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		
 		comeco = new JButton("Ver tabuleiro");
 		comeco.addActionListener(this);
+		comeco.setEnabled(true);
 		add(comeco);
 		
 		regra = RegraJogo.Instance().getRegra();
@@ -51,20 +51,15 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		System.out.println("Update " + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);
+		comeco.setEnabled(regra.podeFinalizar());
 	}
 	
-	static PanelEmbate getPanel() {
-		if (instance == null) {
-			instance = new PanelEmbate();
-		}
-		return instance;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == comeco.getActionCommand()) {
 			System.out.println("MostrarTabuleiro");
 			((RegraEmbate)regra).mostrarTabuleiro();
+			comeco.setEnabled(false);
 		}
 	}
 }
