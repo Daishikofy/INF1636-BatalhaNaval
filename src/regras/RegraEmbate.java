@@ -24,6 +24,7 @@ public class RegraEmbate implements Regra {
 	int vencedor = -1;
 	
 	String[] jogadores;
+	String report;
 	
 	public RegraEmbate (TabuleiroData[] tabuleiros, String[] jogadores)
 	{
@@ -92,6 +93,7 @@ public class RegraEmbate implements Regra {
 		if(a == 'A') // Agua sem arma
 		{
 			tabuleiros[1 - vez].setCell('0', x, y);
+			report = "Atingiu a água.";
 		} 
 		else // Arma
 		{
@@ -99,11 +101,14 @@ public class RegraEmbate implements Regra {
 			pecaAtingida.atingida();
 			tabuleiros[1 - vez].setCell('x', x, y);
 			
+			report = "Atingiu uma arma do tipo " + pecaAtingida.getNome()+". ";
+			
 			// Notificar qual arma foi atingida
 			if(pecaAtingida.estaAfundada()) 
 			{
 				System.out.println(pecaAtingida.getNome() + " (" + x + "," + y + ") afundou");
 				tabuleiros[1 - vez].marcarComoAfundada(x, y);
+				report += "E a afundou!";
 				// Notificar que afundou
 				if(!tabuleiros[1-vez].temArmasDisponiveis()) {
 					vencedor = vez;
@@ -111,6 +116,7 @@ public class RegraEmbate implements Regra {
 			}
 		}
 		tabuleiroAlterado.notificar(this);
+		updateUI.notificar(this);
 		
 		if(!jogoAcabou()) {
 			jogadasSobrando --;
@@ -207,6 +213,10 @@ public class RegraEmbate implements Regra {
 		return jogadores[vencedor];
 	}
 
+	public String getReport() {
+		return report;
+	}
+	
 	@Override
 	public boolean jogoAcabou() {
 		return vencedor != -1;

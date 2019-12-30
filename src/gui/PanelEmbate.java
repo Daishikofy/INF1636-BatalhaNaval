@@ -9,15 +9,14 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import interfaces.IObservador;
-import interfaces.Regra;
 
 // Definir o número de linhas na classe tabuleiro
 
 @SuppressWarnings("serial")
 public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 
-	Regra regra;
-	JLabel jogadorCorrente;
+	RegraEmbate regra;
+	JLabel jogadorCorrente, reportUltimaJogada;
 	JButton comeco;
 	
 	public PanelEmbate() {
@@ -27,17 +26,20 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		JPanel tabs = new JPanel();
 		tabs.setLayout(new BoxLayout(tabs, BoxLayout.X_AXIS));
 		jogadorCorrente = new JLabel("Nome do jogador");
+		reportUltimaJogada = new JLabel("");
+		
 		tabs.add(new GridTabuleiro(0));
 		tabs.add(new GridTabuleiro(1));
 		add(tabs);
 		add(jogadorCorrente);
+		add(reportUltimaJogada);
 		
 		comeco = new JButton("Ver tabuleiro");
 		comeco.addActionListener(this);
 		comeco.setEnabled(true);
 		add(comeco);
 		
-		regra = RegraJogo.Instance().getRegra();
+		regra = (RegraEmbate) RegraJogo.Instance().getRegra();
 		regra.ouvirAlteracoesUI(this);
 		update();
 	}
@@ -51,6 +53,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		System.out.println("Update " + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);
+		reportUltimaJogada.setText(regra.getReport());
 		comeco.setEnabled(regra.podeFinalizar());
 	}
 	
