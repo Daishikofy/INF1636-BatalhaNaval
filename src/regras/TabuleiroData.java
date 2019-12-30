@@ -151,7 +151,7 @@ public class TabuleiroData {
 			return false;
 		if (y < 0 || y >= yDim)
 			return false;
-		grid[x][y] = element;
+		grid[x][y] = element;		
 		pecas[x][y] = peca;
 		return true;		
 	}

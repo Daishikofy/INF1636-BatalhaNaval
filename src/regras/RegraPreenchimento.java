@@ -131,19 +131,27 @@ public class RegraPreenchimento implements Regra {
 		}
 		tabuleiro.copiar(tabuleiroPrenchendo);
 		tabuleiroAlterado.notificar(this);
-		//TODO : Botar 15 em vez de 3
-		if (finalizar && pecasPosicionadas < 3)
-		{
-			finalizar = false;
-			updateUI.notificar(this);
-		}
-		if(!finalizar && pecasPosicionadas == 3)
-		{
-			finalizar = true;
-			updateUI.notificar(this);
-		}
-			
+		verificaEstadoTurno();
 	}
+	
+	private void verificaEstadoTurno()
+	{
+		//TODO : Botar 15 em vez de 3
+				if (finalizar && pecasPosicionadas < 3)
+				{
+					finalizar = false;
+					updateUI.notificar(this);
+				}
+				if(!finalizar && pecasPosicionadas == 3)
+				{
+					finalizar = true;
+					updateUI.notificar(this);
+				}
+				
+				System.out.println("Posicionadas: " + pecasPosicionadas);		
+	}
+	
+	
 
 	public void onLeftClickPecas(int x, int y)
 	{
@@ -269,6 +277,7 @@ public class RegraPreenchimento implements Regra {
 		
 		tabuleiro.copiar(tabuleiroPrenchendo);
 		tabuleiroAlterado.notificar(this);
+		verificaEstadoTurno();
 	}
 	
 	public boolean jogoAcabou() {

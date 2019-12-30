@@ -27,7 +27,7 @@ public class RegraEmbate implements Regra {
 	String report;
 	
 	public RegraEmbate (TabuleiroData[] tabuleiros, String[] jogadores)
-	{
+	{		
 		tabuleiroAlterado = new Evento();
 		updateUI = new Evento();
 		jogoFinalizado = new Evento();
