@@ -59,7 +59,7 @@ public class RegraPreenchimento implements Regra {
 		pecasPreenchidas.inserePeca(allPecas[13], 12, 0);
 		pecasPreenchidas.inserePeca(allPecas[14], 12, 3);
 		
-		tabuleiro.copiar(tabuleiroPrenchendo);
+		tabuleiro = tabuleiroPrenchendo;
 		pecas = pecasPreenchidas;		
 	}
 	
@@ -129,7 +129,6 @@ public class RegraPreenchimento implements Regra {
 				//Tabuleiro sendo o da regra geral				
 			}
 		}
-		tabuleiro.copiar(tabuleiroPrenchendo);
 		tabuleiroAlterado.notificar(this);
 		verificaEstadoTurno();
 	}
@@ -196,7 +195,7 @@ public class RegraPreenchimento implements Regra {
 			// Tratar casos inválidos
 			tabuleiroDesenhado.insereInvalida(pecaSelecionada);
 		}
-		tabuleiro.copiar(tabuleiroDesenhado);
+		tabuleiro = tabuleiroDesenhado;
 		tabuleiroAlterado.notificar(this);
 	}
 	
@@ -275,7 +274,7 @@ public class RegraPreenchimento implements Regra {
 		pecaPosx = -1;
 		pecaPosy = -1;
 		
-		tabuleiro.copiar(tabuleiroPrenchendo);
+		tabuleiro = tabuleiroPrenchendo;
 		tabuleiroAlterado.notificar(this);
 		verificaEstadoTurno();
 	}
