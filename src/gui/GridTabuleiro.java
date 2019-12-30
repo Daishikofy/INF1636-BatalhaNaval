@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 
+
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import utils.*;
 import interfaces.*;
  
 @SuppressWarnings("serial")
-public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionListener, IObservador {
+public class GridTabuleiro extends JPanel implements KeyListener, MouseListener, MouseMotionListener, IObservador {
 	double xIni=25.0, yIni=25.0, larg=30.0, alt=30.0, espLinha=2.0;
 	int nLinhas = 15;
 	Celula tab[][] = new Celula[nLinhas][nLinhas];
@@ -141,8 +142,6 @@ public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionL
 			regra.onRightClick();	
 		}
 		
-		//DEBUG : Usar o notify, nao deixar o repaint aqui	
-		//repaint();
 	}
 	
 	public void mouseEntered(MouseEvent e) {}
@@ -190,5 +189,22 @@ public class GridTabuleiro extends JPanel implements MouseListener, MouseMotionL
 		{
 			regra.mouseMovimento(x, y);		
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE)	
+			regra.onEscPressed();
+				
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub		
 	}
 }

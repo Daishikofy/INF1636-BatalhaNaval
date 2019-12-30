@@ -19,6 +19,7 @@ public interface Regra {
 	public void onLeftClickTabuleiro(int idx, int x, int y);
 	
 	public void onRightClick();
+	public void onEscPressed();
 	
 	/* Cadastra uma grid de tabuleiro para 
 	 * ser redesenhado quando houver modificaçao 

@@ -6,9 +6,7 @@ import javax.swing.*;
 
 import interfaces.IObservador;
 import interfaces.Regra;
-import regras.GerenciadorDePreenchimento;
 import regras.RegraJogo;
-import regras.RegraPreenchimento;
 
 @SuppressWarnings("serial")
 public class PanelPreenchimento extends JPanel implements ActionListener, IObservador {
@@ -27,7 +25,12 @@ public class PanelPreenchimento extends JPanel implements ActionListener, IObser
 		botaoContinuar.setEnabled(false);
 		botaoContinuar.addActionListener(this);
 		add(new GridPecas());
-		add(new GridTabuleiro());
+		
+		GridTabuleiro gridTabuleiro = new GridTabuleiro();
+		gridTabuleiro.addKeyListener(gridTabuleiro);
+		gridTabuleiro.setFocusable(true);
+		add(gridTabuleiro);
+		
 		add(botaoContinuar);
 		add(jogadorCorrente);
 	

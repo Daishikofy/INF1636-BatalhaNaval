@@ -145,4 +145,10 @@ public class RegraEmbate implements Regra {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void onEscPressed() {
+		// TODO Auto-generated method stub
+		
+	}
 }

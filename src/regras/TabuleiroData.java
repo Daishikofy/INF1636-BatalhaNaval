@@ -99,13 +99,7 @@ public class TabuleiroData {
 		if (peca == null)
 			return;
 		int xPeca = peca.x, yPeca = peca.y;
-		//A peca selecionada tem coordenadas zeradas, nao sei se daria 
-		//para se aproveitar dessas coordenadas em vez de deixar elas zeradas.
-		//Talvez possam ser uteis na hora de fazer o desenho ou de arastar a 
-		//peca pelo tabuleiro
-		peca.x = 0;
-		peca.y = 0;
-
+		
 		for (int i = xPeca; i < xPeca + peca.largura; i++)
 			for (int j = yPeca; j < yPeca + peca.altura; j++)			
 			{

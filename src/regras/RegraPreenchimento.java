@@ -1,18 +1,41 @@
 package regras;
 
-public class RegraPreenchimento  extends RegraGeral {
+import interfaces.IObservador;
+import interfaces.Regra;
+import regras.RegraJogo.EstadoDeCelula;
+import utils.Evento;
+import utils.TransformacaoTabuleiro;
 
+public class RegraPreenchimento implements Regra {
+
+	public Evento tabuleiroAlterado;
+	public Evento updateUI;
 
 	TabuleiroData tabuleiroPrenchendo; //Contem as peças atualmente fixas no tabuleiro
 	TabuleiroData tabuleiroDesenhado; //Contem o tabuleiro como ele deve ser desenhado
+	TabuleiroData tabuleiro = new TabuleiroData(15,15);
+	
 	TabuleiroData pecasPreenchidas;
+	TabuleiroData pecas = new TabuleiroData (15,15);
+	
 	Peca[] allPecas = new Peca[15]; //Possui as peças a serem posicionadas
 	
 	Peca pecaSelecionada = null;
-	int pecasPosicionadas = 0;
+	int pecasPosicionadas = 0;	
+	int pecaPosx = -1, pecaPosy = -1;
+	
+	String vez = "";
+	Boolean finalizar = false;
 	
 	public RegraPreenchimento(String jogador) {
-		System.out.println("Regra preenchimento " + jogador);
+		tabuleiroAlterado = new Evento();
+		updateUI = new Evento();
+		/*
+		for(int i = 0; i < 15; i++) {
+			for(int j = 0; j < 15; j++) {
+				tabuleiro.setCell('0', i, j);
+			}
+		}*/
 		vez = jogador;
 		tabuleiroPrenchendo = new TabuleiroData(15, 15);
 		tabuleiroDesenhado = new TabuleiroData(15, 15);
@@ -35,7 +58,8 @@ public class RegraPreenchimento  extends RegraGeral {
 		pecasPreenchidas.inserePeca(allPecas[12], 8, 0);
 		pecasPreenchidas.inserePeca(allPecas[13], 12, 0);
 		pecasPreenchidas.inserePeca(allPecas[14], 12, 3);
-		tabuleiro = tabuleiroPrenchendo;
+		
+		tabuleiro.copiar(tabuleiroPrenchendo);
 		pecas = pecasPreenchidas;		
 	}
 	
@@ -87,10 +111,12 @@ public class RegraPreenchimento  extends RegraGeral {
 			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);
 			if (pecaSelecionada != null)
 			{
+				pecaPosx = x;
+				pecaPosy = y;
 				tabuleiroPrenchendo.removePeca(x, y);
 				pecasPosicionadas -= 1;
-				System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
-				System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
+				//System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
+				//System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 			}
 		}
 		else
@@ -103,7 +129,7 @@ public class RegraPreenchimento  extends RegraGeral {
 				//Tabuleiro sendo o da regra geral				
 			}
 		}
-		tabuleiro = tabuleiroPrenchendo;
+		tabuleiro.copiar(tabuleiroPrenchendo);
 		tabuleiroAlterado.notificar(this);
 		//TODO : Botar 15 em vez de 3
 		if (finalizar && pecasPosicionadas < 3)
@@ -155,15 +181,15 @@ public class RegraPreenchimento  extends RegraGeral {
 	
 	public void atualizarDesenho() {
 		tabuleiroDesenhado.copiar(tabuleiroPrenchendo);
+		
 		if(validaInsercao(pecaSelecionada, pecaSelecionada.x, pecaSelecionada.y)) {
 			tabuleiroDesenhado.inserePeca(pecaSelecionada, pecaSelecionada.x, pecaSelecionada.y);
 		} else {
 			// Tratar casos inválidos
 			tabuleiroDesenhado.insereInvalida(pecaSelecionada);
 		}
-		tabuleiro = tabuleiroDesenhado;
+		tabuleiro.copiar(tabuleiroDesenhado);
 		tabuleiroAlterado.notificar(this);
-		updateUI.notificar(this);
 	}
 	
 	private void printTabuleiro ()
@@ -172,7 +198,7 @@ public class RegraPreenchimento  extends RegraGeral {
 		{
 			for (int j = 0; j < 15; j++)
 			{
-				char cell = tabuleiroPrenchendo.getCell(j, i);
+				char cell = tabuleiro.getCell(j, i);
 				if (cell != '0')
 					System.out.print(cell + " ");
 				else
@@ -180,5 +206,68 @@ public class RegraPreenchimento  extends RegraGeral {
 			}
 			System.out.println("");
 		}
+	}
+	
+	
+	
+	public String getVez() {
+		return vez;
+	}	
+	
+	public Boolean podeFinalizar()
+	{		
+		return finalizar;
+	}
+
+	@Override
+	public void ouvirAlteracoes(IObservador observador) {
+		tabuleiroAlterado.cadastrar(observador);	
+	}
+	public void ouvirAlteracoesUI(IObservador observador) {
+		updateUI.cadastrar(observador);	
+	}
+
+	@Override
+	public EstadoDeCelula[][] getTabuleiro(int idx) {
+		if (idx != -1) {
+			return null;
+		}	
+		return getTabuleiro();
+	}
+	
+	@Override
+	public EstadoDeCelula[][] getTabuleiro() {
+		return TransformacaoTabuleiro.getMatriz(tabuleiro);
+	}
+
+	@Override
+	public EstadoDeCelula[][] getPecas() {
+		return TransformacaoTabuleiro.getMatriz(pecas);
+	}
+
+	@Override
+	public void onLeftClickTabuleiro(int idx, int x, int y) {
+		if(idx == -1) {
+			onLeftClickTabuleiro(x, y);
+		}
+	}
+	
+	@Override
+	public void onEscPressed() {
+		System.out.println("Volte a peça para sua posicao original");
+		if (pecaSelecionada == null) return;
+		
+		if (pecaPosx == -1)
+			//TODO: Botar de volta nas pecas
+			return;
+		tabuleiroPrenchendo.inserePeca(pecaSelecionada, pecaPosx, pecaPosy);
+		pecaSelecionada = null;
+		pecasPosicionadas += 1;
+		
+		pecaPosx = -1;
+		pecaPosy = -1;
+		
+		tabuleiro.copiar(tabuleiroPrenchendo);
+		tabuleiroAlterado.notificar(this);
 	}
 }
