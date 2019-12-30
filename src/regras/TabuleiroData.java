@@ -42,7 +42,9 @@ public class TabuleiroData {
 			sc.skip("\n");
 			Peca p = new Peca(sc);
 			pecasUnicas.put(hash, p);
-			armasDisponiveis++;
+			if(!p.estaAfundada()) {
+				armasDisponiveis++;
+			}
 			sc.skip("\n");
 		}
 		for(int i = 0; i < xDim; i++) {
