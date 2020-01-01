@@ -24,9 +24,9 @@ public class PanelPreenchimento extends JPanel implements ActionListener, IObser
 		botaoContinuar.setText("Finalizar");
 		botaoContinuar.setEnabled(false);
 		botaoContinuar.addActionListener(this);
-		add(new GridPecas());
+		add(new GridPecas(0));
 		
-		GridTabuleiro gridTabuleiro = new GridTabuleiro();
+		GridTabuleiro gridTabuleiro = new GridTabuleiro(1);
 		gridTabuleiro.addKeyListener(gridTabuleiro);
 		gridTabuleiro.setFocusable(true);			
 		add(gridTabuleiro);			

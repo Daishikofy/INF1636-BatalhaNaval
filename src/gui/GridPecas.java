@@ -22,9 +22,10 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 		int nLinhas = 15;
 		Celula tab[][]=new Celula[nLinhas][nLinhas];
 		Regra regra = RegraJogo.Instance().getRegra();
+		int idx = -1;
 		
-		public GridPecas() {	
-			
+		public GridPecas(int idx) {			
+			this.idx = idx;
 			addMouseListener(this);
 			regra.ouvirAlteracoes((IObservador)this);
 			
@@ -53,7 +54,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 	                10.0f));
 			
 			//TODO: Usar os parametros de observador para passar a matriz
-			EstadoDeCelula mat[][] = regra.getPecas();
+			EstadoDeCelula mat[][] = regra.getTabuleiro(idx);
 			
 			for (int i = 0; i < nLinhas; i++) 
 			{	
@@ -89,7 +90,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 					int xCel = (int) (x/(larg));
 					int yCel = (int) (y/(alt));
 					
-					((RegraPreenchimento)regra).onLeftClickPecas(xCel, yCel);		
+					((RegraPreenchimento)regra).onLeftClickTabuleiro(idx, xCel, yCel);		
 				}
 			}
 			else if (e.getButton() == e.BUTTON3)//Right click

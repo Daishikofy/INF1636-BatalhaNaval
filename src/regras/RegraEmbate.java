@@ -159,12 +159,6 @@ public class RegraEmbate implements Regra {
 	}
 
 	@Override
-	public EstadoDeCelula[][] getPecas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getVez() {
 		System.out.println("E a vez de " + jogadores[vez]);
 		return jogadores[vez];
@@ -182,18 +176,6 @@ public class RegraEmbate implements Regra {
 	@Override
 	public void ouvirAlteracoesUI(IObservador observador) {
 		updateUI.cadastrar(observador);	
-	}
-
-	@Override
-	public EstadoDeCelula[][] getTabuleiro() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onLeftClickTabuleiro(int x, int y) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

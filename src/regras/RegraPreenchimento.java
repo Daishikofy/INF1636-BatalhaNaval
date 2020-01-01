@@ -236,27 +236,27 @@ public class RegraPreenchimento implements Regra {
 
 	@Override
 	public EstadoDeCelula[][] getTabuleiro(int idx) {
-		if (idx != -1) {
+		if (idx == -1) {
 			return null;
 		}	
-		return getTabuleiro();
-	}
-	
-	@Override
-	public EstadoDeCelula[][] getTabuleiro() {
-		return TransformacaoTabuleiro.getMatriz(tabuleiro);
-	}
-
-	@Override
-	public EstadoDeCelula[][] getPecas() {
+		if (idx == 1)
+			return TransformacaoTabuleiro.getMatriz(tabuleiro);
+		
 		return TransformacaoTabuleiro.getMatriz(pecas);
 	}
+	
 
-	@Override
 	public void onLeftClickTabuleiro(int idx, int x, int y) {
-		if(idx == -1) {
+		if (idx == 0)
+		{
+			onLeftClickPecas(x, y);
+		}
+		else if(idx == 1) 
+		{
 			onLeftClickTabuleiro(x, y);
 		}
+		else
+			System.out.println("Tabuleiro ou pecas mal inicializadas");
 	}
 	
 	@Override

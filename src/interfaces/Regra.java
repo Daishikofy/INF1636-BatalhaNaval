@@ -4,19 +4,13 @@ import regras.RegraJogo.EstadoDeCelula;
 
 public interface Regra {
 
-	//TODO: Remover a primeira instancia
-	public EstadoDeCelula[][] getTabuleiro();	
-	public EstadoDeCelula[][] getTabuleiro(int idx);
-	
-	//TODO: Passar a usar o idx e remover
-	public EstadoDeCelula[][] getPecas();			
+
+	public EstadoDeCelula[][] getTabuleiro(int idx);		
 	
 	public String getVez();	
 	public Boolean podeFinalizar();
 	public boolean jogoAcabou();
 		
-	//TODO: Remover a primeira instancia
-	public void onLeftClickTabuleiro(int x, int y);
 	public void onLeftClickTabuleiro(int idx, int x, int y);
 	
 	public void onRightClick();
