@@ -23,22 +23,29 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		JPanel tabs = new JPanel();
-		tabs.setLayout(new BoxLayout(tabs, BoxLayout.X_AXIS));
 		jogadorCorrente = new JLabel("Nome do jogador");
-		reportUltimaJogada = new JLabel("");
-		
-		tabs.add(new GridTabuleiro(0));
-		tabs.add(new GridTabuleiro(1));
-		add(tabs);
+		jogadorCorrente.setFont (jogadorCorrente.getFont ().deriveFont (24.0f));
 		add(jogadorCorrente);
-		add(reportUltimaJogada);
 		
+		JPanel tabuleiros = new JPanel();
+		tabuleiros.setLayout(new BoxLayout(tabuleiros, BoxLayout.X_AXIS));
+		
+		tabuleiros.add(new GridTabuleiro(0));
+		tabuleiros.add(new GridTabuleiro(1));
+		add(tabuleiros);
+		
+		JPanel buttoes = new JPanel();
+		buttoes.setLayout(new BoxLayout(buttoes, BoxLayout.X_AXIS));
 		comeco = new JButton("Ver tabuleiro");
 		comeco.addActionListener(this);
 		comeco.setEnabled(true);
-		add(comeco);
 		
+		reportUltimaJogada = new JLabel("");
+		buttoes.add(comeco);	
+		buttoes.add(new JLabel("             . . .             "));
+		buttoes.add(reportUltimaJogada);
+		
+		add(buttoes);
 		regra = (RegraEmbate) RegraJogo.Instance().getRegra();
 		regra.ouvirAlteracoesUI(this);
 		update();
@@ -48,12 +55,19 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	{
 		jogadorCorrente.setText(nome);
 	}
+	
+	private void atualizaReport (String report)
+	{
+		System.out.println(report);
+		if (report == null)
+			report = "Esperando primeira jogada";
+		reportUltimaJogada.setText(report);
+	}
 	@Override
 	public void update() {
-		System.out.println("Update " + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);
-		reportUltimaJogada.setText(regra.getReport());
+		atualizaReport(regra.getReport());
 		comeco.setEnabled(regra.podeFinalizar());
 	}
 	
