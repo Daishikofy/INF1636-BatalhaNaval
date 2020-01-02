@@ -1,4 +1,5 @@
 package gui;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,23 +18,31 @@ public class PanelPreenchimento extends JPanel implements ActionListener, IObser
 	
 	public PanelPreenchimento() {
 		
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		
-		botaoContinuar = new JButton();
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+				
 		jogadorCorrente = new JLabel("NOME DO JOGADOR");
-		botaoContinuar.setText("Finalizar");
-		botaoContinuar.setEnabled(false);
-		botaoContinuar.addActionListener(this);
-		add(new GridPecas(0));
+		jogadorCorrente.setFont (jogadorCorrente.getFont ().deriveFont (24.0f));
+		add(jogadorCorrente);
+		
+		
+		JPanel tabuleiros = new JPanel();
+		tabuleiros.setLayout(new BoxLayout(tabuleiros, BoxLayout.X_AXIS));
 		
 		GridTabuleiro gridTabuleiro = new GridTabuleiro(1);
 		gridTabuleiro.addKeyListener(gridTabuleiro);
-		gridTabuleiro.setFocusable(true);			
-		add(gridTabuleiro);			
-
+		gridTabuleiro.setFocusable(true);	
+		
+		tabuleiros.add(new GridPecas(0));
+		tabuleiros.add(gridTabuleiro);	
+		
+		add(tabuleiros);
+		
+		botaoContinuar = new JButton();
+		botaoContinuar.setText("Finalizar");
+		botaoContinuar.setEnabled(false);
+		botaoContinuar.addActionListener(this);
 		add(botaoContinuar);
-		add(jogadorCorrente);
-	
+		
 		regra = RegraJogo.Instance().getRegra();
 		regra.ouvirAlteracoesUI(this);
 		
