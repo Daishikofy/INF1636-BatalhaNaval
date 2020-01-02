@@ -10,8 +10,8 @@ import regras.RegraJogo;
 @SuppressWarnings("serial")
 public class DialogoFimDeJogo extends JDialog implements ActionListener {
 	
-	final int LARG_DEFAULT=200;
-	final int ALT_DEFAULT=150;
+	final int LARG_DEFAULT=250;
+	final int ALT_DEFAULT=200;
 	final int x_almejado = 75, y_almejado = 4;
 	
 	String jogador1;
@@ -34,17 +34,29 @@ public class DialogoFimDeJogo extends JDialog implements ActionListener {
 		setBounds(x, y, LARG_DEFAULT, ALT_DEFAULT);
 		
 		JPanel mainPane = (JPanel) this.getContentPane();
-		mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.PAGE_AXIS));
+		setLayout(new GridBagLayout());
 		
-
-		
-		JLabel l1 = new JLabel("Jogador vencedor: "+ RegraJogo.Instance().getVencedor());
-		mainPane.add(l1);
-		
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.NORTH;
+        
+		JLabel l1 = new JLabel("Jogador vencedor:");
+		JLabel l2 = new JLabel(RegraJogo.Instance().getVencedor());
+        l1.setFont(l1.getFont().deriveFont (14.0f));
+        l2.setFont(l2.getFont().deriveFont(22.0f));
+        l1.setForeground(Color.GRAY.darker());
+        l2.setForeground(Color.green.darker().darker());
+        
+        add(l1, gbc);
+        add(l2, gbc);
+        
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;		
 		
 		botaoComecar = new JButton("OK");
 		botaoComecar.addActionListener(this);
-		mainPane.add(botaoComecar);
+		mainPane.add(botaoComecar, gbc);
 	}
 
 	public void paint(Graphics g) {

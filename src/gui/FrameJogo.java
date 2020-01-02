@@ -14,7 +14,7 @@ import interfaces.IObservador;
 
 public class FrameJogo extends JFrame implements IObservador, ActionListener {
 	final int LARG_DEFAULT=1200;
-	final int ALT_DEFAULT=620;
+	final int ALT_DEFAULT=650;
 	
 	FrameJogo instance;
 	

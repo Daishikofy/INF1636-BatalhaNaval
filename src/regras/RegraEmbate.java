@@ -187,8 +187,6 @@ public class RegraEmbate implements Regra {
 
 	@Override
 	public void onEscPressed() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public String getVencedor() {
