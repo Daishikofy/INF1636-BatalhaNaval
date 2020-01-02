@@ -65,7 +65,7 @@ public class RegraPreenchimento implements Regra {
 	
 
 	public TabuleiroData finalizaPosicionamento() {
-		return tabuleiro;
+		return tabuleiroPrenchendo;
 	}
 	
 	public boolean validaInsercao(Peca peca, int x, int y)
