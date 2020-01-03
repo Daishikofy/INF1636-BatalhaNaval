@@ -101,7 +101,7 @@ public class RegraEmbate implements Regra {
 			pecaAtingida.atingida();
 			tabuleiros[1 - vez].setCell('x', x, y);
 			
-			report = "Atingiu uma arma do tipo " + pecaAtingida.getNome()+". ";
+			report = "Atingiu uma arma. ";
 			
 			// Notificar qual arma foi atingida
 			if(pecaAtingida.estaAfundada()) 
