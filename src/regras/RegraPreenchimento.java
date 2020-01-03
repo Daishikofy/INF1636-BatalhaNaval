@@ -103,9 +103,6 @@ public class RegraPreenchimento implements Regra {
 	
 	public void onLeftClickTabuleiro(int x, int y)
 	{
-		System.out.println("ClickTabuleiro preenchimento");
-		printTabuleiro();
-		//System.out.println("Peca selecionada: " + tabuleiroPrenchendo.getCell(x, y));
 		if ( pecaSelecionada == null )
 		{			
 			pecaSelecionada = tabuleiroPrenchendo.getPeca(x, y);
@@ -115,8 +112,6 @@ public class RegraPreenchimento implements Regra {
 				pecaPosy = y;
 				tabuleiroPrenchendo.removePeca(x, y);
 				pecasPosicionadas -= 1;
-				//System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
-				//System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 			}
 		}
 		else
@@ -145,24 +140,19 @@ public class RegraPreenchimento implements Regra {
 				{
 					finalizar = true;
 					updateUI.notificar(this);
-				}
-				
-				System.out.println("Posicionadas: " + pecasPosicionadas);		
+				}		
 	}
 	
 	
 
 	public void onLeftClickPecas(int x, int y)
 	{
-		System.out.println("ClickPeca");
 		if ( pecaSelecionada == null )
 		{			
 			pecaSelecionada = pecasPreenchidas.getPeca(x, y);
 			if (pecaSelecionada != null)
 			{
 				pecasPreenchidas.removePeca(x, y);
-				System.out.println("Peca selecionada: " + pecaSelecionada.getNome());
-				System.out.println("Largura: " + pecaSelecionada.largura + " - Altura: " + pecaSelecionada.altura);
 			}
 			pecas = pecasPreenchidas;
 			tabuleiroAlterado.notificar(this);
@@ -261,7 +251,6 @@ public class RegraPreenchimento implements Regra {
 	
 	@Override
 	public void onEscPressed() {
-		System.out.println("Volte a peça para sua posicao original");
 		if (pecaSelecionada == null) return;
 		
 		if (pecaPosx == -1)

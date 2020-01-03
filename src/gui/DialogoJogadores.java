@@ -76,8 +76,6 @@ public class DialogoJogadores extends JDialog implements ActionListener {
         	String[] jogadores = {textoJogador1.getText(), textoJogador2.getText()};
         	
         	RegraJogo.Instance().setJogadores(jogadores);
-        	System.out.println(jogadores[0] + " - " + jogadores[1]);
-
     		RegraJogo.Instance().inciciarNovoJogo();
     		this.dispose();
         }

@@ -94,7 +94,6 @@ public class RegraJogo implements IObservador {
 		}
 		else
 		{
-			System.out.println("Começa embate");
 			iniciarEmbate();
 		}
 	}
@@ -146,7 +145,6 @@ public class RegraJogo implements IObservador {
 	{
 		if (estadoAtual == EstadoDoJogo.EMBATE)
 		{
-			System.out.println("Regra embate");
 			return regraEmbate;
 		}
 		else if (estadoAtual == EstadoDoJogo.POSICIONAMENTO)

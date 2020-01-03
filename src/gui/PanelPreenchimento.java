@@ -56,7 +56,6 @@ public class PanelPreenchimento extends JPanel implements ActionListener, IObser
 
 	@Override
 	public void update() {				
-		System.out.println("Update" + regra.getVez());
 		String jogador = regra.getVez();
 		atualizaJogadorCorrente(jogador);		
 		botaoContinuar.setEnabled(regra.podeFinalizar());			

@@ -106,7 +106,6 @@ public class RegraEmbate implements Regra {
 			// Notificar qual arma foi atingida
 			if(pecaAtingida.estaAfundada()) 
 			{
-				System.out.println(pecaAtingida.getNome() + " (" + x + "," + y + ") afundou");
 				tabuleiros[1 - vez].marcarComoAfundada(x, y);
 				report += "E a afundou!";
 				// Notificar que afundou
@@ -130,7 +129,6 @@ public class RegraEmbate implements Regra {
 	
 	private void finalizarTurno()
 	{
-		System.out.println("--- Fim do turno ---");
 		tabuleiros[vez].ocultar();
 		vez = 1 - vez;
 		jogadasSobrando = 3;
@@ -140,7 +138,6 @@ public class RegraEmbate implements Regra {
 	@Override
 	public void onRightClick() {
 		// TODO Auto-generated method stub
-		System.out.println("Click embate");
 	}
 	
 	/*
@@ -160,7 +157,6 @@ public class RegraEmbate implements Regra {
 
 	@Override
 	public String getVez() {
-		System.out.println("E a vez de " + jogadores[vez]);
 		return jogadores[vez];
 	}
 

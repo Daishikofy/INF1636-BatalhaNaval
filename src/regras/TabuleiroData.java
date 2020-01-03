@@ -50,7 +50,6 @@ public class TabuleiroData {
 		for(int i = 0; i < xDim; i++) {
 			for(int j = 0; j < yDim; j++) {
 				int hash = sc.nextInt();
-				System.out.println("["+i+"] ["+j+"] "+hash);
 				if(hash != 0) {
 					pecas[i][j] = pecasUnicas.get(hash);	
 				}
@@ -188,7 +187,6 @@ public class TabuleiroData {
 	
 	public boolean estaAfundada(int x, int y) {
 		Peca peca = getPeca(x, y);
-		System.out.println("Coordenadas da peca: " + peca.x + ", " + peca.y);
 		boolean todasX = true;
 		
 		for(int i = 0; i < peca.largura; i++) {
@@ -196,7 +194,6 @@ public class TabuleiroData {
 				x = peca.x + i;
 				y = peca.y + j;
 				char a = grid[i][j];
-				System.out.println("X: " + x + " - Y: " + y + " - char: " + a);
 				if( a != '0' && a != 'x' && a!= 'X' && a != 'A' && a != 'a' ) {
 					todasX = false;
 					break;
@@ -208,9 +205,7 @@ public class TabuleiroData {
 	}
 	
 	public void marcarComoAfundada(int x, int y) {
-		Peca peca = getPeca(x, y);
-		System.out.println("Coordenadas a afundar: " + peca.x + ", " + peca.y);
-				
+		Peca peca = getPeca(x, y);				
 		for (int i = peca.x; i < peca.x + peca.largura; i++)
 			for (int j = peca.y; j < peca.y + peca.altura; j++)			
 			{
@@ -269,14 +264,12 @@ public class TabuleiroData {
 	}
 	
 	public void insereInvalida(Peca peca) {
-		System.out.println("Peça: ");
 		char[] a = peca.getComponentes();
 		for(char l: a) {
 			System.out.print(l+ " ");
 		}
 		for(int i = 0; i < peca.altura; i++) {
 			for(int j = 0; j < peca.largura; j++) {
-				System.out.println("IDX: "+(i*peca.largura+j));
 				if(peca.getComponentes()[i*peca.largura+j] != 'a') {
 					int x, y;
 					x = peca.x + j;

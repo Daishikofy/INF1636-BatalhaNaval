@@ -58,7 +58,6 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	
 	private void atualizaReport (String report)
 	{
-		System.out.println(report);
 		if (report == null)
 			report = "Esperando primeira jogada";
 		reportUltimaJogada.setText(report);
@@ -74,7 +73,6 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == comeco.getActionCommand()) {
-			System.out.println("MostrarTabuleiro");
 			((RegraEmbate)regra).mostrarTabuleiro();
 			comeco.setEnabled(false);
 		}

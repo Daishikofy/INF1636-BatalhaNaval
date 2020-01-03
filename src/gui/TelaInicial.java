@@ -61,12 +61,10 @@ public class TelaInicial extends JPanel implements ActionListener{
 		String action = e.getActionCommand();
 		if (action == "Novo Jogo")
 		{
-			System.out.println("Novo Jogo");
 			RegraJogo.Instance().escolherJogadores();
 		}
 		else if (action == "Carregar ultimo jogo")
 		{
-			System.out.println("Carregar ultimo jogo");
 			JFileChooser fc = new JFileChooser(); 
 			int rv = fc.showOpenDialog(this);
 			if(rv == JFileChooser.APPROVE_OPTION) {
