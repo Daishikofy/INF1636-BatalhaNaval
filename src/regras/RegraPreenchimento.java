@@ -130,17 +130,16 @@ public class RegraPreenchimento implements Regra {
 	
 	private void verificaEstadoTurno()
 	{
-		//TODO : Botar 15 em vez de 3
-				if (finalizar && pecasPosicionadas < 3)
-				{
-					finalizar = false;
-					updateUI.notificar(this);
-				}
-				if(!finalizar && pecasPosicionadas == 3)
-				{
-					finalizar = true;
-					updateUI.notificar(this);
-				}		
+		if (finalizar && pecasPosicionadas < 15)
+		{
+			finalizar = false;
+			updateUI.notificar(this);
+		}
+		if(!finalizar && pecasPosicionadas == 15)
+		{
+			finalizar = true;
+			updateUI.notificar(this);
+		}		
 	}
 	
 	
