@@ -80,7 +80,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 		}
 		
 		public void mouseClicked(MouseEvent e) {
-			if (e.getButton() == e.BUTTON1)//Left click
+			if (e.getButton() == MouseEvent.BUTTON1)//Left click
 			{
 				double x = e.getX(), y = e.getY();
 				x -= xIni;
@@ -93,7 +93,7 @@ public class GridPecas extends JPanel implements MouseListener, IObservador {
 					((RegraPreenchimento)regra).onLeftClickTabuleiro(idx, xCel, yCel);		
 				}
 			}
-			else if (e.getButton() == e.BUTTON3)//Right click
+			else if (e.getButton() == MouseEvent.BUTTON3)//Right click
 			{
 				regra.onRightClick();	
 			}

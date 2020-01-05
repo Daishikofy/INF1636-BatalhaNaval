@@ -3,6 +3,7 @@ package gui;
 import regras.RegraEmbate;
 import regras.RegraJogo;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,6 +42,7 @@ public class PanelEmbate extends JPanel implements IObservador, ActionListener {
 		comeco.setEnabled(true);
 		
 		reportUltimaJogada = new JLabel("");
+		reportUltimaJogada.setForeground(Color.red.darker());
 		buttoes.add(comeco);	
 		buttoes.add(new JLabel("             . . .             "));
 		buttoes.add(reportUltimaJogada);

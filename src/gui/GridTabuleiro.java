@@ -132,7 +132,7 @@ public class GridTabuleiro extends JPanel implements KeyListener, MouseListener,
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if (e.getButton() == e.BUTTON1)//Left click
+		if (e.getButton() == MouseEvent.BUTTON1)//Left click
 		{
 			ArrayList<Integer> xy = coordenadas(e);
 			int x = xy.get(0);
@@ -142,7 +142,7 @@ public class GridTabuleiro extends JPanel implements KeyListener, MouseListener,
 				regra.onLeftClickTabuleiro(idx, x, y);		
 			}
 		}
-		else if (e.getButton() == e.BUTTON3)//Right click
+		else if (e.getButton() == MouseEvent.BUTTON3)//Right click
 		{
 			regra.onRightClick();	
 		}

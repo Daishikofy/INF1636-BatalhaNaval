@@ -30,12 +30,7 @@ public class RegraPreenchimento implements Regra {
 	public RegraPreenchimento(String jogador) {
 		tabuleiroAlterado = new Evento();
 		updateUI = new Evento();
-		/*
-		for(int i = 0; i < 15; i++) {
-			for(int j = 0; j < 15; j++) {
-				tabuleiro.setCell('0', i, j);
-			}
-		}*/
+
 		vez = jogador;
 		tabuleiroPrenchendo = new TabuleiroData(15, 15);
 		tabuleiroDesenhado = new TabuleiroData(15, 15);
@@ -186,25 +181,7 @@ public class RegraPreenchimento implements Regra {
 		}
 		tabuleiro = tabuleiroDesenhado;
 		tabuleiroAlterado.notificar(this);
-	}
-	
-	private void printTabuleiro ()
-	{
-		for (int i = 0; i < 15; i++)
-		{
-			for (int j = 0; j < 15; j++)
-			{
-				char cell = tabuleiro.getCell(j, i);
-				if (cell != '0')
-					System.out.print(cell + " ");
-				else
-					System.out.print(". ");
-			}
-			System.out.println("");
-		}
-	}
-	
-	
+	}	
 	
 	public String getVez() {
 		return vez;
@@ -252,9 +229,8 @@ public class RegraPreenchimento implements Regra {
 	public void onEscPressed() {
 		if (pecaSelecionada == null) return;
 		
-		if (pecaPosx == -1)
-			//TODO: Botar de volta nas pecas
-			return;
+		if (pecaPosx == -1) return;
+		
 		tabuleiroPrenchendo.inserePeca(pecaSelecionada, pecaPosx, pecaPosy);
 		pecaSelecionada = null;
 		pecasPosicionadas += 1;
