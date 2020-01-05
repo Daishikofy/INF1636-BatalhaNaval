@@ -114,8 +114,6 @@ public class RegraEmbate implements Regra {
 				}
 			}
 		}
-		tabuleiroAlterado.notificar(this);
-		updateUI.notificar(this);
 		
 		if(!jogoAcabou()) {
 			jogadasSobrando --;
@@ -125,6 +123,10 @@ public class RegraEmbate implements Regra {
 		} else {
 			jogoFinalizado.notificar(this);
 		}
+		
+		tabuleiroAlterado.notificar(this);
+		updateUI.notificar(this);
+		
 	}
 	
 	private void finalizarTurno()

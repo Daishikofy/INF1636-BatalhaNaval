@@ -240,7 +240,6 @@ public class TabuleiroData {
 	}
 	
 	public boolean temArmasDisponiveis() {
-		System.out.print("Armas disponiveis: " + armasDisponiveis);
 		return armasDisponiveis > 0;
 	}
 	
@@ -264,10 +263,6 @@ public class TabuleiroData {
 	}
 	
 	public void insereInvalida(Peca peca) {
-		char[] a = peca.getComponentes();
-		for(char l: a) {
-			System.out.print(l+ " ");
-		}
 		for(int i = 0; i < peca.altura; i++) {
 			for(int j = 0; j < peca.largura; j++) {
 				if(peca.getComponentes()[i*peca.largura+j] != 'a') {
